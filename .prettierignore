@@ -1,0 +1,9 @@
+!*.ts
+dist
+node_modules
+soap
+migrations
+generated
+generated.ts
+build
+coverage
