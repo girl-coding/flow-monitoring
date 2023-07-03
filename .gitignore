@@ -1,0 +1,32 @@
+# Dependency directories
+/node_modules
+
+# Distribution directories
+/dist
+/dist-out
+/coverage
+
+# Environment files
+/src/environments/*.js
+/src/environments/*.js.map
+
+# Build artifacts
+*.js
+*.js.map
+
+# Editor and IDE files
+.vscode
+.idea
+*.sublime-*
+*.swo
+*.swp
+
+# Compiled TypeScript files
+*.tsbuildinfo
+
+# Logs
+*.log
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
