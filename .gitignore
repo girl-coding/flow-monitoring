@@ -17,6 +17,7 @@
 # Editor and IDE files
 .vscode
 .idea
+.angular
 *.sublime-*
 *.swo
 *.swp
