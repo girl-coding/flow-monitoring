@@ -11,6 +11,7 @@ This is an Angular project aimed at providing flow monitoring capabilities. The 
   - [Technologies Used](#technologies-used)
   - [Prerequisites](#prerequisites)
   - [Getting Started](#getting-started)
+  - [Application Scripts](#application-scripts)
   - [Angular CLI](#angular-cli)
   - [Development server](#development-server)
   - [Code scaffolding](#code-scaffolding)
@@ -76,6 +77,23 @@ The project is built using the following technologies and frameworks:
    ```
 
 4. Open your browser and visit `http://localhost:4200` to see the application.
+
+## Application Scripts
+
+```bash
+# Build the app and its dependencies only
+yarn build
+# Launch the app accessible at <http://localhost:4200>
+yarn start:dev
+# Run unit tests
+yarn test
+# Check coding rules
+yarn lint
+# Format the .ts files
+yarn format
+# Detect unused code
+yarn deadcode
+```
 
 ## Angular CLI
 
