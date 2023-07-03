@@ -2,6 +2,18 @@
 
 This is an Angular project aimed at providing flow monitoring capabilities. The application allows users to track and analyze the flow of various processes or events within a system.
 
+
+## Table of Contents
+
+- [Flow Monitoring Project](#flow-monitoring-project)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
+  - [Angular CLI](#angular-cli)
+  - [License](#license)
+
 ## Features
 
 - Real-time Monitoring: The application provides real-time monitoring of flow data, allowing users to view the current status and progress of different processes.
