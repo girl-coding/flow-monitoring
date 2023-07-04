@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --lint-file-patterns src/app",
     "format": "prettier --write src/**/*.ts *.json src/**/*.html src/**/*.scss --loglevel silent",
     "format:check": "prettier --list-different src/**/*.ts *.json src/**/*.html src/**/*.scss",
     "deadcode": "ts-prune -e -p ./tsconfig.pruned.json"
