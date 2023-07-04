@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "format": "prettier --write src/**/*.ts *.json src/**/*.html src/**/*.scss --loglevel silent",
-    "deadcode": "ts-prune -e --ignore=src/environment"
+    "deadcode": "ts-prune -e -p ./tsconfig.pruned.json"
   },
   "private": true,
   "dependencies": {
