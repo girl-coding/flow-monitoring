@@ -5,6 +5,7 @@ import {
   Routes,
 } from '@angular/router';
 import { RootRoutesEnum } from './core';
+import { HomeModule } from './modules/home/home.module';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
         loadChildren: () =>
           import(
             `./modules/${RootRoutesEnum.HOME}/${RootRoutesEnum.HOME}.module`
-          ).then((m) => m.HomeModule),
+          ).then(() => HomeModule),
       },
       {
         path: '',

@@ -8,4 +8,4 @@ import { COMPONENTS_MATERIALS } from './components-materials.const';
   declarations: [HomeComponent],
   imports: [HomeRoutingModule, CommonModule, COMPONENTS_MATERIALS],
 })
-class HomeModule {}
+export class HomeModule {}
