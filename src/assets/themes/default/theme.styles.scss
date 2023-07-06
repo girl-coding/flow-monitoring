@@ -304,25 +304,21 @@ $darkTheme: (
 );
 
 // Theme Init
-// .light-theme {
-//   .main-color {
-//     color: $primary-main-dark-color !important;
-//     font-weight: bold !important;
-//   }
-//   .mat-ink-bar {
-//     background-color: $primary-main-dark-color !important;
-//   }
+.light-theme {
+  .main-color {
+    color: $primary-main-dark-color !important;
+    font-weight: bold !important;
+  }
 
-//   @include mat.all-component-themes($theme);
-// }
-@include mat.all-component-themes($theme);
+  @include mat.all-component-themes($theme);
+}
 
-// .dark-theme {
-//   .main-color {
-//     color: $primary-main-light-color !important;
-//   }
-//   .mat-ink-bar {
-//     background-color: $primary-main-light-color !important;
-//   }
-//   @include mat.all-component-themes($darkTheme);
-// }
+.dark-theme {
+  .main-color {
+    color: $primary-main-light-color !important;
+  }
+  body {
+    background-color: $dark-background-secondary !important;
+  }
+  @include mat.all-component-themes($darkTheme);
+}
