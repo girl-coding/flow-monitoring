@@ -5,7 +5,7 @@ import { COMPONENTS_MATERIALS } from './components-materials.const';
 
 @NgModule({
   declarations: [COMPONENTS],
-  exports: [COMPONENTS],
+  exports: [COMPONENTS, COMPONENTS_MATERIALS],
   imports: [CommonModule, COMPONENTS_MATERIALS],
 })
 export class SharedModule {}

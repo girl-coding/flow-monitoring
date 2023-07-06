@@ -1,8 +1,16 @@
 <div fxLayout="row">
-  <div class="page-side-nav">
+  <mat-card class="page-side-nav">
     <app-side-nav></app-side-nav>
-  </div>
-  <div class="page-container">
+  </mat-card>
+  <mat-card class="page-container">
+    <mat-card
+      fxLayout="row"
+      fxLayoutAlign="space-between"
+      class="page-container-header"
+    >
+      <p class="header-title">Dashboard</p>
+      <div class="buttons-container"></div>
+    </mat-card>
     <router-outlet></router-outlet>
-  </div>
+  </mat-card>
 </div>

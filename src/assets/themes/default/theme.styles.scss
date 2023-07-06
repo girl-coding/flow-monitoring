@@ -309,6 +309,9 @@ $darkTheme: (
     color: $primary-main-dark-color !important;
     font-weight: bold !important;
   }
+  .page-side-nav {
+    background-color: $light-background-secondary !important;
+  }
 
   @include mat.all-component-themes($theme);
 }
@@ -317,8 +320,12 @@ $darkTheme: (
   .main-color {
     color: $primary-main-light-color !important;
   }
-  body {
+  .page-side-nav {
     background-color: $dark-background-secondary !important;
   }
+  body {
+    background-color: $dark-background;
+  }
+
   @include mat.all-component-themes($darkTheme);
 }
