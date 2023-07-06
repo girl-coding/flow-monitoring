@@ -1,0 +1,35 @@
+// TOAST
+.toast-error {
+  background-color: $error-toast !important;
+  color: white !important;
+
+  button {
+    color: white !important;
+  }
+}
+
+.toast-success {
+  background-color: $success-toast !important;
+  color: white !important;
+  button {
+    display: none !important;
+  }
+  .mat-simple-snackbar {
+    justify-content: center !important;
+  }
+}
+
+.toast-info {
+  background-color: $info-toast !important;
+  color: white !important;
+
+  button {
+    color: white !important;
+  }
+}
+
+.toast-error,
+.toast-success,
+.toast-info {
+  margin-top: 64px !important;
+}

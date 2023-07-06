@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./fonts/icons/MaterialIconsOutlined-Regular.otf);
+  font-display: swap;
+}
+
+// Fonts
+@font-face {
+  font-family: $font-family;
+  src: url('./fonts/Lato-Regular.ttf');
+  font-weight: 400;
+  font-display: swap;
+}
+
+// Fonts
+@font-face {
+  font-family: $font-family;
+  src: url('./fonts/Lato-Bold.ttf');
+  font-weight: 700;
+  font-display: swap;
+}
