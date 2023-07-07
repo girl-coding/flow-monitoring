@@ -6,7 +6,11 @@
     </div>
     <div class="side-nav-tabs">
       <ng-container *ngFor="let tab of navigationTabs">
-        <div fxLayout="row" class="side-nav-tab selected-tab">
+        <div
+          fxLayout="row"
+          class="side-nav-tab"
+          [ngClass]="{ 'selected-tab': isTabActive(tab) }"
+        >
           <img
             class="tab-icon"
             [src]="tab.iconName"

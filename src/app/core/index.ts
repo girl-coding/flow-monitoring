@@ -5,7 +5,8 @@ export * from './enums/root-routes.enum';
 export * from './services/storage.service';
 
 // INTERFACES
-export * from './interfaces/tab-navigation.interface';
+export * from './interfaces/navigation-tabs.interface';
+export * from './interfaces/tab.interface';
 
 // HELPERS
 export * from './helpers/path.helper';
