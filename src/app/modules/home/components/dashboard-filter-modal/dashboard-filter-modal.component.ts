@@ -6,6 +6,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./dashboard-filter-modal.component.scss'],
 })
 export class DashboardFilterModalComponent {
+  selectedPlatform = '';
+  selectedStatus = '';
+  nomDomaine = '';
   @Output() closeModalBtn = new EventEmitter();
 
   onClick() {

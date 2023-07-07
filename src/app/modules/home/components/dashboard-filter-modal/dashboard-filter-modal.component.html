@@ -1,23 +1,80 @@
 <div class="filter-modal">
   <div class="modal-overlay"></div>
-  <button
-    class="close-btn"
-    mat-flat-button
-    color="warn"
-    (click)="onClick()"
-  >
-    X
+  <button class="close-btn" (click)="onClick()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      width="32px"
+      height="32px"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
   </button>
   <div class="modal-content">
     <h2>filter</h2>
 
-    <p>
+    <div class="form-container">
       <mat-form-field appearance="outline">
-        <mat-label>Outline form field</mat-label>
-        <input matInput placeholder="Placeholder" />
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-        <mat-hint>Hint</mat-hint>
+        <mat-label>Platforms</mat-label>
+        <mat-select [(value)]="selectedPlatform">
+          <mat-option value="tous">tous</mat-option>
+        </mat-select>
       </mat-form-field>
-    </p>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nom de Domaine</mat-label>
+        <input matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nom du Flux</mat-label>
+        <input matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>FlowUID</mat-label>
+        <input matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select [(value)]="selectedStatus">
+          <mat-option value="tous">tous</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input matInput type="datetime-local" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>End Date</mat-label>
+        <input matInput type="datetime-local" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Nom de Cle</mat-label>
+        <input matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Valeur de Cle</mat-label>
+        <input matInput />
+      </mat-form-field>
+    </div>
+
+    <p>{{ nomDomaine }}</p>
+
+    <button class="btn btn-primary submit-btn">Search</button>
   </div>
 </div>

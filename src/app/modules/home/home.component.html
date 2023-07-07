@@ -1,7 +1,5 @@
 <main class="main-content">
-  <button mat-flat-button color="primary" (click)="onOpenModal()">
-    Filter
-  </button>
+  <button class="btn" (click)="onOpenModal()">Filter</button>
   <app-dashboard-filter-modal
     (closeModalBtn)="onCloseModal()"
     *ngIf="openModal"
