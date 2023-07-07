@@ -5,42 +5,16 @@
       <p>Flow Monitoring</p>
     </div>
     <div class="side-nav-tabs">
-      <div fxLayout="row" class="side-nav-tab selected-tab">
-        <img class="tab-icon" src="assets/svg/home.svg" alt="" />
-        <p>Dashboard</p>
-      </div>
-      <div fxLayout="row" class="side-nav-tab">
-        <img class="tab-icon" src="assets/svg/graphs.svg" alt="" />
-        <p>Graphs</p>
-      </div>
-      <div fxLayout="row" class="side-nav-tab">
-        <img
-          class="tab-icon"
-          src="assets/svg/management.svg"
-          alt=""
-        />
-        <p>Management</p>
-      </div>
-      <div fxLayout="row" class="side-nav-tab">
-        <img class="tab-icon" src="assets/svg/inbox.svg" alt="" />
-        <p>Inbox</p>
-      </div>
-      <div fxLayout="row" class="side-nav-tab">
-        <img class="tab-icon" src="assets/svg/profile.svg" alt="" />
-        <p>Profile</p>
-      </div>
-      <div fxLayout="row" class="side-nav-tab">
-        <img
-          class="tab-icon"
-          src="assets/svg/help-center.svg"
-          alt=""
-        />
-        <p>Help Center</p>
-      </div>
-      <div fxLayout="row" class="side-nav-tab">
-        <img class="tab-icon" src="assets/svg/settings.svg" alt="" />
-        <p>Settings</p>
-      </div>
+      <ng-container *ngFor="let tab of navigationTabs">
+        <div fxLayout="row" class="side-nav-tab selected-tab">
+          <img
+            class="tab-icon"
+            [src]="tab.iconName"
+            [alt]="tab.iconLabel"
+          />
+          <p>{{ tab.name }}</p>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div class="side-nav-footer"></div>
