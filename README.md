@@ -2,7 +2,6 @@
 
 This is an Angular project aimed at providing flow monitoring capabilities. The application allows users to track and analyze the flow of various processes or events within a system.
 
-
 ## Table of Contents
 
 - [Flow Monitoring Project](#flow-monitoring-project)
@@ -19,7 +18,6 @@ This is an Angular project aimed at providing flow monitoring capabilities. The 
   - [Running unit tests](#running-unit-tests)
   - [Running end-to-end tests](#running-end-to-end-tests)
   - [Further help](#further-help)
-  - [License](#license)
 
 ## Features
 
@@ -60,8 +58,25 @@ The project is built using the following technologies and frameworks:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-repo-url.git
+   git clone git@gitlab.com:flow-monitoring/flow-monitoring.git
    ```
+
+   Once you are in the repository's directory, run the following commands to configure your email and username respectively:
+
+   ```
+   git config user.email "your-email@gitlab.com"
+   git config user.username "NOM Prénom"
+   ```
+
+   Replace "your-email@example.com" with your email address and "Your Name" with your desired username or your actual name.
+
+   Verify that the configuration was set correctly by running the following command:
+
+   ```
+   git config --list
+   ```
+
+   This will display a list of Git configurations, including your email and username.
 
 2. Install the dependencies:
 
@@ -127,9 +142,3 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
