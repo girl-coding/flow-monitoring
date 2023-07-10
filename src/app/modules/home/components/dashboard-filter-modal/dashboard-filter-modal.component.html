@@ -1,5 +1,11 @@
 <div class="filter-modal">
-  <div class="modal-overlay"></div>
+  <div
+    class="modal-overlay"
+    tabindex="0"
+    (click)="onClickOutside()"
+    (keypress)="onClickOutside()"
+  ></div>
+
   <button class="close-btn" (click)="onClick()">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,6 +23,7 @@
       />
     </svg>
   </button>
+
   <div class="modal-content">
     <h2>filter</h2>
 
@@ -30,17 +37,53 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Nom de Domaine</mat-label>
-        <input matInput />
+        <input
+          matInput
+          [matAutocomplete]="auto"
+          [(ngModel)]="nomDomaine"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Nom du Flux</mat-label>
-        <input matInput />
+        <input
+          matInput
+          [matAutocomplete]="auto"
+          [(ngModel)]="nomFlux"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>FlowUID</mat-label>
-        <input matInput />
+        <input
+          matInput
+          [matAutocomplete]="auto"
+          [(ngModel)]="flowUID"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -52,29 +95,57 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Start Date</mat-label>
-        <input matInput type="datetime-local" />
+        <input
+          matInput
+          type="datetime-local"
+          [(ngModel)]="startDate"
+        />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>End Date</mat-label>
-        <input matInput type="datetime-local" />
+        <input matInput type="datetime-local" [(ngModel)]="endDate" />
       </mat-form-field>
     </div>
 
     <div class="form-container">
       <mat-form-field appearance="outline">
         <mat-label>Nom de Cle</mat-label>
-        <input matInput />
+        <input
+          matInput
+          [matAutocomplete]="auto"
+          [(ngModel)]="nomCle"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Valeur de Cle</mat-label>
-        <input matInput />
+        <input
+          matInput
+          [matAutocomplete]="auto"
+          [(ngModel)]="valueCle"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
 
-    <p>{{ nomDomaine }}</p>
-
-    <button class="btn btn-primary submit-btn">Search</button>
+    <button class="btn btn-primary submit-btn" (click)="onSubmit()">
+      Search
+    </button>
   </div>
 </div>

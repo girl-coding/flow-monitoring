@@ -15,4 +15,8 @@ export class HomeComponent {
   onCloseModal(): void {
     this.openModal = false;
   }
+
+  onClickOutside(): void {
+    this.openModal = false;
+  }
 }

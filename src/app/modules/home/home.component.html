@@ -2,6 +2,7 @@
   <button class="btn" (click)="onOpenModal()">Filter</button>
   <app-dashboard-filter-modal
     (closeModalBtn)="onCloseModal()"
+    (clickOutsideModal)="onClickOutside()"
     *ngIf="openModal"
   ></app-dashboard-filter-modal>
 </main>
