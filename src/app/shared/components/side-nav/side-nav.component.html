@@ -1,8 +1,28 @@
-<div fxLayoutAlign="space-between" class="side-nav-container">
+<mat-card
+  fxLayoutAlign="space-between"
+  class="side-nav-container"
+  [ngClass]="{ 'collapsed-nav-container': !isFullSideNav }"
+  [@collapseAnimation]="getSideNavState"
+>
   <div class="side-nav-content">
-    <div fxLayout="row" class="side-nav-header">
-      <img src="assets/icons/logo.svg" alt="" />
-      <p>Flow Monitoring</p>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between"
+      class="side-nav-header"
+    >
+      <div *ngIf="isFullSideNav" fxLayout="row">
+        <img src="assets/icons/logo.svg" alt="" />
+        <p>Flow Monitoring</p>
+      </div>
+      <button
+        class="collapse-btn"
+        (click)="toggleSideNavWidth()"
+        mat-button
+      >
+        <mat-icon aria-label="Hide icon">{{
+          isFullSideNav ? 'chevron_left' : 'chevron_right'
+        }}</mat-icon>
+      </button>
     </div>
     <div class="side-nav-tabs">
       <ng-container *ngFor="let tab of navigationTabs">
@@ -16,10 +36,10 @@
             [src]="tab.iconName"
             [alt]="tab.iconLabel"
           />
-          <p>{{ tab.name }}</p>
+          <p *ngIf="isFullSideNav">{{ tab.name }}</p>
         </div>
       </ng-container>
     </div>
   </div>
   <div class="side-nav-footer"></div>
-</div>
+</mat-card>

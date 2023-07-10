@@ -1,5 +1,6 @@
 // Enums
 export * from './enums/root-routes.enum';
+export * from './enums/side-nav-width.enum.ts';
 
 // SERVICES
 export * from './services/storage.service';
