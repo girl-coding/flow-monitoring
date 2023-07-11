@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [COMPONENTS],
   exports: [
+    CommonModule,
     COMPONENTS,
     COMPONENTS_MATERIALS,
     FlexLayoutModule,
