@@ -63,6 +63,14 @@
       column-gap: 32px;
       row-gap: 8px;
       grid-template-columns: repeat(4, 1fr);
+
+      @media screen and (max-width: 1480px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @media screen and (max-width: 1230px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     .submit-btn {
