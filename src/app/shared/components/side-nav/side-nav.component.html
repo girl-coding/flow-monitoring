@@ -1,0 +1,59 @@
+<mat-card
+  fxLayout="column"
+  fxLayoutAlign="space-between"
+  class="side-nav-container"
+  [ngClass]="{ 'collapsed-nav-container': !isFullSideNav }"
+  [@collapseAnimation]="getSideNavState"
+>
+  <div class="side-nav-content">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between"
+      class="side-nav-header"
+    >
+      <div *ngIf="isFullSideNav" fxLayout="row">
+        <img src="assets/svg/logo.svg" alt="" />
+        <p>Flow Monitoring</p>
+      </div>
+      <button
+        class="collapse-btn"
+        (click)="toggleSideNavWidth()"
+        mat-button
+      >
+        <mat-icon aria-label="Hide icon">{{
+          isFullSideNav ? 'chevron_left' : 'chevron_right'
+        }}</mat-icon>
+      </button>
+    </div>
+    <div class="side-nav-tabs">
+      <ng-container *ngFor="let tab of navigationTabs">
+        <div
+          fxLayout="row"
+          class="side-nav-tab clickable"
+          [ngClass]="{ 'selected-tab': isTabActive(tab) }"
+        >
+          <img
+            class="tab-icon"
+            [src]="tab.iconName"
+            [alt]="tab.iconLabel"
+          />
+          <p *ngIf="isFullSideNav">{{ tab.name }}</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <mat-card class="side-nav-footer box-border clickable">
+    <mat-card-header>
+      <div
+        mat-card-avatar
+        style="background-image: url('assets/svg/default-avatar.svg')"
+      ></div>
+      <mat-card-title *ngIf="isFullSideNav"
+        >Jean Philips</mat-card-title
+      >
+      <mat-card-subtitle *ngIf="isFullSideNav"
+        >Jean.philips.pro@flow.io</mat-card-subtitle
+      >
+    </mat-card-header>
+  </mat-card>
+</mat-card>
