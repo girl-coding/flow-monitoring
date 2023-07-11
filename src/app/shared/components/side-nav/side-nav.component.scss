@@ -37,22 +37,27 @@ $activated-button: #eceef0;
         border-radius: 10px;
         padding: 7px;
         margin-bottom: 6px;
+        opacity: 0.9;
 
         .tab-icon {
           margin-right: 8px;
+          width: 24px;
           height: 24px;
-          opacity: 0.5;
+        }
+        mat-icon {
+          font-size: 22px;
+          margin-top: 2px;
         }
         p {
           font-size: 1.15em;
           font-weight: bold;
           padding-top: 2px;
-          opacity: 0.8;
         }
       }
 
       .selected-tab {
         background: $activated-button;
+        color: black;
         .tab-icon,
         p {
           opacity: 1 !important;
@@ -62,7 +67,7 @@ $activated-button: #eceef0;
   }
 
   .side-nav-footer {
-    height: 48px;
+    height: 50px;
     padding: 5px 5px 5px 12px;
     overflow: hidden;
 
