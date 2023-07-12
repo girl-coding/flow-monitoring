@@ -1,6 +1,6 @@
 $svg-diameter: 24px;
 $correction: 4px;
-$padding-top: 4px;
+$padding-top: 0px;
 $select-circle-width: calc($svg-diameter + $correction);
 $toggle-width: calc($svg-diameter * 2.5);
 $second-svg-margin: calc($toggle-width - $svg-diameter);

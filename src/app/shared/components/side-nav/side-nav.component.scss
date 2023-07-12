@@ -1,4 +1,4 @@
-$activated-button: #eceef0;
+$activated-button: #d5d5d5;
 
 .side-nav-container {
   height: 100%;
@@ -23,6 +23,14 @@ $activated-button: #eceef0;
         margin: 0;
         padding-top: 2px;
       }
+    }
+
+    .divider {
+      width: 100%;
+      opacity: 0.23;
+      background: inherit;
+      border-bottom: 1px solid;
+      margin-top: 14px;
     }
 
     .side-nav-tabs {
@@ -72,6 +80,7 @@ $activated-button: #eceef0;
     height: 50px;
     padding: 5px 5px 5px 12px;
     overflow: hidden;
+    background: inherit;
 
     mat-card-title {
       font-size: 14px;
@@ -95,6 +104,10 @@ $activated-button: #eceef0;
 }
 
 .collapsed-nav-container {
+  .divider {
+    width: 90% !important;
+  }
+
   .tab-icon {
     height: 28px;
   }
