@@ -315,6 +315,9 @@ $darkTheme: (
   .secondary {
     background-color: $light-background-secondary !important;
   }
+  body {
+    background-color: $light-background;
+  }
   @include mat.all-component-themes($theme);
 }
 
