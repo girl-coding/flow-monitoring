@@ -1,0 +1,51 @@
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-button,
+.apply-button {
+  flex: 1;
+  text-align: center;
+  font-size: 16px; // Adjust as needed
+  padding: 5px 10px; // Adjust as needed
+  box-sizing: border-box;
+  margin-top: 10px;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+.cancel-button {
+  margin-right: 10px;
+}
+.apply-button {
+  background-color: lightsteelblue;
+}
+
+// ::ng-deep .mat-datepicker-content {
+//   height: 400px !important;
+// }
+
+::ng-deep .mat-calendar {
+  height: 360px !important;
+}
+::ng-deep .mat-calendar-header {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center; // or space-between, space-around, depending on your layout requirements
+  align-items: center; // for vertical alignment
+}
+
+::ng-deep .mat-calendar-content {
+  margin-top: -6px; // Adjust as needed
+}
+
+.example-header {
+  display: flex;
+  flex-direction: row; // Changed from column to row
+  padding: 0.5em;
+  font-size: 15px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
