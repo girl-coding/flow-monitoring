@@ -1,15 +1,20 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
-interface FilterData {
-  selectedPlatform: string;
-  selectedStatus: string;
-  nomDomaine: string;
-  nomFlux: string;
-  flowUID: string;
-  startDate: string;
-  endDate: string;
-  nomCle: string;
-  valueCle: string;
+export interface FilterData {
+  selectedPlatform: string | null;
+  selectedStatus: string | null;
+  nomDomaine: string | null;
+  nomFlux: string | null;
+  flowUID: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  nomCle: string | null;
+  valueCle: string | null;
 }
 
 @Component({
@@ -18,43 +23,34 @@ interface FilterData {
   styleUrls: ['./dashboard-filter-modal.component.scss'],
 })
 export class DashboardFilterModalComponent {
-  selectedPlatform = '';
-  selectedStatus = '';
-  nomDomaine = '';
-  nomFlux = '';
-  flowUID = '';
-  startDate = new Date().toLocaleString('en-UK');
-  // Set endDate as startDate + 1
-  endDate = new Date(
-    new Date().setHours(new Date().getHours() + 1),
-  ).toLocaleString('en-UK');
-  nomCle = '';
-  valueCle = '';
-  filteredOptions: string[] = ['one', 'two', 'three', 'four'];
-  @Output() closeModalBtn = new EventEmitter();
-  @Output() clickOutsideModal = new EventEmitter();
+  formGroup = new FormGroup({
+    selectedPlatform: new FormControl(''),
+    selectedStatus: new FormControl(''),
+    nomDomaine: new FormControl(''),
+    nomFlux: new FormControl(''),
+    flowUID: new FormControl(''),
+    startDate: new FormControl(new Date().toLocaleString('en-UK')),
+    endDate: new FormControl(
+      new Date(
+        new Date().setHours(new Date().getHours() + 1),
+      ).toLocaleString('en-UK'),
+    ),
+    nomCle: new FormControl(''),
+    valueCle: new FormControl(''),
+  });
 
-  onClick(): void {
-    this.closeModalBtn.emit();
-  }
+  filteredOptions: string[] = ['one', 'two', 'three', 'four'];
+
+  constructor(
+    public dialogRef: MatDialogRef<DashboardFilterModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: FilterData,
+  ) {}
 
   onClickOutside(): void {
-    this.clickOutsideModal.emit();
+    this.dialogRef.close();
   }
 
-  onSubmit(): FilterData {
-    const filterData: FilterData = {
-      selectedPlatform: this.selectedPlatform,
-      selectedStatus: this.selectedStatus,
-      nomDomaine: this.nomDomaine,
-      nomFlux: this.nomFlux,
-      flowUID: this.flowUID,
-      startDate: this.startDate.replace(',', ''),
-      endDate: this.endDate.replace(',', ''),
-      nomCle: this.nomCle,
-      valueCle: this.valueCle,
-    };
-
-    return filterData;
+  onSubmit(): Partial<FilterData> {
+    return this.formGroup.value;
   }
 }

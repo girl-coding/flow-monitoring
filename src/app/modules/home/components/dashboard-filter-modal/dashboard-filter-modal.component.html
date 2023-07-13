@@ -1,46 +1,24 @@
-<div class="filter-modal">
-  <div
-    class="modal-overlay"
-    tabindex="0"
-    (click)="onClickOutside()"
-    (keypress)="onClickOutside()"
-  ></div>
+<button class="close-btn" mat-dialog-close>
+  <img src="assets/svg/close-icon.svg" alt="close icon" />
+</button>
 
-  <button class="close-btn" (click)="onClick()">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      width="32px"
-      height="32px"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
-  </button>
+<div mat-dialog-content class="modal-content">
+  <h2 mat-dialog-title>filter</h2>
 
-  <div class="modal-content">
-    <h2>filter</h2>
-
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <div class="form-container">
       <mat-form-field appearance="outline">
         <mat-label>Platforms</mat-label>
-        <mat-select [(value)]="selectedPlatform">
+        <mat-select formControlName="selectedPlatform">
           <mat-option value="tous">tous</mat-option>
         </mat-select>
       </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>Nom de Domaine</mat-label>
         <input
           matInput
           [matAutocomplete]="auto"
-          [(ngModel)]="nomDomaine"
+          formControlName="nomDomaine"
         />
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
@@ -51,13 +29,12 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>Nom du Flux</mat-label>
         <input
           matInput
           [matAutocomplete]="auto"
-          [(ngModel)]="nomFlux"
+          formControlName="nomFlux"
         />
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
@@ -68,13 +45,12 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>FlowUID</mat-label>
         <input
           matInput
           [matAutocomplete]="auto"
-          [(ngModel)]="flowUID"
+          formControlName="flowUID"
         />
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
@@ -85,26 +61,27 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>Status</mat-label>
-        <mat-select [(value)]="selectedStatus">
+        <mat-select formControlName="selectedStatus">
           <mat-option value="tous">tous</mat-option>
         </mat-select>
       </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>Start Date</mat-label>
         <input
           matInput
           type="datetime-local"
-          [(ngModel)]="startDate"
+          formControlName="startDate"
         />
       </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>End Date</mat-label>
-        <input matInput type="datetime-local" [(ngModel)]="endDate" />
+        <input
+          matInput
+          type="datetime-local"
+          formControlName="endDate"
+        />
       </mat-form-field>
     </div>
 
@@ -114,7 +91,7 @@
         <input
           matInput
           [matAutocomplete]="auto"
-          [(ngModel)]="nomCle"
+          formControlName="nomCle"
         />
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
@@ -125,13 +102,12 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>Valeur de Cle</mat-label>
         <input
           matInput
           [matAutocomplete]="auto"
-          [(ngModel)]="valueCle"
+          formControlName="valueCle"
         />
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option
@@ -143,9 +119,13 @@
         </mat-autocomplete>
       </mat-form-field>
     </div>
-
-    <button class="btn btn-primary submit-btn" (click)="onSubmit()">
+    <button
+      type="submit"
+      [mat-dialog-close]="formGroup.value"
+      class="btn btn-primary submit-btn"
+      cdkFocusInitial
+    >
       Search
     </button>
-  </div>
+  </form>
 </div>

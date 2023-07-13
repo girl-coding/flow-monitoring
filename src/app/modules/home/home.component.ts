@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import {
+  DashboardFilterModalComponent,
+  FilterData,
+} from './components/dashboard-filter-modal/dashboard-filter-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -7,16 +12,18 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   openModal = false;
+  filterData!: FilterData;
 
-  onOpenModal(): void {
-    this.openModal = true;
-  }
+  constructor(public dialog: MatDialog) {}
 
-  onCloseModal(): void {
-    this.openModal = false;
-  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(
+      DashboardFilterModalComponent,
+      { hasBackdrop: true, disableClose: false },
+    );
 
-  onClickOutside(): void {
-    this.openModal = false;
+    dialogRef.afterClosed().subscribe((result) => {
+      this.filterData = result;
+    });
   }
 }
