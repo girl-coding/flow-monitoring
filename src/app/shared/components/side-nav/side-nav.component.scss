@@ -1,4 +1,4 @@
-$activated-button: #eceef0;
+$activated-button: #d5d5d5;
 
 .side-nav-container {
   height: 100%;
@@ -25,6 +25,14 @@ $activated-button: #eceef0;
       }
     }
 
+    .divider {
+      width: 100%;
+      opacity: 0.23;
+      background: inherit;
+      border-bottom: 1px solid;
+      margin-top: 14px;
+    }
+
     .side-nav-tabs {
       width: 100%;
       height: auto;
@@ -41,6 +49,7 @@ $activated-button: #eceef0;
 
         .tab-icon {
           margin-right: 8px;
+          margin-left: 1.5px;
           width: 24px;
           height: 24px;
         }
@@ -49,9 +58,10 @@ $activated-button: #eceef0;
           margin-top: 2px;
         }
         p {
-          font-size: 1.15em;
+          font-size: 1.1em;
           font-weight: bold;
           padding-top: 2px;
+          letter-spacing: 0.5px;
         }
       }
 
@@ -70,6 +80,7 @@ $activated-button: #eceef0;
     height: 50px;
     padding: 5px 5px 5px 12px;
     overflow: hidden;
+    background: inherit;
 
     mat-card-title {
       font-size: 14px;
@@ -93,6 +104,10 @@ $activated-button: #eceef0;
 }
 
 .collapsed-nav-container {
+  .divider {
+    width: 90% !important;
+  }
+
   .tab-icon {
     height: 28px;
   }

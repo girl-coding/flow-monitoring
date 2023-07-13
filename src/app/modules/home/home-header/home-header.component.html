@@ -1,0 +1,31 @@
+<div
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  class="home-header"
+>
+  <h3 class="card-title">Recent Charts</h3>
+  <mat-divider fxFlex></mat-divider>
+  <mat-icon
+    class="clickable"
+    aria-hidden="false"
+    aria-label="show charts icon"
+    (click)="isChartsContainerExpanded = !isChartsContainerExpanded"
+    >{{
+      isChartsContainerExpanded ? 'expand_less' : 'expand_more'
+    }}</mat-icon
+  >
+</div>
+<div
+  fxLayout="row"
+  fxLayoutAlign="center"
+  fxLayoutGap="2%"
+  class="home-header-container"
+  [@collapseAnimation]="
+    isChartsContainerExpanded ? 'expanded' : 'collapsed'
+  "
+>
+  <mat-card class="secondary"></mat-card>
+  <mat-card class="secondary"></mat-card>
+  <mat-card class="secondary"></mat-card>
+  <mat-card class="secondary"></mat-card>
+</div>
