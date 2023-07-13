@@ -5,7 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 
 export const COMPONENTS_MATERIALS = [
   MatIconModule,
@@ -16,4 +18,7 @@ export const COMPONENTS_MATERIALS = [
   MatMomentDateModule,
   MatInputModule,
   FormsModule,
+  ReactiveFormsModule,
+  MatSlideToggleModule,
+  MatSelectModule,
 ];

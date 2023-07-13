@@ -1,40 +1,22 @@
-<!-- <mat-form-field *ngIf="single === true" appearance="fill">
-  <input
-    matInput
-    [(ngModel)]="selectedDate"
-    [matDatepicker]="datepicker"
-  />
-  <mat-hint>DD/MM/YYYY</mat-hint>
-  <mat-datepicker-toggle
-    matSuffix
-    [for]="datepicker"
-  ></mat-datepicker-toggle>
-  <mat-datepicker
-    #datepicker
-    [calendarHeaderComponent]="exampleHeader"
-  >
-    <example-header [selectedDate]="selectedDate"></example-header>
-    <mat-datepicker-actions>
-      <button mat-button matDatepickerCancel>Cancel</button>
-      <button mat-raised-button color="primary" matDatepickerApply>
-        Apply
-      </button>
-    </mat-datepicker-actions>
-  </mat-datepicker>
-</mat-form-field> -->
-
 <!-- app.component.html -->
+<h2 style="padding: 10px 0 0 20px">Timepicker Output</h2>
+
 <h2 style="padding: 10px 0 0 20px">Datepicker Output</h2>
 <div style="padding: 10px 0 0 20px">
-  <mat-form-field style="padding-right: 20px">
+  <mat-form-field>
     <input
       matInput
       [matDatepicker]="datepicker"
       [(ngModel)]="selectedDate"
+      readonly="readonly"
     />
     <mat-datepicker-toggle
       matSuffix
       [for]="datepicker"
+      style="
+        font-size: 28px !important;
+        vertical-align: center !important;
+      "
     ></mat-datepicker-toggle>
     <mat-datepicker
       #datepicker
@@ -42,194 +24,91 @@
       (dateChange)="updateSelectedDate()"
       color="primary"
     >
-      <mat-datepicker-actions class="action-buttons">
-        <button mat-button matDatepickerCancel class="cancel-button">
-          Cancel
-        </button>
-        <button
-          mat-raised-button
-          color="primary"
-          matDatepickerApply
-          class="apply-button"
-          (click)="updateSelectedDate()"
-        >
-          Apply
-        </button>
+      <mat-datepicker-actions>
+        <div class="datepicker-footer">
+          <app-custom-timepicker></app-custom-timepicker>
+
+          <div class="datepicker-footer-actions">
+            <button
+              mat-button
+              matDatepickerCancel
+              class="cancel-button"
+            >
+              Cancel
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              matDatepickerApply
+              class="apply-button"
+              (click)="updateSelectedDate()"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
       </mat-datepicker-actions>
     </mat-datepicker>
   </mat-form-field>
 </div>
-{{ selectedDate }}
 
-<!-- <mat-form-field appearance="fill">
-  <mat-label>Enter a date range</mat-label>
-  <mat-date-range-input [rangePicker]="picker">
-    <input matStartDate placeholder="Start date" />
-    <input matEndDate placeholder="End date" />
-  </mat-date-range-input>
-  <mat-hint>MM/DD/YYYY MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle
-    matSuffix
-    [for]="picker"
-  ></mat-datepicker-toggle>
-  <mat-date-range-picker
-    #picker
-    [calendarHeaderComponent]="exampleHeader"
-  ></mat-date-range-picker>
-</mat-form-field> -->
+<!-- {{ selectedDate }} -->
 
-<!-- <form>
-  <mat-form-field appearance="fill">
-    <mat-label>Enter a date range</mat-label>
+<h2 style="padding: 10px 0 0 20px">Date Range Picker Output</h2>
+<div style="padding: 10px 0 0 20px">
+  <mat-form-field>
     <mat-date-range-input [rangePicker]="picker">
       <input
         matStartDate
-        placeholder="Start date"
-        [matDatepicker]="picker1"
+        readonly="readonly"
+        [value]="formatDate(startDate)"
       />
       <input
         matEndDate
-        placeholder="End date"
-        [matDatepicker]="picker2"
+        readonly="readonly"
+        [value]="formatDate(endDate)"
       />
     </mat-date-range-input>
-    <mat-hint>MM/DD/YYYY MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle
       matSuffix
       [for]="picker"
+      style="
+        font-size: 28px !important;
+        vertical-align: center !important;
+      "
     ></mat-datepicker-toggle>
+    <mat-date-range-picker
+      #picker
+      (dateChange)="updateSelectedDate()"
+      [calendarHeaderComponent]="exampleHeader"
+      color="primary"
+    >
+      <!-- <mat-calendar-content> -->
+      <mat-datepicker-actions>
+        <div class="datepicker-footer">
+          <app-custom-timepicker></app-custom-timepicker>
+
+          <div class="datepicker-footer-actions">
+            <button
+              mat-button
+              matDatepickerCancel
+              class="cancel-button"
+            >
+              Cancel
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              matDatepickerApply
+              class="apply-button"
+              (click)="updateSelectedDate()"
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      </mat-datepicker-actions>
+      <!-- </mat-calendar-content> -->
+    </mat-date-range-picker>
   </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Select End Date</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker2"
-      placeholder="End date"
-    />
-    <mat-datepicker-toggle
-      matSuffix
-      [for]="picker2"
-    ></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Select Start Date</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker1"
-      placeholder="Start date"
-    />
-    <mat-datepicker-toggle
-      matSuffix
-      [for]="picker1"
-    ></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">
-    Submit
-  </button>
-</form> -->
-
-<!-- <div class="date-range-input-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Enter a date range</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      placeholder="Start date"
-      (click)="openPickers()"
-    />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <input
-      matInput
-      [matDatepicker]="picker"
-      placeholder="End date"
-      (click)="openPickers()"
-    />
-  </mat-form-field>
-
-  <mat-datepicker #picker></mat-datepicker>
-</div> -->
-
-<!-- <mat-form-field appearance="fill">
-  <mat-label>Enter a date range</mat-label>
-  <mat-date-range-input [rangePicker]="picker">
-    <input matStartDate placeholder="Start date" />
-    <input matEndDate placeholder="End date" />
-  </mat-date-range-input>
-  <mat-hint>MM/DD/YYYY MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle
-    matSuffix
-    [for]="picker"
-  ></mat-datepicker-toggle>
-  <mat-date-range-picker
-    #picker
-    [calendarHeaderComponent]="exampleHeader"
-  ></mat-date-range-picker>
-</mat-form-field> -->
-
-<!-- <mat-form-field appearance="fill">
-  <mat-label>Enter a date range</mat-label>
-  <input
-    matInput
-    [matDatepicker]="picker"
-    placeholder="Start date - End date"
-    (click)="openDatepicker()"
-    readonly
-  />
-  <mat-datepicker-toggle
-    matSuffix
-    [for]="picker"
-  ></mat-datepicker-toggle>
-  <mat-datepicker
-    #picker
-    [calendarHeaderComponent]="customHeader"
-    [calendarHeaderComponent]="exampleHeader"
-    [panelClass]="showDatepicker ? 'show-datepicker' : ''"
-  >
-    <app-custom-calendar-header
-      (apply)="applyDatepicker()"
-      (cancel)="cancelDatepicker()"
-    ></app-custom-calendar-header>
-  </mat-datepicker>
-</mat-form-field> -->
-
-<!-- <mat-datepicker
-  #picker
-  [panelClass]="showDatepicker ? 'show-datepicker' : ''"
->
-  <app-custom-calendar-header
-    (apply)="applyDatepicker()"
-    (cancel)="cancelDatepicker()"
-  ></app-custom-calendar-header>
-</mat-datepicker> -->
-
-<!-- <mat-form-field *ngIf="single === true" appearance="fill">
-  <input
-    matInput
-    [matDatepicker]="picker"
-    [(ngModel)]="selectedDate"
-    (click)="openDatepicker()"
-  />
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle
-    matSuffix
-    [for]="picker"
-  ></mat-datepicker-toggle>
-  <mat-datepicker
-    #picker
-    [calendarHeaderComponent]="exampleHeader"
-    [panelClass]="showDatepicker ? 'show-datepicker' : ''"
-    (dateChange)="updateSelectedDate($event)"
-  >
-    <mat-datepicker-actions>
-      <button mat-button (click)="applyDatepicker()">Apply</button>
-      <button mat-button (click)="cancelDatepicker()">Cancel</button>
-    </mat-datepicker-actions>
-  </mat-datepicker>
-</mat-form-field> -->
+</div>

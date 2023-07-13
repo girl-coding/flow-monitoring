@@ -1,0 +1,70 @@
+.custom-timepicker-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.custom-timepicker-field {
+  flex-grow: 1;
+  width: 55px; /* Reduced width for smaller input fields */
+  box-sizing: content-box;
+}
+
+.custom-timepicker-field * {
+  background: transparent;
+  height: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgba(0, 0, 0, 0) !important;
+}
+
+.custom-timepicker-input-wrapper {
+  position: relative;
+}
+
+.custom-timepicker-arrow-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  margin-left: 10px;
+  background: transparent;
+}
+
+app-custom-timepicker > * {
+  background: transparent;
+}
+
+.custom-timepicker-input-wrapper input {
+  text-align: center;
+  padding: 0;
+  font-size: 10px; /* Reduced font-size for smaller input fields */
+  font-weight: bold;
+  width: auto;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.custom-timepicker-button {
+  width: 10px;
+  height: 10px;
+  border-radius: 0;
+}
+
+.custom-timepicker-field .mat-form-field-wrapper {
+  width: 10px;
+  box-sizing: border-box;
+}
+
+.toggle-icon {
+  width: 24px; /* Adjust this size to your need */
+  height: 24px; /* Adjust this size to your need */
+  padding: 0; /* Remove surrounding space */
+  box-sizing: content-box;
+  border: none; /* Remove border if there's any */
+}
+.mat-form-field-flex {
+  background-color: transparent;
+}

@@ -1,0 +1,92 @@
+<div style="display: flex; align-items: center; gap: 10px">
+  <div class="custom-timepicker-wrapper">
+    <mat-form-field
+      appearance="outline"
+      class="custom-timepicker-field"
+      style="overflow: hidden"
+    >
+      <div class="custom-timepicker-input-wrapper">
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="selectedHours"
+          (input)="onHoursChange()"
+          placeholder="00 H"
+          maxlength="4"
+          (keydown)="formatHourInput($event)"
+          class="custom-timepicker-input"
+          readonly="readonly"
+          (change)="updateSelectedTime()"
+        />
+      </div>
+    </mat-form-field>
+    <div class="custom-timepicker-arrow-wrapper">
+      <button
+        mat-button
+        mat-icon-button
+        (click)="incrementHours()"
+        class="custom-timepicker-button"
+      >
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button
+        mat-button
+        mat-icon-button
+        (click)="decrementHours()"
+        class="custom-timepicker-button"
+      >
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="custom-timepicker-wrapper">
+    <mat-form-field
+      appearance="outline"
+      class="custom-timepicker-field"
+    >
+      <div class="custom-timepicker-input-wrapper">
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="selectedMinutes"
+          (input)="onMinutesChange()"
+          placeholder="00 Min"
+          maxlength="6"
+          (keydown)="formatMinuteInput($event)"
+          class="custom-timepicker-input"
+          readonly="readonly"
+          (change)="updateSelectedTime()"
+        />
+      </div>
+    </mat-form-field>
+    <div class="custom-timepicker-arrow-wrapper">
+      <button
+        mat-button
+        mat-icon-button
+        (click)="incrementMinutes()"
+        class="custom-timepicker-button"
+      >
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button
+        mat-button
+        mat-icon-button
+        (click)="decrementMinutes()"
+        class="custom-timepicker-button"
+      >
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <button
+    mat-icon-button
+    (click)="toggleTimePicker()"
+    class="toggle-icon"
+  >
+    <mat-icon>schedule</mat-icon>
+  </button>
+</div>
+{{ selectedHours }}
+{{ selectedMinutes }}

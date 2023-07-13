@@ -24,10 +24,6 @@
   background-color: lightsteelblue;
 }
 
-// ::ng-deep .mat-datepicker-content {
-//   height: 400px !important;
-// }
-
 ::ng-deep .mat-calendar {
   height: 360px !important;
 }
@@ -39,7 +35,7 @@
 }
 
 ::ng-deep .mat-calendar-content {
-  margin-top: -6px; // Adjust as needed
+  margin-top: -4px; // Adjust as needed
 }
 
 .example-header {
@@ -48,4 +44,69 @@
   padding: 0.5em;
   font-size: 15px;
   font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* Customize the input field to look like a button */
+mat-form-field {
+  background-color: transparent; /* Or any color you prefer */
+  border: 1px solid #ccc; /* Or any color you prefer */
+  border-radius: 4px; /* Adjust as necessary to get the desired "button" look */
+  width: 200px; /* Set a specific width, or leave it auto to fit the content */
+  text-align: center; /* Center the text */
+  height: 50px;
+}
+
+/* Increase the font size of the date text within the input field */
+mat-form-field input {
+  font-size: 1.2em; /* Adjust as necessary */
+  line-height: 1.5; /* Adjust as necessary to vertically center the text */
+  border: none; /* Remove border */
+}
+
+/* Remove the underline */
+.mat-form-field-underline {
+  display: none;
+}
+
+/* Remove the ripple */
+.mat-form-field-ripple {
+  display: none;
+}
+
+/* Increase the size of the datepicker toggle icon */
+
+/* Move the datepicker toggle icon to the left of the input */
+::ng-deep .mat-form-field {
+  direction: rtl;
+}
+
+/* Ensure the text in the input field is still left-aligned */
+::ng-deep .mat-form-field input {
+  direction: ltr;
+}
+
+::ng-deep .mat-datepicker-toggle .mat-icon-button {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+::ng-deep .mat-datepicker-toggle .mat-button-wrapper {
+  border-radius: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.datepicker-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.datepicker-footer .datepicker-footer-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

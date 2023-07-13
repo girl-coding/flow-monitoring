@@ -4,8 +4,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import {
   CustomDatepickerComponent,
   ExampleHeaderComponent,
-  CustomCalendarHeaderComponent,
 } from './custom-datepicker/custom-datepicker.component';
+import { CustomTimepickerComponent } from './custom-timepicker/custom-timepicker.component';
 
 export const COMPONENTS = [
   SideNavComponent,
@@ -13,5 +13,5 @@ export const COMPONENTS = [
   ModeUiComponent,
   CustomDatepickerComponent,
   ExampleHeaderComponent,
-  CustomCalendarHeaderComponent,
+  CustomTimepickerComponent,
 ];

@@ -2,21 +2,58 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Inject,
   OnDestroy,
   OnInit,
-  Output,
 } from '@angular/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MatDateFormats,
+  NativeDateAdapter,
 } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DatepickerService } from 'src/app/shared/datepicker.service';
+import { FormControl, FormGroup } from '@angular/forms';
+
+//format date
+// your code for the adapter here
+
+export class AppDateAdapter extends NativeDateAdapter {
+  override format(
+    date: Date,
+    displayFormat: string | object,
+  ): string {
+    if (displayFormat === 'input') {
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return (
+        this._to2digit(day) + '/' + this._to2digit(month) + '/' + year
+      );
+    }
+    return date.toDateString();
+  }
+
+  private _to2digit(n: number) {
+    return ('00' + n).slice(-2);
+  }
+}
+
+export const APP_DATE_FORMATS: MatDateFormats = {
+  // your code for the date formats here
+  parse: {
+    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+  },
+  display: {
+    dateInput: 'input',
+    monthYearLabel: { year: 'numeric', month: 'short' },
+    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
+};
 
 @Component({
   selector: 'app-custom-datepicker',
@@ -28,14 +65,48 @@ import { DatepickerService } from 'src/app/shared/datepicker.service';
       provide: MatCalendar,
       useClass: MatCalendar,
     },
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
 })
 export class CustomDatepickerComponent implements OnInit {
-  constructor(private _datepickerService: DatepickerService) {}
+  constructor(private _datepickerService: DatepickerService) {
+    this.rangeForm = new FormGroup({
+      dateRange: new FormControl(),
+    });
+    this.startDate = new Date();
+    this.endDate = new Date(this.startDate);
+    this.endDate.setDate(this.startDate.getDate() + 1);
+  }
+
+  formatDate(date: Date): string {
+    return (
+      date.getDate() +
+      '/' +
+      (date.getMonth() + 1) +
+      '/' +
+      date.getFullYear()
+    );
+  }
+
+  rangeForm: FormGroup;
+  startDate!: Date;
+  endDate!: Date;
+
+  toggleDatepickers() {
+    // Code to toggle the visibility of the datepickers
+  }
+
+  updateDateRange() {
+    const startFormatted = this.startDate.toISOString().split('T')[0];
+    const endFormatted = this.endDate.toISOString().split('T')[0];
+    this.rangeForm.patchValue({
+      dateRange: `${startFormatted} - ${endFormatted}`,
+    });
+  }
 
   single = true;
   exampleHeader = ExampleHeaderComponent;
-  customHeader = CustomCalendarHeaderComponent;
   showDatepicker = false;
   selectedDate: Date | null = null;
 
@@ -63,14 +134,6 @@ export class CustomDatepickerComponent implements OnInit {
     // Implement the logic for canceling the date selection
     this.closeDatepicker();
   }
-
-  getCurrentDate(): string {
-    const currentDate = new Date();
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const year = currentDate.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
 }
 
 /** Custom header component for datepicker. */
@@ -78,12 +141,12 @@ export class CustomDatepickerComponent implements OnInit {
   selector: 'example-header',
   styles: [
     `
-      :host {
+      /* :host {
         display: flex;
         flex-direction: row;
-        justify-content: center; // Or another value depending on your layout needs
+        justify-content: start; // Or another value depending on your layout needs
         align-items: center;
-      }
+      } */
       .example-header {
         display: flex;
         flex-direction: column;
@@ -102,12 +165,24 @@ export class CustomDatepickerComponent implements OnInit {
       }
       .date_applied {
         width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 0 10px;
       }
 
       .date_applied input {
         width: 80%;
-        margin-left: 20px;
+
         padding: 5px;
+      }
+
+      .date_applied input:first-child {
+        flex: 2;
+      }
+
+      .date_applied input:nth-child(2) {
+        flex: 1;
       }
 
       .example-header-label {
@@ -173,11 +248,8 @@ export class CustomDatepickerComponent implements OnInit {
         </button>
       </div>
       <div class="date_applied">
-        <input
-          type="text"
-          [value]="selectedDate | date : 'dd/MM/yyyy'"
-          readonly
-        />
+        <input type="text" [(ngModel)]="selectedDate" readonly />
+        <input *ngIf="true" type="text" readonly [(ngModel)]="time" />
       </div>
     </div>
   `,
@@ -187,6 +259,7 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
   private _destroyed = new Subject<void>();
 
   selectedDate!: Date | null;
+  time = '00 H 00 Min';
   constructor(
     private _calendar: MatCalendar<D>,
     private _dateAdapter: DateAdapter<D>,
@@ -197,13 +270,6 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
       .subscribe(() => cdr.markForCheck());
-
-    this._datepickerService
-      .onSelectedDateChange()
-      .subscribe((date) => {
-        this.selectedDate = date;
-        console.log(this.selectedDate);
-      });
   }
 
   ngOnInit(): void {
@@ -213,6 +279,12 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
       .subscribe((date) => {
         this.selectedDate = date;
         console.log(this.selectedDate);
+      });
+    this._datepickerService
+      .onSelectedTimeChange()
+      .subscribe((time) => {
+        this.time = time.toString();
+        console.log(time, this.time);
       });
   }
   ngOnDestroy() {
@@ -253,68 +325,5 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
             this._calendar.activeDate,
             1,
           );
-  }
-}
-
-/** Custom Calendar header component for datepicker. */
-
-@Component({
-  selector: 'app-custom-calendar-header',
-  template: `
-    <div class="calendar-header">
-      <button mat-icon-button (click)="cancelDatepicker()">
-        <mat-icon>cancel</mat-icon>
-      </button>
-      <span class="calendar-title">{{ periodLabel }}</span>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="applyDatepicker()"
-      >
-        Apply
-      </button>
-    </div>
-  `,
-  styles: [
-    `
-      .calendar-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px;
-        background-color: #f5f5f5;
-      }
-
-      .calendar-title {
-        font-weight: bold;
-      }
-    `,
-  ],
-})
-export class CustomCalendarHeaderComponent<D> {
-  @Output() apply: EventEmitter<void> = new EventEmitter<void>();
-  @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
-
-  constructor(
-    private _calendar: MatCalendar<D>,
-    private _dateAdapter: DateAdapter<D>,
-    @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
-  ) {}
-
-  get periodLabel(): string {
-    return this._dateAdapter
-      .format(
-        this._calendar.activeDate,
-        this._dateFormats.display.monthYearLabel,
-      )
-      .toLocaleUpperCase();
-  }
-
-  applyDatepicker(): void {
-    this.apply.emit();
-  }
-
-  cancelDatepicker(): void {
-    this.cancel.emit();
   }
 }

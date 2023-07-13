@@ -5,9 +5,10 @@ import { COMPONENTS_MATERIALS } from './components-materials.const';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatepickerService } from './datepicker.service';
+import { CustomTimepickerComponent } from './components/custom-timepicker/custom-timepicker.component';
 
 @NgModule({
-  declarations: [COMPONENTS],
+  declarations: [COMPONENTS, CustomTimepickerComponent],
   exports: [
     CommonModule,
     COMPONENTS,
