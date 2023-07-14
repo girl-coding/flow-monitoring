@@ -4,18 +4,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
-
-export interface FilterData {
-  selectedPlatform: string | null;
-  selectedStatus: string | null;
-  nomDomaine: string | null;
-  nomFlux: string | null;
-  flowUID: string | null;
-  startDate: string | null;
-  endDate: string | null;
-  nomCle: string | null;
-  valueCle: string | null;
-}
+import { FilterDataInterface } from '../../interfaces/filter-data.interface';
 
 @Component({
   selector: 'app-dashboard-filter-modal',
@@ -23,34 +12,40 @@ export interface FilterData {
   styleUrls: ['./dashboard-filter-modal.component.scss'],
 })
 export class DashboardFilterModalComponent {
-  formGroup = new FormGroup({
-    selectedPlatform: new FormControl(''),
-    selectedStatus: new FormControl(''),
-    nomDomaine: new FormControl(''),
-    nomFlux: new FormControl(''),
-    flowUID: new FormControl(''),
-    startDate: new FormControl(new Date().toLocaleString('en-UK')),
-    endDate: new FormControl(
-      new Date(
-        new Date().setHours(new Date().getHours() + 1),
-      ).toLocaleString('en-UK'),
-    ),
-    nomCle: new FormControl(''),
-    valueCle: new FormControl(''),
-  });
+  formGroup!: FormGroup;
 
   filteredOptions: string[] = ['one', 'two', 'three', 'four'];
 
   constructor(
     public dialogRef: MatDialogRef<DashboardFilterModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: FilterData,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: FilterDataInterface,
+  ) {
+    this.initForm();
+  }
+
+  initForm() {
+    this.formGroup = new FormGroup({
+      selectedPlatform: new FormControl(''),
+      selectedStatus: new FormControl(''),
+      domaineName: new FormControl(''),
+      flowName: new FormControl(''),
+      flowUID: new FormControl(''),
+      startDate: new FormControl(new Date().toLocaleString('en-UK')),
+      endDate: new FormControl(
+        new Date(
+          new Date().setHours(new Date().getHours() + 1),
+        ).toLocaleString('en-UK'),
+      ),
+      keyName: new FormControl(''),
+      keyValue: new FormControl(''),
+    });
+  }
 
   onClickOutside(): void {
     this.dialogRef.close();
   }
 
-  onSubmit(): Partial<FilterData> {
+  onSubmit(): Partial<FilterDataInterface> {
     return this.formGroup.value;
   }
 }

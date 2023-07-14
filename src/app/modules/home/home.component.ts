@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import {
-  DashboardFilterModalComponent,
-  FilterData,
-} from './components/dashboard-filter-modal/dashboard-filter-modal.component';
+import { DashboardFilterModalComponent } from './components/dashboard-filter-modal/dashboard-filter-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FilterDataInterface } from './interfaces/filter-data.interface';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class HomeComponent {
   openModal = false;
-  filterData!: FilterData;
+  filterData!: FilterDataInterface;
 
   constructor(public dialog: MatDialog) {}
 
