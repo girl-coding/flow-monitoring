@@ -51,16 +51,33 @@ mat-form-field {
   background-color: transparent; /* Or any color you prefer */
   border: 1px solid #ccc; /* Or any color you prefer */
   border-radius: 4px; /* Adjust as necessary to get the desired "button" look */
-  width: 200px; /* Set a specific width, or leave it auto to fit the content */
-  text-align: center; /* Center the text */
+  width: auto; /* Set a specific width, or leave it auto to fit the content */
+  text-align: auto; /* Center the text */
   height: 50px;
 }
 
-/* Increase the font size of the date text within the input field */
-mat-form-field input {
+/* accessing  */
+mat-date-range-input input {
   font-size: 1.2em; /* Adjust as necessary */
   line-height: 1.5; /* Adjust as necessary to vertically center the text */
   border: none; /* Remove border */
+  margin-left: -2, 5px;
+  padding-left: -4px;
+  padding-top: 1px;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-date-range-input-separator {
+  /* Styles for the hyphen (-) separator */
+  margin: 0 5px; /* Adjust the margin as needed */
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  right: 48%;
+  margin-right: 200px;
 }
 
 /* Remove the underline */
@@ -109,4 +126,32 @@ mat-form-field input {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.mat-date-range-input-start {
+  margin-right: 100px;
+}
+
+.daterange-input-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  //width: 100%;
+}
+
+.date-range-input {
+  display: inline-block;
+}
+
+.start-date-input {
+  //background-color: aqua;
+  margin-top: -8px; /* Adjust the negative margin as needed */
+  position: relative;
+}
+.end-date-input {
+  //background-color: aqua;
+  margin-top: -6px; /* Adjust the negative margin as needed */
+  position: relative;
+  margin-left: -20px !important;
 }

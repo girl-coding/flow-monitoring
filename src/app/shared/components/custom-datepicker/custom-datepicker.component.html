@@ -1,4 +1,3 @@
-<!-- app.component.html -->
 <h2 style="padding: 10px 0 0 20px">Timepicker Output</h2>
 
 <h2 style="padding: 10px 0 0 20px">Datepicker Output</h2>
@@ -21,8 +20,9 @@
     <mat-datepicker
       #datepicker
       [calendarHeaderComponent]="exampleHeader"
+      (click)="updateSelectedDate()"
+      (daySelected)="updateSelectedDate()"
       (dateChange)="updateSelectedDate()"
-      color="primary"
     >
       <mat-datepicker-actions>
         <div class="datepicker-footer">
@@ -52,21 +52,34 @@
   </mat-form-field>
 </div>
 
-<!-- {{ selectedDate }} -->
-
 <h2 style="padding: 10px 0 0 20px">Date Range Picker Output</h2>
 <div style="padding: 10px 0 0 20px">
   <mat-form-field>
-    <mat-date-range-input [rangePicker]="picker">
+    <mat-date-range-input
+      [rangePicker]="picker"
+      [formGroup]="rangeForm"
+      class="daterange-input-group"
+    >
       <input
         matStartDate
+        formControlName="start"
+        #startDateInput
         readonly="readonly"
-        [value]="formatDate(startDate)"
+        class="date-range-input start-date-input"
+        [value]="
+          rangeForm.controls['end'].value | date : 'yyyy-MM-dd'
+        "
       />
+      <div class="date-range-separator">-</div>
       <input
         matEndDate
+        formControlName="end"
+        #endDateInput
         readonly="readonly"
-        [value]="formatDate(endDate)"
+        class="date-range-input end-date-input"
+        [value]="
+          rangeForm.controls['start'].value | date : 'yyyy-MM-dd'
+        "
       />
     </mat-date-range-input>
     <mat-datepicker-toggle
@@ -77,13 +90,13 @@
         vertical-align: center !important;
       "
     ></mat-datepicker-toggle>
+
     <mat-date-range-picker
       #picker
-      (dateChange)="updateSelectedDate()"
+      (dateChange)="updateDateRange()"
       [calendarHeaderComponent]="exampleHeader"
       color="primary"
     >
-      <!-- <mat-calendar-content> -->
       <mat-datepicker-actions>
         <div class="datepicker-footer">
           <app-custom-timepicker></app-custom-timepicker>
@@ -101,14 +114,17 @@
               color="primary"
               matDatepickerApply
               class="apply-button"
-              (click)="updateSelectedDate()"
+              (click)="updateDateRange()"
             >
               Apply
             </button>
           </div>
         </div>
       </mat-datepicker-actions>
-      <!-- </mat-calendar-content> -->
     </mat-date-range-picker>
   </mat-form-field>
 </div>
+
+<!-- <div>
+      <input matInput [value]="selectedRange" readonly (click)="openDateRangePicker()">
+    </div> -->

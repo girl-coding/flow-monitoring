@@ -6,7 +6,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { MatCalendar } from '@angular/material/datepicker';
+import {
+  DateRange,
+  MatCalendar,
+  MatDatepickerInputEvent,
+} from '@angular/material/datepicker';
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
@@ -16,7 +20,7 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DatepickerService } from 'src/app/shared/datepicker.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 //format date
 // your code for the adapter here
@@ -70,13 +74,23 @@ export const APP_DATE_FORMATS: MatDateFormats = {
   ],
 })
 export class CustomDatepickerComponent implements OnInit {
-  constructor(private _datepickerService: DatepickerService) {
-    this.rangeForm = new FormGroup({
-      dateRange: new FormControl(),
+  constructor(
+    private _datepickerService: DatepickerService,
+    private _fb: FormBuilder,
+  ) {
+    this.rangeForm = this._fb.group({
+      start: [new Date()],
+      end: [new Date()],
     });
+
     this.startDate = new Date();
     this.endDate = new Date(this.startDate);
     this.endDate.setDate(this.startDate.getDate() + 1);
+
+    this.rangeForm.patchValue({
+      end: this.startDate,
+      start: this.endDate,
+    });
   }
 
   formatDate(date: Date): string {
@@ -93,15 +107,22 @@ export class CustomDatepickerComponent implements OnInit {
   startDate!: Date;
   endDate!: Date;
 
+  onDateChange(event: MatDatepickerInputEvent<DateRange<Date>>) {
+    if (event.value?.start && event.value.end) {
+      this.rangeForm.setValue({
+        start: event.value.start,
+        end: event.value.end,
+      });
+    }
+  }
   toggleDatepickers() {
     // Code to toggle the visibility of the datepickers
   }
 
   updateDateRange() {
-    const startFormatted = this.startDate.toISOString().split('T')[0];
-    const endFormatted = this.endDate.toISOString().split('T')[0];
     this.rangeForm.patchValue({
-      dateRange: `${startFormatted} - ${endFormatted}`,
+      startDate: this.startDate,
+      endDate: this.endDate,
     });
   }
 
@@ -113,7 +134,8 @@ export class CustomDatepickerComponent implements OnInit {
   ngOnInit(): void {
     this.selectedDate = new Date();
   }
-  updateSelectedDate(): void {
+
+  updateSelectedDate() {
     this._datepickerService.changeSelectedDate(this.selectedDate);
   }
 
@@ -253,12 +275,13 @@ export class CustomDatepickerComponent implements OnInit {
       </div>
     </div>
   `,
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
   private _destroyed = new Subject<void>();
 
-  selectedDate!: Date | null;
+  selectedDate: Date | null = null;
   time = '00 H 00 Min';
   constructor(
     private _calendar: MatCalendar<D>,
@@ -274,6 +297,7 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     // this.selectedDate = new Date();
+    this.selectedDate = new Date();
     this._datepickerService
       .onSelectedDateChange()
       .subscribe((date) => {
