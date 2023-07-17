@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as moment from 'moment';
 import { DatepickerService } from 'src/app/shared/datepicker.service';
 
 @Component({
@@ -22,32 +23,34 @@ export class CustomTimepickerComponent {
   }
 
   incrementHours() {
-    let hours = parseInt(this.selectedHours, 10);
-    hours = (hours % 24) + 1;
-    this.selectedHours = hours.toString().padStart(2, '0') + ' H';
+    const hours = moment(this.selectedHours, 'HH').add(1, 'hours');
+    this.selectedHours = hours.format('HH') + ' H';
     this.onHoursChange();
   }
 
   decrementHours() {
-    let hours = parseInt(this.selectedHours, 10);
-    hours = ((hours - 2 + 24) % 24) + 1;
-    this.selectedHours = hours.toString().padStart(2, '0') + ' H';
+    const hours = moment(this.selectedHours, 'HH').subtract(
+      1,
+      'hours',
+    );
+    this.selectedHours = hours.format('HH') + ' H';
     this.onHoursChange();
   }
 
   incrementMinutes() {
-    let minutes = parseInt(this.selectedMinutes, 10);
-    minutes = (minutes + 1) % 60;
-    this.selectedMinutes =
-      minutes.toString().padStart(2, '0') + ' Min';
+    const minutes = moment(this.selectedMinutes, 'mm').add(
+      1,
+      'minutes',
+    );
+    this.selectedMinutes = minutes.format('mm') + ' Min';
     this.onMinutesChange();
   }
 
   decrementMinutes() {
-    let minutes = parseInt(this.selectedMinutes, 10);
-    minutes = (minutes - 1 + 60) % 60;
-    this.selectedMinutes =
-      minutes.toString().padStart(2, '0') + ' Min';
+    const minutes = moment(this.selectedMinutes, 'mm')
+      .subtract(1, 'minutes')
+      .add(60, 'minutes');
+    this.selectedMinutes = minutes.format('mm') + ' Min';
     this.onMinutesChange();
   }
 

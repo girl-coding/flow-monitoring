@@ -74,3 +74,45 @@ app-custom-timepicker > * {
   align-items: center;
   gap: 10px;
 }
+
+::ng-deep
+  .light-theme
+  .mat-form-field-appearance-fill
+  .mat-form-field-flex {
+  background-color: transparent !important;
+  // border-bottom: 1px solid black !important;
+  // padding-bottom: 3px; /* Adjust as needed */
+  // margin-bottom: -1px; /* Adjust as needed */
+  border: none !important;
+  box-shadow: 0px 0px 0px 1px black !important;
+  padding: 0px 2px; /* Adjust padding as needed */
+  font-size: 10px; /* Adjust font size as needed */
+  border-radius: 5px;
+}
+
+.custom-timepicker-field {
+  width: 40px; /* Adjust width as needed */
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.custom-timepicker-arrow-wrapper button {
+  width: 6px; /* Adjust width as needed */
+  height: 6px; /* Adjust height as needed */
+  padding: 0; /* Remove surrounding space */
+}
+.toggle-icon {
+  width: 24px; /* Adjust this size to your need */
+  height: 24px; /* Adjust this size to your need */
+  padding: 0; /* Remove surrounding space */
+  margin: 0; /* Remove any margin */
+  background-color: transparent; /* Remove background color */
+  border: none; /* Remove border */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-icon mat-icon {
+  color: black; /* Adjust color as needed */
+}
