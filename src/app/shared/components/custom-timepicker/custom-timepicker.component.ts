@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import * as moment from 'moment';
-import { DatepickerService } from 'src/app/shared/datepicker.service';
+
 import { TimeService } from '../../time.service';
 
 @Component({
@@ -65,10 +65,7 @@ export class CustomTimepickerComponent {
     input.value = input.value.replace(/[^0-9]/g, '');
   }
 
-  constructor(
-    private _datepickerService: DatepickerService,
-    private _timeService: TimeService,
-  ) {}
+  constructor(private _timeService: TimeService) {}
 
   updateSelectedTime() {
     const hours = this.selectedHours;

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -19,6 +20,7 @@ import {
   AppDateAdapter,
 } from '../../constants/app-date-formats.const';
 import { ExampleHeaderComponent } from './example-header.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-custom-datepicker',
@@ -34,7 +36,7 @@ import { ExampleHeaderComponent } from './example-header.component';
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
 })
-export class CustomDatepickerComponent implements OnInit {
+export class CustomDatepickerComponent implements OnInit, OnDestroy {
   constructor(
     private _datepickerService: DatepickerService,
     private _fb: FormBuilder,
@@ -54,7 +56,9 @@ export class CustomDatepickerComponent implements OnInit {
     });
   }
   showInputs = true;
-
+  // selectedDate: string | null = null;
+  selectedDate: Date | null = null;
+  private subscription: Subscription | null = null;
   openDatepicker(): void {
     this.showInputs = false;
   }
@@ -91,14 +95,26 @@ export class CustomDatepickerComponent implements OnInit {
 
   single = true;
   exampleHeader = ExampleHeaderComponent;
-  selectedDate: Date | null = null;
 
   ngOnInit(): void {
-    this.selectedDate = new Date();
-  }
+    const now = new Date();
+    this.selectedDate = now;
+    this._datepickerService.selectedDate = now.toISOString();
 
-  updateSelectedDate() {
-    this._datepickerService.changeSelectedDate(this.selectedDate);
-    console.log(this.selectedDate);
+    this.subscription = this._datepickerService
+      .onSelectedDateChange()
+      .subscribe((date: string | null) => {
+        this.selectedDate = date ? new Date(date) : this.selectedDate;
+      });
+  }
+  updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = event.value;
+    const dateString = selectedDate
+      ? selectedDate.toISOString()
+      : null;
+    this._datepickerService.selectedDate = dateString;
+  }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

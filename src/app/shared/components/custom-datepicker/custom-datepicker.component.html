@@ -5,6 +5,7 @@
       matInput
       [matDatepicker]="datepicker"
       [(ngModel)]="selectedDate"
+      (dateChange)="updateSelectedDate($event)"
       readonly="readonly"
       class="datepicker-input"
     />
@@ -16,7 +17,6 @@
     <mat-datepicker
       #datepicker
       [calendarHeaderComponent]="exampleHeader"
-      (dateChange)="updateSelectedDate()"
     >
       <mat-datepicker-actions>
         <div class="datepicker-footer">
@@ -35,7 +35,6 @@
               color="primary"
               matDatepickerApply
               class="apply-button"
-              (click)="updateSelectedDate()"
             >
               Apply
             </button>
@@ -44,7 +43,6 @@
       </mat-datepicker-actions>
     </mat-datepicker>
   </mat-form-field>
-  {{ selectedDate }}
 </div>
 
 <h2>Date Range Picker Output</h2>

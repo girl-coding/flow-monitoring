@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DatepickerService {
-  private _selectedDateSource = new Subject<Date | null>();
-  selectedDate$ = this._selectedDateSource.asObservable();
+  private _selectedDate: string | null = null;
 
-  changeSelectedDate(date: Date | any) {
-    this._selectedDateSource.next(date);
+  private _dateSubject = new Subject<string | null>();
+
+  get selectedDate(): string | null {
+    return this._selectedDate;
   }
 
-  onSelectedDateChange() {
-    return this._selectedDateSource.asObservable();
+  set selectedDate(value: string | null) {
+    this._selectedDate = value;
+    this._dateSubject.next(value);
+  }
+
+  onSelectedDateChange(): Observable<string | null> {
+    return this._dateSubject.asObservable();
   }
 }

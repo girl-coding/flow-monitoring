@@ -26,7 +26,7 @@ import { TimeService } from '../../time.service';
 export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
   private _destroyed = new Subject<void>();
 
-  selectedDate: Date | null = null;
+  selectedDate = new Date();
   time = '00 H 00 Min';
   constructor(
     private _calendar: MatCalendar<D>,
@@ -38,23 +38,31 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
   ) {
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => this._cdr.markForCheck()); // Use 'this.cdr' to trigger change detection
+      .subscribe(() => {
+        this._cdr.markForCheck();
+
+        const selectedDate = this._calendar.selected;
+        const dateString = selectedDate
+          ? (selectedDate as any).toISOString()
+          : null;
+        this._datepickerService.selectedDate = dateString;
+      });
 
     this._timeService.getTimeObservable().subscribe((time) => {
       this.time = time;
       this._cdr.detectChanges(); // Trigger change detection
     });
-  }
-
-  ngOnInit(): void {
-    this.selectedDate = new Date();
 
     this._datepickerService
       .onSelectedDateChange()
       .subscribe((date) => {
-        this.selectedDate = date;
-        console.log(this.selectedDate);
+        this.selectedDate = date ? new Date(date) : new Date();
+        this._cdr.detectChanges();
       });
+  }
+
+  ngOnInit(): void {
+    this.selectedDate = new Date();
   }
 
   showInputs = true;
