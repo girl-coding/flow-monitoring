@@ -14,6 +14,7 @@ import {
 import { MatCalendar } from '@angular/material/datepicker';
 import { Subject, takeUntil } from 'rxjs';
 import { DatepickerService } from '../../datepicker.service';
+import { TimeService } from '../../time.service';
 
 /** Custom header component for datepicker. */
 @Component({
@@ -31,12 +32,18 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
     private _calendar: MatCalendar<D>,
     private _dateAdapter: DateAdapter<D>,
     @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats,
-    cdr: ChangeDetectorRef,
+    private _cdr: ChangeDetectorRef, // Add private access specifier
     private _datepickerService: DatepickerService,
+    private _timeService: TimeService,
   ) {
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => cdr.markForCheck());
+      .subscribe(() => this._cdr.markForCheck()); // Use 'this.cdr' to trigger change detection
+
+    this._timeService.getTimeObservable().subscribe((time) => {
+      this.time = time;
+      this._cdr.detectChanges(); // Trigger change detection
+    });
   }
 
   ngOnInit(): void {
@@ -47,13 +54,6 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
       .subscribe((date) => {
         this.selectedDate = date;
         console.log(this.selectedDate);
-      });
-
-    this._datepickerService
-      .onSelectedTimeChange()
-      .subscribe((time) => {
-        this.time = time.toString();
-        console.log(time, this.time);
       });
   }
 

@@ -15,9 +15,9 @@
     >
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
-    <span class="example-header-label"
-      >{{ periodLabel | date : 'MMMM yyyy' }}</span
-    >
+    <span class="example-header-label">{{
+      periodLabel | date : 'MMMM yyyy'
+    }}</span>
     <button
       class="example-single-arrow"
       mat-icon-button
@@ -35,7 +35,7 @@
     </button>
   </div>
   <div class="date_applied" *ngIf="showInputs">
-    <input type="text" [(ngModel)]="selectedDate " readonly />
+    <input type="text" [(ngModel)]="selectedDate" readonly />
     <input *ngIf="true" type="text" readonly [(ngModel)]="time" />
   </div>
 </div>
