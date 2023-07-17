@@ -1,0 +1,41 @@
+<div class="example-header">
+  <div class="example-date">
+    <button
+      mat-icon-button
+      class="example-double-arrow"
+      (click)="previousClicked('year')"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      class="example-single-arrow"
+      (click)="previousClicked('month')"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <span class="example-header-label"
+      >{{ periodLabel | date : 'MMMM yyyy' }}</span
+    >
+    <button
+      class="example-single-arrow"
+      mat-icon-button
+      (click)="nextClicked('month')"
+    >
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+    <button
+      mat-icon-buttons
+      class="example-double-arrow"
+      (click)="nextClicked('year')"
+    >
+      <mat-icon>keyboard_arrow_right</mat-icon>
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+  <div class="date_applied" *ngIf="showInputs">
+    <input type="text" [(ngModel)]="selectedDate " readonly />
+    <input *ngIf="true" type="text" readonly [(ngModel)]="time" />
+  </div>
+</div>

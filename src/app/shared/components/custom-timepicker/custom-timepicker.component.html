@@ -1,9 +1,8 @@
-<div style="display: flex; align-items: center; gap: 10px">
+<div class="time">
   <div class="custom-timepicker-wrapper">
     <mat-form-field
       appearance="outline"
       class="custom-timepicker-field"
-      style="overflow: hidden"
     >
       <div class="custom-timepicker-input-wrapper">
         <input
@@ -84,11 +83,16 @@
     </div>
   </div>
 
-  <button
-    mat-icon-button
-    (click)="toggleTimePicker()"
-    class="toggle-icon"
-  >
+  <button mat-icon-button class="toggle-icon">
     <mat-icon>schedule</mat-icon>
   </button>
 </div>
+
+<!--
+inside
+  <mat-form-field
+      appearance="outline"
+      class="custom-timepicker-field"
+    >
+  style="overflow: hidden"
+ -->

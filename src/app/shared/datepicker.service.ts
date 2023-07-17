@@ -10,7 +10,7 @@ export class DatepickerService {
 
   private _selectedTimeSource = new Subject<string>();
 
-  changeSelectedDate(date: Date | null) {
+  changeSelectedDate(date: Date | any) {
     this._selectedDateSource.next(date);
   }
 

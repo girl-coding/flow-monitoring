@@ -92,6 +92,11 @@ export class CustomDatepickerComponent implements OnInit {
       start: this.endDate,
     });
   }
+  showInputs = true;
+
+  openDatepicker(): void {
+    this.showInputs = false;
+  }
 
   formatDate(date: Date): string {
     return (
@@ -115,9 +120,6 @@ export class CustomDatepickerComponent implements OnInit {
       });
     }
   }
-  toggleDatepickers() {
-    // Code to toggle the visibility of the datepickers
-  }
 
   updateDateRange() {
     this.rangeForm.patchValue({
@@ -128,7 +130,6 @@ export class CustomDatepickerComponent implements OnInit {
 
   single = true;
   exampleHeader = ExampleHeaderComponent;
-  showDatepicker = false;
   selectedDate: Date | null = null;
 
   ngOnInit(): void {
@@ -137,145 +138,15 @@ export class CustomDatepickerComponent implements OnInit {
 
   updateSelectedDate() {
     this._datepickerService.changeSelectedDate(this.selectedDate);
-  }
-
-  openDatepicker(): void {
-    this.showDatepicker = true;
-  }
-
-  closeDatepicker(): void {
-    this.showDatepicker = false;
-  }
-
-  applyDatepicker(): void {
-    // Implement the logic for applying the selected date
-    this.closeDatepicker();
-  }
-
-  cancelDatepicker(): void {
-    // Implement the logic for canceling the date selection
-    this.closeDatepicker();
+    console.log(this.selectedDate);
   }
 }
 
 /** Custom header component for datepicker. */
 @Component({
   selector: 'example-header',
-  styles: [
-    `
-      /* :host {
-        display: flex;
-        flex-direction: row;
-        justify-content: start; // Or another value depending on your layout needs
-        align-items: center;
-      } */
-      .example-header {
-        display: flex;
-        flex-direction: column;
-        padding: 0.5em;
-        font-size: 15px;
-        font-family: 'Helvetica Neue', sans-serif;
-      }
-
-      .example-date {
-        display: flex;
-        justify-content: space-between; /* Add this line */
-        align-items: center;
-        padding: 0.5em;
-        font-size: 15px;
-        font-family: 'Helvetica Neue', sans-serif;
-      }
-      .date_applied {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        gap: 15px;
-        padding: 0 10px;
-      }
-
-      .date_applied input {
-        width: 80%;
-
-        padding: 5px;
-      }
-
-      .date_applied input:first-child {
-        flex: 2;
-      }
-
-      .date_applied input:nth-child(2) {
-        flex: 1;
-      }
-
-      .example-header-label {
-        flex: 1;
-        height: 1em;
-        font-weight: 500;
-        text-align: center;
-      }
-
-      .example-single-arrow {
-        box-shadow: none;
-      }
-
-      .example-double-arrow {
-        background: transparent;
-        box-shadow: none;
-        height: fit-content;
-      }
-
-      .example-double-arrow .mat-icon {
-        border: none;
-        margin: -32%;
-        margin-left: -10px;
-        background-color: transparent;
-      }
-    `,
-  ],
-  template: `
-    <div class="example-header">
-      <div class="example-date">
-        <button
-          mat-icon-button
-          class="example-double-arrow"
-          (click)="previousClicked('year')"
-        >
-          <mat-icon>keyboard_arrow_left</mat-icon>
-          <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          class="example-single-arrow"
-          (click)="previousClicked('month')"
-        >
-          <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-        <span class="example-header-label">{{
-          periodLabel | date : 'MMMM yyyy'
-        }}</span>
-        <button
-          class="example-single-arrow"
-          mat-icon-button
-          (click)="nextClicked('month')"
-        >
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-        <button
-          mat-icon-buttons
-          class="example-double-arrow"
-          (click)="nextClicked('year')"
-        >
-          <mat-icon>keyboard_arrow_right</mat-icon>
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-      </div>
-      <div class="date_applied">
-        <input type="text" [(ngModel)]="selectedDate" readonly />
-        <input *ngIf="true" type="text" readonly [(ngModel)]="time" />
-      </div>
-    </div>
-  `,
-
+  templateUrl: './example-header.html',
+  styleUrls: ['./example-header.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
@@ -296,20 +167,27 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    // this.selectedDate = new Date();
     this.selectedDate = new Date();
+
     this._datepickerService
       .onSelectedDateChange()
       .subscribe((date) => {
         this.selectedDate = date;
         console.log(this.selectedDate);
       });
+
     this._datepickerService
       .onSelectedTimeChange()
       .subscribe((time) => {
         this.time = time.toString();
         console.log(time, this.time);
       });
+  }
+
+  showInputs = true;
+
+  openDatepicker(): void {
+    this.showInputs = false;
   }
   ngOnDestroy() {
     this._destroyed.next();

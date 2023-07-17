@@ -1,27 +1,21 @@
-<h2 style="padding: 10px 0 0 20px">Timepicker Output</h2>
-
-<h2 style="padding: 10px 0 0 20px">Datepicker Output</h2>
-<div style="padding: 10px 0 0 20px">
+<h2>Datepicker Output</h2>
+<div class="format">
   <mat-form-field>
     <input
       matInput
       [matDatepicker]="datepicker"
       [(ngModel)]="selectedDate"
       readonly="readonly"
+      class="datepicker-input"
     />
     <mat-datepicker-toggle
       matSuffix
       [for]="datepicker"
-      style="
-        font-size: 28px !important;
-        vertical-align: center !important;
-      "
+      class="datepicker-toggle"
     ></mat-datepicker-toggle>
     <mat-datepicker
       #datepicker
       [calendarHeaderComponent]="exampleHeader"
-      (click)="updateSelectedDate()"
-      (daySelected)="updateSelectedDate()"
       (dateChange)="updateSelectedDate()"
     >
       <mat-datepicker-actions>
@@ -50,15 +44,17 @@
       </mat-datepicker-actions>
     </mat-datepicker>
   </mat-form-field>
+  {{ selectedDate }}
 </div>
 
-<h2 style="padding: 10px 0 0 20px">Date Range Picker Output</h2>
-<div style="padding: 10px 0 0 20px">
+<h2>Date Range Picker Output</h2>
+<div class="format">
   <mat-form-field>
     <mat-date-range-input
       [rangePicker]="picker"
       [formGroup]="rangeForm"
       class="daterange-input-group"
+      (click)="openDatepicker()"
     >
       <input
         matStartDate
@@ -85,10 +81,7 @@
     <mat-datepicker-toggle
       matSuffix
       [for]="picker"
-      style="
-        font-size: 28px !important;
-        vertical-align: center !important;
-      "
+      class="datepicker-toggle"
     ></mat-datepicker-toggle>
 
     <mat-date-range-picker
@@ -124,7 +117,3 @@
     </mat-date-range-picker>
   </mat-form-field>
 </div>
-
-<!-- <div>
-      <input matInput [value]="selectedRange" readonly (click)="openDateRangePicker()">
-    </div> -->

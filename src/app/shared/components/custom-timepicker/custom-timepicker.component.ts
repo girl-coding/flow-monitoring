@@ -18,6 +18,7 @@ export class CustomTimepickerComponent {
 
   onMinutesChange() {
     // Add your logic here for when the minutes value changes
+    this.updateSelectedTime();
   }
 
   incrementHours() {
@@ -48,10 +49,6 @@ export class CustomTimepickerComponent {
     this.selectedMinutes =
       minutes.toString().padStart(2, '0') + ' Min';
     this.onMinutesChange();
-  }
-
-  toggleTimePicker() {
-    // Add your logic here for the time picker toggle action
   }
 
   formatHourInput(event: KeyboardEvent) {
