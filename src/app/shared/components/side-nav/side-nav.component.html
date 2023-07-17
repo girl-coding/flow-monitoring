@@ -1,7 +1,7 @@
 <mat-card
   fxLayout="column"
   fxLayoutAlign="space-between"
-  class="side-nav-container"
+  class="side-nav-container secondary"
   [ngClass]="{ 'collapsed-nav-container': !isFullSideNav }"
   [@collapseAnimation]="getSideNavState"
 >
@@ -13,18 +13,19 @@
     >
       <div *ngIf="isFullSideNav" fxLayout="row">
         <img src="assets/svg/logo.svg" alt="" />
-        <p>Flow Monitoring</p>
+        <p class="montserrat-font">Flow Monitoring</p>
       </div>
       <button
         class="collapse-btn"
         (click)="toggleSideNavWidth()"
         mat-button
       >
-        <mat-icon aria-label="Hide icon">{{
+        <mat-icon class="secondary">{{
           isFullSideNav ? 'chevron_left' : 'chevron_right'
         }}</mat-icon>
       </button>
     </div>
+    <div class="divider"></div>
     <div class="side-nav-tabs">
       <ng-container *ngFor="let tab of navigationTabs">
         <div
@@ -32,11 +33,13 @@
           class="side-nav-tab clickable"
           [ngClass]="{ 'selected-tab': isTabActive(tab) }"
         >
-          <img
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="home"
             class="tab-icon"
-            [src]="tab.iconName"
-            [alt]="tab.iconLabel"
-          />
+            >{{ tab.matIconName }}</mat-icon
+          >
           <p *ngIf="isFullSideNav">{{ tab.name }}</p>
         </div>
       </ng-container>

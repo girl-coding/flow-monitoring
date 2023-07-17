@@ -1,0 +1,28 @@
+@import '../home.component.scss';
+
+.home-header {
+  .card-title {
+    padding-right: 6px;
+    padding-top: 6px;
+  }
+  mat-icon {
+    margin-left: 6px;
+    margin-top: 3px;
+    font-size: 30px;
+  }
+}
+
+.home-header-container {
+  width: 100%;
+  height: auto;
+  flex-wrap: wrap;
+  row-gap: 18px;
+  overflow: hidden;
+  padding: 2px;
+
+  mat-card {
+    width: 23.5%;
+    min-width: 220px;
+    height: 220px;
+  }
+}

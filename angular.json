@@ -114,6 +114,10 @@
     "schematicCollections": [
       "@angular-eslint/schematics"
     ],
+<<<<<<< HEAD
     "analytics": "13323346-5f7d-44c1-be64-8e76284d0eb9"
+=======
+    "analytics": false
+>>>>>>> master
   }
 }

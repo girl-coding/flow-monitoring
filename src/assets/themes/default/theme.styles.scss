@@ -312,7 +312,15 @@ $darkTheme: (
   .page-side-nav {
     background-color: $light-background-secondary !important;
   }
-
+  .secondary {
+    background-color: $light-background-secondary !important;
+  }
+  body {
+    background-color: $light-background;
+  }
+  div {
+    color: $dark-text;
+  }
   @include mat.all-component-themes($theme);
 }
 
@@ -323,9 +331,14 @@ $darkTheme: (
   .page-side-nav {
     background-color: $dark-background-secondary !important;
   }
+  .secondary {
+    background-color: $dark-background-secondary !important;
+  }
   body {
     background-color: $dark-background;
   }
-
+  div {
+    color: $light-text;
+  }
   @include mat.all-component-themes($darkTheme);
 }

@@ -1,4 +1,4 @@
-$activated-button: #eceef0;
+$activated-button: #d5d5d5;
 
 .side-nav-container {
   height: 100%;
@@ -25,6 +25,14 @@ $activated-button: #eceef0;
       }
     }
 
+    .divider {
+      width: 100%;
+      opacity: 0.23;
+      background: inherit;
+      border-bottom: 1px solid;
+      margin-top: 14px;
+    }
+
     .side-nav-tabs {
       width: 100%;
       height: auto;
@@ -37,22 +45,29 @@ $activated-button: #eceef0;
         border-radius: 10px;
         padding: 7px;
         margin-bottom: 6px;
+        opacity: 0.9;
 
         .tab-icon {
           margin-right: 8px;
+          margin-left: 1.5px;
+          width: 24px;
           height: 24px;
-          opacity: 0.5;
+        }
+        mat-icon {
+          font-size: 22px;
+          margin-top: 2px;
         }
         p {
-          font-size: 1.15em;
+          font-size: 1.1em;
           font-weight: bold;
           padding-top: 2px;
-          opacity: 0.8;
+          letter-spacing: 0.5px;
         }
       }
 
       .selected-tab {
         background: $activated-button;
+        color: black;
         .tab-icon,
         p {
           opacity: 1 !important;
@@ -62,9 +77,10 @@ $activated-button: #eceef0;
   }
 
   .side-nav-footer {
-    height: 48px;
+    height: 50px;
     padding: 5px 5px 5px 12px;
     overflow: hidden;
+    background: inherit;
 
     mat-card-title {
       font-size: 14px;
@@ -88,6 +104,10 @@ $activated-button: #eceef0;
 }
 
 .collapsed-nav-container {
+  .divider {
+    width: 90% !important;
+  }
+
   .tab-icon {
     height: 28px;
   }
