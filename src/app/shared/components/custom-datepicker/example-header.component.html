@@ -35,7 +35,7 @@
     </button>
   </div>
   <div class="date_applied" *ngIf="showInputs">
-    <input type="text" readonly [(ngModel)]="selectedDate" />
+    <input type="text" readonly [(ngModel)]="formattedDate" />
     <input *ngIf="true" type="text" readonly [(ngModel)]="time" />
   </div>
 </div>

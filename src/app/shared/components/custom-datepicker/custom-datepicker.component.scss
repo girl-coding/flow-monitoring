@@ -43,7 +43,6 @@
   flex-direction: row; // Changed from column to row
   padding: 0.5em;
   font-size: 15px;
-  font-family: 'Helvetica Neue', sans-serif;
 }
 
 /* Customize the input field to look like a button */
@@ -143,7 +142,6 @@ mat-date-range-input input {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  //width: 100%;
 }
 
 .date-range-input {
@@ -151,12 +149,10 @@ mat-date-range-input input {
 }
 
 .start-date-input {
-  //background-color: aqua;
   margin-top: -8px; /* Adjust the negative margin as needed */
   position: relative;
 }
 .end-date-input {
-  //background-color: aqua;
   margin-top: -6px; /* Adjust the negative margin as needed */
   position: relative;
   margin-left: -20px !important;

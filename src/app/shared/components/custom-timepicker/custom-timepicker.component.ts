@@ -14,7 +14,6 @@ export class CustomTimepickerComponent {
 
   onHoursChange() {
     // Add your logic here for when the hours value changes
-    console.log(this.selectedHours);
     this.updateSelectedTime();
   }
 
@@ -72,6 +71,5 @@ export class CustomTimepickerComponent {
     const minutes = this.selectedMinutes;
     const time = hours + ' ' + minutes;
     this._timeService.time = time;
-    console.log(time);
   }
 }

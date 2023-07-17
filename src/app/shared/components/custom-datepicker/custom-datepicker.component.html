@@ -60,9 +60,7 @@
         #startDateInput
         readonly="readonly"
         class="date-range-input start-date-input"
-        [value]="
-          rangeForm.controls['end'].value | date : 'yyyy-MM-dd'
-        "
+        [value]="rangeForm.controls['end'].value | dateFormat"
       />
       <div class="date-range-separator">-</div>
       <input
@@ -71,9 +69,7 @@
         #endDateInput
         readonly="readonly"
         class="date-range-input end-date-input"
-        [value]="
-          rangeForm.controls['start'].value | date : 'yyyy-MM-dd'
-        "
+        [value]="rangeForm.controls['start'].value | dateFormat"
       />
     </mat-date-range-input>
     <mat-datepicker-toggle

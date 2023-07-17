@@ -6,15 +6,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatepickerService } from './datepicker.service';
 import { CustomTimepickerComponent } from './components/custom-timepicker/custom-timepicker.component';
 import { CommonModule } from '@angular/common';
+import { DateFormatPipe } from './pipes/dateFormat.pipe';
 
 @NgModule({
-  declarations: [COMPONENTS, CustomTimepickerComponent],
+  declarations: [
+    COMPONENTS,
+    CustomTimepickerComponent,
+    DateFormatPipe,
+  ],
   exports: [
     CommonModule,
     COMPONENTS,
     COMPONENTS_MATERIALS,
     FlexLayoutModule,
     BrowserAnimationsModule,
+    DateFormatPipe,
   ],
   imports: [
     CommonModule,

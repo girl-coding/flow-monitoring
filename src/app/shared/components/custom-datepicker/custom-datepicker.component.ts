@@ -58,6 +58,8 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   showInputs = true;
   // selectedDate: string | null = null;
   selectedDate: Date | null = null;
+  formattedDate: string | null = null;
+
   private subscription: Subscription | null = null;
   openDatepicker(): void {
     this.showInputs = false;
@@ -98,14 +100,32 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const now = new Date();
+
     this.selectedDate = now;
     this._datepickerService.selectedDate = now.toISOString();
+
+    this.updateFormattedDate();
 
     this.subscription = this._datepickerService
       .onSelectedDateChange()
       .subscribe((date: string | null) => {
         this.selectedDate = date ? new Date(date) : this.selectedDate;
+        this.updateFormattedDate();
+        this._datepickerService.formattedDate = this.formattedDate;
       });
+  }
+  //make the input field of header  format dd//MM/YYYY
+  updateFormattedDate(): void {
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
+    this.formattedDate = this.selectedDate
+      ? new Intl.DateTimeFormat('en-GB', options).format(
+          this.selectedDate,
+        )
+      : null;
   }
   updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
     const selectedDate = event.value;
@@ -113,6 +133,9 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
       ? selectedDate.toISOString()
       : null;
     this._datepickerService.selectedDate = dateString;
+
+    this.updateFormattedDate();
+    this._datepickerService.formattedDate = this.formattedDate;
   }
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();

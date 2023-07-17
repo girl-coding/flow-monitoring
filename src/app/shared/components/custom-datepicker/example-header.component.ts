@@ -4,7 +4,6 @@ import {
   Component,
   Inject,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import {
   DateAdapter,
@@ -23,8 +22,9 @@ import { TimeService } from '../../time.service';
   styleUrls: ['./example-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
+export class ExampleHeaderComponent<D> implements OnDestroy {
   private _destroyed = new Subject<void>();
+  formattedDate: string | null;
 
   selectedDate = new Date();
   time = '00 H 00 Min';
@@ -59,10 +59,28 @@ export class ExampleHeaderComponent<D> implements OnDestroy, OnInit {
         this.selectedDate = date ? new Date(date) : new Date();
         this._cdr.detectChanges();
       });
+    this.formattedDate = this.formatDate(new Date());
+
+    this._datepickerService
+      .onFormattedDateChange()
+      .subscribe((formattedDate) => {
+        this.formattedDate = formattedDate;
+        this._cdr.detectChanges();
+      });
   }
 
-  ngOnInit(): void {
-    this.selectedDate = new Date();
+  // ngOnInit(): void {
+  //   this.selectedDate = new Date();
+  //   this.formattedDate = this._datepickerService.formattedDate;
+  // }
+
+  formatDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
+    return new Intl.DateTimeFormat('en-GB', options).format(date);
   }
 
   showInputs = true;
