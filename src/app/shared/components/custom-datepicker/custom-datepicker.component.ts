@@ -61,9 +61,9 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     this.startDate = moment().toDate();
     this.endDate = moment(this.startDate).add(1, 'days').toDate();
 
-    this.rangeForm.patchValue({
-      end: this.startDate,
-      start: this.endDate,
+    this.rangeForm = this._fb.group({
+      end: [this.startDate],
+      start: [this.endDate],
     });
     this.selectedDate = new Date();
   }

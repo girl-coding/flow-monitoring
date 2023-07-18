@@ -14,6 +14,8 @@ import { MatCalendar } from '@angular/material/datepicker';
 import { Subject, takeUntil } from 'rxjs';
 import { DatepickerService } from '../../datepicker.service';
 import { TimeService } from '../../time.service';
+import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
+import { DateFormatEnum } from '../../constants/app-date-formats.const';
 
 /** Custom header component for datepicker. */
 @Component({
@@ -35,6 +37,7 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
     private _cdr: ChangeDetectorRef, // Add private access specifier
     private _datepickerService: DatepickerService,
     private _timeService: TimeService,
+    private _dateFormatPipe: DateFormatPipe,
   ) {
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
@@ -69,11 +72,6 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
       });
   }
 
-  // ngOnInit(): void {
-  //   this.selectedDate = new Date();
-  //   this.formattedDate = this._datepickerService.formattedDate;
-  // }
-
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
       day: '2-digit',
@@ -94,11 +92,13 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
   }
 
   get periodLabel() {
-    return this._dateAdapter
-      .format(
-        this._calendar.activeDate,
-        this._dateFormats.display.monthYearLabel,
-      )
+    const formattedDate = this._dateAdapter.format(
+      this._calendar.activeDate,
+      this._dateFormats.display.monthYearLabel,
+    );
+    // Use the DateFormatPipe to format the date string
+    return this._dateFormatPipe
+      .transform(formattedDate, DateFormatEnum.MEDIUM)
       .toLocaleUpperCase();
   }
 

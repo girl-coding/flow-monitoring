@@ -28,6 +28,6 @@ import { DateFormatPipe } from './pipes/dateFormat.pipe';
     BrowserAnimationsModule,
     COMPONENTS_MATERIALS,
   ],
-  providers: [DatepickerService],
+  providers: [DatepickerService, DateFormatPipe],
 })
 export class SharedModule {}
