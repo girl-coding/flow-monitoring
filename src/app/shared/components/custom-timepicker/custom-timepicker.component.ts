@@ -24,7 +24,7 @@ export class CustomTimepickerComponent {
 
   incrementHours() {
     const hours = moment(this.selectedHours, 'HH').add(1, 'hours');
-    this.selectedHours = hours.format('HH') + ' H';
+    this.selectedHours = hours.format('HH [H]');
     this.onHoursChange();
   }
 
@@ -33,7 +33,7 @@ export class CustomTimepickerComponent {
       1,
       'hours',
     );
-    this.selectedHours = hours.format('HH') + ' H';
+    this.selectedHours = hours.format('HH [H]');
     this.onHoursChange();
   }
 
@@ -42,7 +42,7 @@ export class CustomTimepickerComponent {
       1,
       'minutes',
     );
-    this.selectedMinutes = minutes.format('mm') + ' Min';
+    this.selectedMinutes = minutes.format('mm [Min]');
     this.onMinutesChange();
   }
 
@@ -50,7 +50,7 @@ export class CustomTimepickerComponent {
     const minutes = moment(this.selectedMinutes, 'mm')
       .subtract(1, 'minutes')
       .add(60, 'minutes');
-    this.selectedMinutes = minutes.format('mm') + ' Min';
+    this.selectedMinutes = minutes.format('mm [Min]');
     this.onMinutesChange();
   }
 
@@ -69,7 +69,8 @@ export class CustomTimepickerComponent {
   updateSelectedTime() {
     const hours = this.selectedHours;
     const minutes = this.selectedMinutes;
-    const time = hours + ' ' + minutes;
+
+    const time = `${hours} ${minutes}`;
     this._timeService.time = time;
   }
 }

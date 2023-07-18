@@ -12,15 +12,27 @@ import {
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
+  NativeDateAdapter,
 } from '@angular/material/core';
 import { DatepickerService } from 'src/app/shared/datepicker.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {
-  APP_DATE_FORMATS,
-  AppDateAdapter,
-} from '../../constants/app-date-formats.const';
+import { APP_DATE_FORMATS } from '../../constants/app-date-formats.const';
 import { ExampleHeaderComponent } from './example-header.component';
 import { Subscription } from 'rxjs';
+import * as moment from 'moment';
+
+export class AppDateAdapter extends NativeDateAdapter {
+  override format(
+    date: Date,
+    displayFormat: string | object,
+  ): string {
+    if (displayFormat === 'input') {
+      const formattedDate = moment(date).format('DD/MM/YYYY');
+      return formattedDate;
+    }
+    return moment(date).format('ddd MMM DD YYYY');
+  }
+}
 
 @Component({
   selector: 'app-custom-datepicker',
@@ -42,18 +54,18 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
   ) {
     this.rangeForm = this._fb.group({
-      start: [new Date()],
-      end: [new Date()],
+      start: [moment().toDate()],
+      end: [moment().toDate()],
     });
 
-    this.startDate = new Date();
-    this.endDate = new Date(this.startDate);
-    this.endDate.setDate(this.startDate.getDate() + 1);
+    this.startDate = moment().toDate();
+    this.endDate = moment(this.startDate).add(1, 'days').toDate();
 
     this.rangeForm.patchValue({
       end: this.startDate,
       start: this.endDate,
     });
+    this.selectedDate = new Date();
   }
   showInputs = true;
   // selectedDate: string | null = null;
@@ -67,15 +79,15 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     this.showInputs = false;
   }
 
-  formatDate(date: Date): string {
-    return (
-      date.getDate() +
-      '/' +
-      (date.getMonth() + 1) +
-      '/' +
-      date.getFullYear()
-    );
-  }
+  // formatDate(date: Date): string {
+  //   return (
+  //     date.getDate() +
+  //     '/' +
+  //     (date.getMonth() + 1) +
+  //     '/' +
+  //     date.getFullYear()
+  //   );
+  // }
 
   rangeForm: FormGroup;
   startDate!: Date;
@@ -97,15 +109,9 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     });
   }
 
-  single = true;
   exampleHeader = ExampleHeaderComponent;
 
   ngOnInit(): void {
-    const now = new Date();
-
-    this.selectedDate = now;
-    this._datepickerService.selectedDate = now.toISOString();
-
     this.updateFormattedDate();
 
     this.subscription = this._datepickerService
