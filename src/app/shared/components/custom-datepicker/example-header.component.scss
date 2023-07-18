@@ -5,20 +5,14 @@
         align-items: center;
       } */
 .example-header {
-  display: flex;
-  flex-direction: column;
   padding: 0.5em;
   font-size: 15px;
-  font-family: 'Helvetica Neue', sans-serif;
 }
 
 .example-date {
-  display: flex;
-  justify-content: space-between; /* Add this line */
   align-items: center;
   padding: 0.5em;
   font-size: 15px;
-  font-family: 'Helvetica Neue', sans-serif;
 }
 .date_applied {
   width: 100%;

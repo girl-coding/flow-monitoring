@@ -50,7 +50,7 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
 
     this._timeService.getTimeObservable().subscribe((time) => {
       this.time = time;
-      this._cdr.detectChanges(); // Trigger change detection
+      this._cdr.detectChanges(); // Trigger time change detection
     });
 
     this._datepickerService

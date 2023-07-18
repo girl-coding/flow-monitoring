@@ -9,6 +9,6 @@ export class DateFormatPipe
   implements PipeTransform
 {
   override transform(value: any): any {
-    return super.transform(value, 'yyyy-MM-dd');
+    return super.transform(value, 'dd/MM/yyyy');
   }
 }

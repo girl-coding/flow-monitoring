@@ -60,6 +60,8 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   selectedDate: Date | null = null;
   formattedDate: string | null = null;
 
+  originalDate: Date = new Date();
+
   private subscription: Subscription | null = null;
   openDatepicker(): void {
     this.showInputs = false;
@@ -127,7 +129,7 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
         )
       : null;
   }
-  updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
+  updateSelectedDate(event: MatDatepickerInputEvent<Date>): void {
     const selectedDate = event.value;
     const dateString = selectedDate
       ? selectedDate.toISOString()

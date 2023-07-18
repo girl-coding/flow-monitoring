@@ -1,5 +1,9 @@
 <div class="example-header">
-  <div class="example-date">
+  <div
+    class="example-date"
+    FxLayout="row"
+    fxLayoutAlign="start center"
+  >
     <button
       mat-icon-button
       class="example-double-arrow"
@@ -36,6 +40,6 @@
   </div>
   <div class="date_applied" *ngIf="showInputs">
     <input type="text" readonly [(ngModel)]="formattedDate" />
-    <input *ngIf="true" type="text" readonly [(ngModel)]="time" />
+    <input type="text" readonly [(ngModel)]="time" />
   </div>
 </div>

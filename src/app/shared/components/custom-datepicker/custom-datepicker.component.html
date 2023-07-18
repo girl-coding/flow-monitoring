@@ -19,10 +19,18 @@
       [calendarHeaderComponent]="exampleHeader"
     >
       <mat-datepicker-actions>
-        <div class="datepicker-footer">
+        <div
+          class="datepicker-footer"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
           <app-custom-timepicker></app-custom-timepicker>
 
-          <div class="datepicker-footer-actions">
+          <div
+            class="datepicker-footer-actions"
+            FxLayout="row"
+            fxLayoutAlign="space-between "
+          >
             <button
               mat-button
               matDatepickerCancel
@@ -85,10 +93,18 @@
       color="primary"
     >
       <mat-datepicker-actions>
-        <div class="datepicker-footer">
+        <div
+          class="datepicker-footer"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
           <app-custom-timepicker></app-custom-timepicker>
 
-          <div class="datepicker-footer-actions">
+          <div
+            class="datepicker-footer-actions"
+            FxLayout="row"
+            fxLayoutAlign="space-between"
+          >
             <button
               mat-button
               matDatepickerCancel
@@ -111,3 +127,6 @@
     </mat-date-range-picker>
   </mat-form-field>
 </div>
+
+<p>Original Date: {{ originalDate }}</p>
+<p>Formatted Date: {{ originalDate | dateFormat }}</p>

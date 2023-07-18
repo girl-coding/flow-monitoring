@@ -1,8 +1,3 @@
-.action-buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
 .cancel-button,
 .apply-button {
   flex: 1;
@@ -120,16 +115,10 @@ mat-date-range-input input {
 }
 
 .datepicker-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  align-items: center;
   width: 100%;
 }
 
 .datepicker-footer .datepicker-footer-actions {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
 }
 
