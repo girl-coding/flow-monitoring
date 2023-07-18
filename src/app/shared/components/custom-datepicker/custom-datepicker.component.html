@@ -4,8 +4,8 @@
     <input
       matInput
       [matDatepicker]="datepicker"
-      [(ngModel)]="selectedDate"
       (dateChange)="updateSelectedDate($event)"
+      [value]="pendingSelectedDate"
       readonly="readonly"
       class="datepicker-input"
     />
@@ -43,6 +43,7 @@
               color="primary"
               matDatepickerApply
               class="apply-button"
+              (click)="applyDateChange()"
             >
               Apply
             </button>

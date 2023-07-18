@@ -20,6 +20,7 @@ import { APP_DATE_FORMATS } from '../../constants/app-date-formats.const';
 import { ExampleHeaderComponent } from './example-header.component';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+import { TimeService } from '../../time.service';
 
 export class AppDateAdapter extends NativeDateAdapter {
   override format(
@@ -51,6 +52,7 @@ export class AppDateAdapter extends NativeDateAdapter {
 export class CustomDatepickerComponent implements OnInit, OnDestroy {
   constructor(
     private _datepickerService: DatepickerService,
+    private _timeService: TimeService,
     private _fb: FormBuilder,
   ) {
     this.rangeForm = this._fb.group({
@@ -66,6 +68,7 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
       start: [this.endDate],
     });
     this.selectedDate = new Date();
+    this.pendingSelectedDate = new Date();
   }
   showInputs = true;
   // selectedDate: string | null = null;
@@ -78,16 +81,6 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   openDatepicker(): void {
     this.showInputs = false;
   }
-
-  // formatDate(date: Date): string {
-  //   return (
-  //     date.getDate() +
-  //     '/' +
-  //     (date.getMonth() + 1) +
-  //     '/' +
-  //     date.getFullYear()
-  //   );
-  // }
 
   rangeForm: FormGroup;
   startDate!: Date;
@@ -135,16 +128,29 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
         )
       : null;
   }
+  pendingSelectedDate: Date | null = null;
+
   updateSelectedDate(event: MatDatepickerInputEvent<Date>): void {
     const selectedDate = event.value;
-    const dateString = selectedDate
-      ? selectedDate.toISOString()
-      : null;
-    this._datepickerService.selectedDate = dateString;
+    // const dateString = selectedDate
+    //   ? selectedDate.toISOString()
+    //   : null;
+    // this._datepickerService.selectedDate = dateString;
+
+    this.pendingSelectedDate = selectedDate;
 
     this.updateFormattedDate();
     this._datepickerService.formattedDate = this.formattedDate;
   }
+
+  applyDateChange(): void {
+    const dateString = this.pendingSelectedDate
+      ? this.pendingSelectedDate.toISOString()
+      : null;
+    this._datepickerService.selectedDate = dateString;
+    this.selectedDate = this.pendingSelectedDate;
+  }
+
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
