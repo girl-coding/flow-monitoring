@@ -16,6 +16,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -52,15 +53,17 @@ export class SideNavComponent {
   constructor(
     private readonly _location: Location,
     private readonly _storageService: StorageService,
+    private readonly _router: Router,
   ) {}
 
   /**
    * So we can hover the active tab
    */
   isTabActive(tab: TabInterface): boolean {
-    const tabUrl = tab?.url ?? tab.name;
     const currentUrl = this._location.path();
-    return currentUrl.startsWith(`/${tabUrl}`);
+    return currentUrl.startsWith(
+      `/${normalizeName(tab?.url ?? tab.name)}`,
+    );
   }
 
   toggleSideNavWidth(): void {
@@ -69,5 +72,9 @@ export class SideNavComponent {
         ? SideNavWidthEnum.SMALL
         : SideNavWidthEnum.LARGE,
     );
+  }
+
+  navigateToRoute(tab: TabInterface): void {
+    this._router.navigateByUrl(normalizeName(tab?.url ?? tab.name));
   }
 }

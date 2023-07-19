@@ -32,6 +32,7 @@
           fxLayout="row"
           class="side-nav-tab clickable"
           [ngClass]="{ 'selected-tab': isTabActive(tab) }"
+          (click)="navigateToRoute(tab)"
         >
           <mat-icon
             aria-hidden="false"
