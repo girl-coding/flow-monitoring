@@ -6,6 +6,7 @@ import {
 } from '@angular/router';
 import { RootRoutesEnum } from './core';
 import { HomeModule } from './modules/home/home.module';
+import { ChartsModule } from './modules/charts/charts.module';
 
 const routes: Routes = [
   {
@@ -17,6 +18,13 @@ const routes: Routes = [
           import(
             `./modules/${RootRoutesEnum.HOME}/${RootRoutesEnum.HOME}.module`
           ).then(() => HomeModule),
+      },
+      {
+        path: RootRoutesEnum.CHARTS,
+        loadChildren: () =>
+          import(
+            `./modules/${RootRoutesEnum.CHARTS}/${RootRoutesEnum.CHARTS}.module`
+          ).then(() => ChartsModule),
       },
       {
         path: '',
