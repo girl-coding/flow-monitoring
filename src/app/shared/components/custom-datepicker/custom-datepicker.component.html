@@ -61,7 +61,6 @@
       [rangePicker]="picker"
       [formGroup]="rangeForm"
       class="daterange-input-group"
-      (click)="openDatepicker()"
       FxLayout="row"
       fxLayoutAlign="space-between "
     >
@@ -92,6 +91,8 @@
     <mat-date-range-picker
       #picker
       (dateChange)="updateDateRange()"
+      (opened)="hideHeaderInputs()"
+      (closed)="showHeaderInputs()"
       [calendarHeaderComponent]="exampleHeader"
       color="primary"
     >

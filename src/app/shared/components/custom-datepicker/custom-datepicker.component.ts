@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -50,10 +51,13 @@ export class AppDateAdapter extends NativeDateAdapter {
   ],
 })
 export class CustomDatepickerComponent implements OnInit, OnDestroy {
+  selectedTime: Date | null = null;
+  combinedDateTime = '';
   constructor(
     private _datepickerService: DatepickerService,
     private _timeService: TimeService,
     private _fb: FormBuilder,
+    private _cdr: ChangeDetectorRef,
   ) {
     this.rangeForm = this._fb.group({
       start: [moment().toDate()],
@@ -70,7 +74,6 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     this.selectedDate = new Date();
     this.pendingSelectedDate = new Date();
   }
-  showInputs = true;
   // selectedDate: string | null = null;
   selectedDate: Date | null = null;
   formattedDate: string | null = null;
@@ -78,14 +81,19 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   originalDate: Date = new Date();
 
   private subscription: Subscription | null = null;
-  openDatepicker(): void {
-    this.showInputs = false;
-  }
 
   rangeForm: FormGroup;
   startDate!: Date;
   endDate!: Date;
+  showHeaderInputs() {
+    console.log('showing inputs');
+    this._datepickerService.setShowInputs(true);
+  }
 
+  hideHeaderInputs() {
+    console.log('hiding inputs');
+    this._datepickerService.setShowInputs(false);
+  }
   onDateChange(event: MatDatepickerInputEvent<DateRange<Date>>) {
     if (event.value?.start && event.value.end) {
       this.rangeForm.setValue({

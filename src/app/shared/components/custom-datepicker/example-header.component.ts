@@ -11,7 +11,7 @@ import {
   MatDateFormats,
 } from '@angular/material/core';
 import { MatCalendar } from '@angular/material/datepicker';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, Subscription } from 'rxjs';
 import { DatepickerService } from '../../datepicker.service';
 import { TimeService } from '../../time.service';
 import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
@@ -30,6 +30,9 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
 
   selectedDate = new Date();
   time = '00 H 00 Min';
+  private _subscriptions: Subscription[] = [];
+  public _isInputs: boolean;
+
   constructor(
     private _calendar: MatCalendar<D>,
     private _dateAdapter: DateAdapter<D>,
@@ -70,6 +73,12 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
         this.formattedDate = formattedDate;
         this._cdr.detectChanges();
       });
+    this._isInputs = false;
+    this._subscriptions.push(
+      this._datepickerService.getShowInputs().subscribe((value) => {
+        this._isInputs = value;
+      }),
+    );
   }
 
   formatDate(date: Date): string {
@@ -81,14 +90,10 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
     return new Intl.DateTimeFormat('en-GB', options).format(date);
   }
 
-  showInputs = true;
-
-  openDatepicker(): void {
-    this.showInputs = false;
-  }
   ngOnDestroy() {
     this._destroyed.next();
     this._destroyed.complete();
+    this._subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   get periodLabel() {

@@ -38,7 +38,7 @@
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
   </div>
-  <div class="date_applied" *ngIf="showInputs">
+  <div class="date_applied" *ngIf="_isInputs">
     <input type="text" readonly [(ngModel)]="formattedDate" />
     <input type="text" readonly [(ngModel)]="time" />
   </div>
