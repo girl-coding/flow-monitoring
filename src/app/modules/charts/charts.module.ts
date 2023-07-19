@@ -4,9 +4,10 @@ import { ChartsComponent } from './charts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ChartsRoutingModule } from './charts-routing.module';
 import { COMPONENTS_MATERIALS } from './components-materials.const';
+import { BasicBarComponent } from './basic-bar/basic-bar.component';
 
 @NgModule({
-  declarations: [ChartsComponent],
+  declarations: [ChartsComponent, BasicBarComponent],
   imports: [
     ChartsRoutingModule,
     SharedModule,
