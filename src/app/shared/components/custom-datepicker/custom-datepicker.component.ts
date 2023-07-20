@@ -85,15 +85,7 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   rangeForm: FormGroup;
   startDate!: Date;
   endDate!: Date;
-  showHeaderInputs() {
-    console.log('showing inputs');
-    this._datepickerService.setShowInputs(true);
-  }
 
-  hideHeaderInputs() {
-    console.log('hiding inputs');
-    this._datepickerService.setShowInputs(false);
-  }
   onDateChange(event: MatDatepickerInputEvent<DateRange<Date>>) {
     if (event.value?.start && event.value.end) {
       this.rangeForm.setValue({

@@ -70,7 +70,7 @@
         #startDateInput
         readonly="readonly"
         class="date-range-input start-date-input"
-        [value]="rangeForm.controls['end'].value | dateFormat"
+        [value]="rangeForm.controls['end'].value"
       />
       <div class="date-range-separator">-</div>
       <input
@@ -79,7 +79,7 @@
         #endDateInput
         readonly="readonly"
         class="date-range-input end-date-input"
-        [value]="rangeForm.controls['start'].value | dateFormat"
+        [value]="rangeForm.controls['start'].value"
       />
     </mat-date-range-input>
     <mat-datepicker-toggle
@@ -91,8 +91,6 @@
     <mat-date-range-picker
       #picker
       (dateChange)="updateDateRange()"
-      (opened)="hideHeaderInputs()"
-      (closed)="showHeaderInputs()"
       [calendarHeaderComponent]="exampleHeader"
       color="primary"
     >
@@ -131,6 +129,8 @@
     </mat-date-range-picker>
   </mat-form-field>
 </div>
+
+<!-- to check if dateFormat pipe is working -->
 
 <p>Original Date: {{ originalDate }}</p>
 <p>Formatted Date: {{ originalDate | dateFormat }}</p>

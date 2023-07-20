@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -36,16 +36,5 @@ export class DatepickerService {
 
   onFormattedDateChange(): Observable<string | null> {
     return this._formattedDateSubject.asObservable();
-  }
-
-  private _isInputs: BehaviorSubject<boolean> = new BehaviorSubject(
-    true,
-  );
-  getShowInputs(): Observable<boolean> {
-    return this._isInputs.asObservable();
-  }
-
-  setShowInputs(value: boolean): void {
-    this._isInputs.next(value);
   }
 }

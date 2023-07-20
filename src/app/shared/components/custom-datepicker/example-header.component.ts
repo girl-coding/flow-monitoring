@@ -31,7 +31,6 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
   selectedDate = new Date();
   time = '00 H 00 Min';
   private _subscriptions: Subscription[] = [];
-  public _isInputs: boolean;
 
   constructor(
     private _calendar: MatCalendar<D>,
@@ -73,12 +72,6 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
         this.formattedDate = formattedDate;
         this._cdr.detectChanges();
       });
-    this._isInputs = false;
-    this._subscriptions.push(
-      this._datepickerService.getShowInputs().subscribe((value) => {
-        this._isInputs = value;
-      }),
-    );
   }
 
   formatDate(date: Date): string {
