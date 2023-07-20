@@ -19,7 +19,7 @@
   fxLayout="row"
   fxLayoutAlign="center"
   fxLayoutGap="2%"
-  class="home-header-container"
+  class="wrapper-container"
   [@collapseAnimation]="
     isChartsContainerExpanded ? 'expanded' : 'collapsed'
   "
@@ -27,11 +27,16 @@
   <mat-card class="secondary">
     <app-basic-bar></app-basic-bar>
   </mat-card>
+
   <mat-card class="secondary">
-    <app-basic-bar></app-basic-bar> </mat-card
-  ><mat-card class="secondary">
-    <app-basic-bar></app-basic-bar> </mat-card
-  ><mat-card class="secondary">
+    <app-line></app-line>
+  </mat-card>
+
+  <mat-card class="secondary">
     <app-basic-bar></app-basic-bar>
+  </mat-card>
+
+  <mat-card class="secondary">
+    <app-line></app-line>
   </mat-card>
 </div>

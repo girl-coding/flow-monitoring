@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
+import { CHART_HEIGHT } from '../../constants/dimension.const';
 
 @Component({
   selector: 'app-basic-bar',
@@ -52,7 +53,7 @@ export class BasicBarComponent implements AfterViewInit {
   renderChart() {
     const options: ApexCharts.ApexOptions = {
       chart: {
-        height: 280,
+        height: CHART_HEIGHT,
         type: 'area',
       },
       dataLabels: {
