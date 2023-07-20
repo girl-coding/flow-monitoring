@@ -14,5 +14,6 @@ import { BasicBarComponent } from './basic-bar/basic-bar.component';
     CommonModule,
     COMPONENTS_MATERIALS,
   ],
+  exports: [BasicBarComponent],
 })
 export class ChartsModule {}

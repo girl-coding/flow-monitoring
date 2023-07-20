@@ -318,7 +318,9 @@ $darkTheme: (
   body {
     background-color: $light-background;
   }
-  div {
+  div,
+  text {
+    fill: $dark-text;
     color: $dark-text;
   }
   @include mat.all-component-themes($theme);
@@ -337,7 +339,9 @@ $darkTheme: (
   body {
     background-color: $dark-background;
   }
-  div {
+  div,
+  text {
+    fill: $light-text;
     color: $light-text;
   }
   @include mat.all-component-themes($darkTheme);

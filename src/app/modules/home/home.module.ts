@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeHeaderComponent } from './home-header/home-header.component';
 import { HomeContentComponent } from './home-content/home-content.component';
 import { CommonModule } from '@angular/common';
+import { ChartsModule } from '../charts/charts.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
     SharedModule,
     CommonModule,
     COMPONENTS_MATERIALS,
+    ChartsModule,
   ],
 })
 export class HomeModule {}

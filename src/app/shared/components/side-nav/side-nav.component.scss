@@ -65,6 +65,11 @@ $activated-button: #d5d5d5;
         }
       }
 
+      .side-nav-tab:hover {
+        background: $activated-button;
+        color: rgba(0, 0, 0, 0.718);
+      }
+
       .selected-tab {
         background: $activated-button;
         color: black;
