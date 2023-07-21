@@ -9,6 +9,7 @@ import { LineComponent } from './components/line/line.component';
 import { PolarAreaComponent } from './components/polar-area/polar-area.component';
 import { SharedChartComponent } from './components/shared-chart.component';
 import { RadialBarComponent } from './components/radial-bar/radial-bar.component';
+import { ChartsHeaderComponent } from './components/charts-header/charts-header.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RadialBarComponent } from './components/radial-bar/radial-bar.component
     PolarAreaComponent,
     SharedChartComponent,
     RadialBarComponent,
+    ChartsHeaderComponent,
   ],
   imports: [
     ChartsRoutingModule,
@@ -25,11 +27,6 @@ import { RadialBarComponent } from './components/radial-bar/radial-bar.component
     CommonModule,
     COMPONENTS_MATERIALS,
   ],
-  exports: [
-    BasicBarComponent,
-    LineComponent,
-    PolarAreaComponent,
-    RadialBarComponent,
-  ],
+  exports: [ChartsHeaderComponent],
 })
 export class ChartsModule {}

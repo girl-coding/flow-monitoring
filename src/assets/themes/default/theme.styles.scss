@@ -319,6 +319,7 @@ $darkTheme: (
     background-color: $light-background;
   }
   div,
+  span,
   text {
     fill: $dark-text;
     color: $dark-text;
@@ -340,9 +341,10 @@ $darkTheme: (
     background-color: $dark-background;
   }
   div,
+  span,
   text {
     fill: $light-text;
-    color: $light-text;
+    color: $light-text !important;
   }
   @include mat.all-component-themes($darkTheme);
 }

@@ -23,7 +23,7 @@ export class RadialBarComponent extends SharedChartComponent {
         height: CHART_HEIGHT,
         type: 'radialBar',
         animations: {
-          easing: 'linear',
+          speed: 100,
         },
       },
 

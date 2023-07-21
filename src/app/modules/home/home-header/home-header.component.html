@@ -3,7 +3,7 @@
   fxLayoutAlign="space-between center"
   class="home-header"
 >
-  <h3 class="card-title">Recent Charts</h3>
+  <h3 class="card-title">Highlights</h3>
   <mat-divider fxFlex></mat-divider>
   <mat-icon
     class="clickable"
@@ -15,28 +15,11 @@
     }}</mat-icon
   >
 </div>
+
 <div
-  fxLayout="row"
-  fxLayoutAlign="center"
-  fxLayoutGap="2%"
-  class="wrapper-container"
   [@collapseAnimation]="
     isChartsContainerExpanded ? 'expanded' : 'collapsed'
   "
 >
-  <mat-card class="secondary">
-    <app-basic-bar></app-basic-bar>
-  </mat-card>
-
-  <mat-card class="secondary">
-    <app-line></app-line>
-  </mat-card>
-
-  <mat-card class="secondary">
-    <app-polar-area></app-polar-area>
-  </mat-card>
-
-  <mat-card class="secondary">
-    <app-radial-bar></app-radial-bar>
-  </mat-card>
+  <app-charts-header></app-charts-header>
 </div>
