@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CHART_HEIGHT } from '../../constants/dimension.const';
 import { SharedChartComponent } from '../shared-chart.component';
 
@@ -7,14 +7,11 @@ import { SharedChartComponent } from '../shared-chart.component';
   templateUrl: './radial-bar.component.html',
   styleUrls: ['./radial-bar.component.scss'],
 })
-export class RadialBarComponent extends SharedChartComponent {
-  @Input() chartTitle = '';
-  @Input() labels: string[];
-  @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries;
-
-  constructor() {
-    super();
-
+export class RadialBarComponent
+  extends SharedChartComponent
+  implements OnInit
+{
+  ngOnInit() {
     this.series = [90, 85, 92, 83];
     this.labels = ['Apples', 'Oranges', 'Bananas', 'Berries'];
 
@@ -50,6 +47,9 @@ export class RadialBarComponent extends SharedChartComponent {
       },
       labels: this.labels,
       series: this.series,
+      title: {
+        text: this.chartTitle,
+      },
     };
   }
 }

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   ViewChild,
 } from '@angular/core';
 import * as ApexCharts from 'apexcharts';
@@ -12,6 +13,13 @@ import * as ApexCharts from 'apexcharts';
 export class SharedChartComponent implements AfterViewInit {
   @ViewChild('chartElement', { static: false })
   chartElementRef!: ElementRef;
+
+  @Input() chartTitle = '';
+  @Input() xAxis?: ApexXAxis;
+  @Input() yAxis?: ApexYAxis | ApexYAxis[];
+  @Input() series?: ApexAxisChartSeries | ApexNonAxisChartSeries;
+  @Input() isAnnotationsLine?: boolean;
+  @Input() labels?: string[];
 
   protected chartOptions!: ApexCharts.ApexOptions;
   private _chart!: ApexCharts;

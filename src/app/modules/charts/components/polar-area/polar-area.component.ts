@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CHART_HEIGHT } from '../../constants/dimension.const';
 import { SharedChartComponent } from '../shared-chart.component';
 
@@ -7,13 +7,11 @@ import { SharedChartComponent } from '../shared-chart.component';
   templateUrl: './polar-area.component.html',
   styleUrls: ['./polar-area.component.scss'],
 })
-export class PolarAreaComponent extends SharedChartComponent {
-  @Input() chartTitle = '';
-  @Input() series: ApexAxisChartSeries | ApexNonAxisChartSeries;
-
-  constructor() {
-    super();
-
+export class PolarAreaComponent
+  extends SharedChartComponent
+  implements OnInit
+{
+  ngOnInit() {
     this.series = [14, 23, 21, 17, 15, 10, 12, 17, 21];
 
     this.chartOptions = {

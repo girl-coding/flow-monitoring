@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CHART_HEIGHT } from '../../constants/dimension.const';
 import { SharedChartComponent } from '../shared-chart.component';
 
@@ -7,14 +7,11 @@ import { SharedChartComponent } from '../shared-chart.component';
   templateUrl: './basic-bar.component.html',
   styleUrls: ['./basic-bar.component.scss'],
 })
-export class BasicBarComponent extends SharedChartComponent {
-  @Input() chartTitle = '';
-  @Input() xAxis: ApexXAxis;
-  @Input() series: ApexAxisChartSeries;
-
-  constructor() {
-    super();
-
+export class BasicBarComponent
+  extends SharedChartComponent
+  implements OnInit
+{
+  ngOnInit() {
     this.series = [
       {
         name: 'Series 1',

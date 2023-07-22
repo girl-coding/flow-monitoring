@@ -8,3 +8,12 @@
 .header-container {
   margin-bottom: 35px;
 }
+
+.wrapper-container {
+  row-gap: 25px;
+  .card-container {
+    width: 31% !important;
+    margin-right: 1%;
+    margin-left: 1%;
+  }
+}

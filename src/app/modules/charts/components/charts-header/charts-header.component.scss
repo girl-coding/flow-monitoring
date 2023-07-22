@@ -1,44 +1,36 @@
 @import '../../charts.component.scss';
 
-.content-area {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.box {
-  height: 100%;
-  width: 100%;
-  padding: 25px 20px;
-  background-size: cover;
-}
-
-.shadow {
-  box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
-}
-
 .sparkboxes {
   padding: 0;
-}
+  margin-left: 1%;
+  margin-right: 1%;
+  width: 23%;
 
-.sparkboxes .box {
-  box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
-  font-family: Montserrat, Arial, sans-serif !important;
-}
+  .box {
+    height: 100%;
+    width: 100%;
+    padding: 25px 20px;
+    background-size: cover;
 
-.sparkboxes .box .details {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  color: #fff;
-  text-shadow: 1px 1px #b5b5b5;
-  width: 30%;
+    box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    font-family: Montserrat, Arial, sans-serif !important;
 
-  p {
-    margin: 0 0 6px;
-    font-size: 18px;
-    font-weight: bolder;
-    text-align: start;
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      color: #fff;
+      text-shadow: 1px 1px #b5b5b5;
+      width: 30%;
+
+      p {
+        margin: 0 0 6px;
+        font-size: 18px;
+        font-weight: bolder;
+        text-align: start;
+      }
+    }
   }
 }
 
