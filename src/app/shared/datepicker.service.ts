@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { DateRange } from '@angular/material/datepicker';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +37,14 @@ export class DatepickerService {
 
   onFormattedDateChange(): Observable<string | null> {
     return this._formattedDateSubject.asObservable();
+  }
+
+  //show input for date range picker
+
+  private _isRangePickerSource = new BehaviorSubject<boolean>(false);
+  isRangePicker$ = this._isRangePickerSource.asObservable();
+
+  setRangePicker(isRangePicker: boolean) {
+    this._isRangePickerSource.next(isRangePicker);
   }
 }

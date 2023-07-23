@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <div class="example-header">
   <div
     class="example-date"
@@ -38,8 +39,37 @@
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
   </div>
-  <div class="date_applied">
-    <input type="text" readonly [(ngModel)]="formattedDate" />
-    <input type="text" readonly [(ngModel)]="time" />
+  <div class="extend-width" style="display: flex; gap: 50px">
+    <div class="date_applied" *ngIf="shouldShowDateApplied()">
+      <div>
+        <label>{{ formattedDate }}</label>
+      </div>
+      <div>
+        <span *ngIf="isShowTime">{{ time }}</span>
+      </div>
+    </div>
+    <div class="date_applied" *ngIf="shouldShowDateRangeApplied()">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          margin-left: -90px;
+        "
+      >
+        <label>{{ formattedDate }}</label>
+        <span *ngIf="isShowTime">{{ time }}</span>
+      </div>
+    </div>
+    <div
+      class="daterange_applied"
+      *ngIf="shouldShowDateRangeApplied()"
+    >
+      <label style="display: block">{{ formattedDate }}</label>
+      <span
+        *ngIf="isShowTime"
+        style="display: block; white-space: nowrap"
+        >{{ time }}</span
+      >
+    </div>
   </div>
 </div>

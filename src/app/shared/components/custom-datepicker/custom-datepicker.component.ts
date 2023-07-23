@@ -52,18 +52,14 @@ export class AppDateAdapter extends NativeDateAdapter {
 })
 export class CustomDatepickerComponent implements OnInit, OnDestroy {
   selectedTime: Date | null = null;
-  combinedDateTime = '';
+  isShowTime!: boolean;
+
   constructor(
     private _datepickerService: DatepickerService,
     private _timeService: TimeService,
     private _fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
   ) {
-    this.rangeForm = this._fb.group({
-      start: [moment().toDate()],
-      end: [moment().toDate()],
-    });
-
     this.startDate = moment().toDate();
     this.endDate = moment(this.startDate).add(1, 'days').toDate();
 
@@ -73,7 +69,12 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     });
     this.selectedDate = new Date();
     this.pendingSelectedDate = new Date();
+    this._timeService.isShowTime$.subscribe((value) => {
+      this.isShowTime = value;
+    });
+    this.isShowTime = this._timeService.getIsShowTime();
   }
+
   // selectedDate: string | null = null;
   selectedDate: Date | null = null;
   formattedDate: string | null = null;
@@ -86,6 +87,15 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   startDate!: Date;
   endDate!: Date;
 
+  openRangePicker() {
+    this._datepickerService.setRangePicker(true);
+    // Open range picker here
+  }
+
+  openDatePicker() {
+    this._datepickerService.setRangePicker(false);
+    // Open date picker here
+  }
   onDateChange(event: MatDatepickerInputEvent<DateRange<Date>>) {
     if (event.value?.start && event.value.end) {
       this.rangeForm.setValue({
@@ -94,7 +104,6 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
       });
     }
   }
-
   updateDateRange() {
     this.rangeForm.patchValue({
       startDate: this.startDate,

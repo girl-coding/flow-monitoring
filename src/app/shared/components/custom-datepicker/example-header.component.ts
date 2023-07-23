@@ -4,6 +4,7 @@ import {
   Component,
   Inject,
   OnDestroy,
+  ElementRef,
 } from '@angular/core';
 import {
   DateAdapter,
@@ -31,6 +32,8 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
   selectedDate = new Date();
   time = '00 H 00 Min';
   private _subscriptions: Subscription[] = [];
+  isShowTime!: boolean;
+  isRangePicker = false;
 
   constructor(
     private _calendar: MatCalendar<D>,
@@ -40,6 +43,7 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
     private _datepickerService: DatepickerService,
     private _timeService: TimeService,
     private _dateFormatPipe: DateFormatPipe,
+    private _elementRef: ElementRef,
   ) {
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
@@ -72,6 +76,23 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
         this.formattedDate = formattedDate;
         this._cdr.detectChanges();
       });
+    this._timeService.isShowTime$.subscribe((value) => {
+      this.isShowTime = value;
+    });
+    this.isShowTime = this._timeService.getIsShowTime();
+
+    this._datepickerService.isRangePicker$.subscribe(
+      (isRangePicker) => {
+        this.isRangePicker = isRangePicker;
+      },
+    );
+  }
+
+  shouldShowDateRangeApplied(): boolean {
+    return this.isRangePicker;
+  }
+  shouldShowDateApplied(): boolean {
+    return !this.isRangePicker;
   }
 
   formatDate(date: Date): string {

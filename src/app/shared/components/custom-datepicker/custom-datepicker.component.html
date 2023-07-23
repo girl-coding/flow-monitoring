@@ -13,6 +13,7 @@
       matSuffix
       [for]="datepicker"
       class="datepicker-toggle"
+      (click)="openDatePicker()"
     ></mat-datepicker-toggle>
     <mat-datepicker
       #datepicker
@@ -24,7 +25,9 @@
           fxLayout="column"
           fxLayoutAlign="center center"
         >
-          <app-custom-timepicker></app-custom-timepicker>
+          <app-custom-timepicker
+            *ngIf="isShowTime"
+          ></app-custom-timepicker>
 
           <div
             class="datepicker-footer-actions"
@@ -86,11 +89,12 @@
       matSuffix
       [for]="picker"
       class="datepicker-toggle"
+      (click)="openRangePicker()"
     ></mat-datepicker-toggle>
 
     <mat-date-range-picker
       #picker
-      (dateChange)="updateDateRange()"
+      (dateRangeChange)="updateDateRange()"
       [calendarHeaderComponent]="exampleHeader"
       color="primary"
     >
@@ -100,7 +104,19 @@
           fxLayout="column"
           fxLayoutAlign="center center"
         >
-          <app-custom-timepicker></app-custom-timepicker>
+          <div
+            class="time-picker-container"
+            style="display: flex; gap: 50px"
+          >
+            <div>
+              <p>Start Time:</p>
+              <app-custom-timepicker></app-custom-timepicker>
+            </div>
+            <div>
+              <p>End Time:</p>
+              <app-custom-timepicker></app-custom-timepicker>
+            </div>
+          </div>
 
           <div
             class="datepicker-footer-actions"

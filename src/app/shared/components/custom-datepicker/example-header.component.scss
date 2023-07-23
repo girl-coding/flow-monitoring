@@ -17,24 +17,24 @@
 .date_applied {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 15px;
   padding: 0 10px;
 }
 
-.date_applied input {
-  width: 80%;
+// .date_applied input {
+//   width: 80%;
 
-  padding: 5px;
-}
+//   padding: 5px;
+// }
 
-.date_applied input:first-child {
-  flex: 2;
-}
+// .date_applied input:first-child {
+//   flex: 2;
+// }
 
-.date_applied input:nth-child(2) {
-  flex: 1;
-}
+// .date_applied input:nth-child(2) {
+//   flex: 1;
+// }
 
 .example-header-label {
   flex: 1;
