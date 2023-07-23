@@ -7,7 +7,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 export class TimeService {
   private _isShowTimeSubject = new BehaviorSubject<boolean>(false);
   public isShowTime$ = this._isShowTimeSubject.asObservable();
-  isShowTime = false;
+  isShowTime = true;
 
   setIsShowTime(value: boolean) {
     this._isShowTimeSubject.next(value);

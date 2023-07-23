@@ -2,8 +2,8 @@
 .apply-button {
   flex: 1;
   text-align: center;
-  font-size: 16px; // Adjust as needed
-  padding: 5px 10px; // Adjust as needed
+  font-size: 18px; // Adjust as needed
+  padding: 8px 10px; // Adjust as needed
   box-sizing: border-box;
   margin-top: 10px;
   border-radius: 5px;
@@ -80,16 +80,6 @@ mat-date-range-input input {
   right: 48%;
   margin-right: 200px;
 }
-
-/* Remove the underline */
-// .mat-form-field-underline {
-//   display: none;
-// }
-
-/* Remove the ripple */
-// .mat-form-field-ripple {
-//   display: none;
-// }
 
 /* Move the datepicker toggle icon to the left of the input */
 ::ng-deep .mat-form-field {

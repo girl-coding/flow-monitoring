@@ -53,6 +53,7 @@ export class AppDateAdapter extends NativeDateAdapter {
 export class CustomDatepickerComponent implements OnInit, OnDestroy {
   selectedTime: Date | null = null;
   isShowTime!: boolean;
+  isDatePicker = true;
 
   constructor(
     private _datepickerService: DatepickerService,

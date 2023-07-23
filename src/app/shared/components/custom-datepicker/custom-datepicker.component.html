@@ -1,5 +1,4 @@
-<h2>Datepicker Output</h2>
-<div class="format">
+<div class="format" *ngIf="isDatePicker">
   <mat-form-field>
     <input
       matInput
@@ -60,7 +59,6 @@
   </mat-form-field>
 </div>
 
-<h2>Date Range Picker Output</h2>
 <div class="format">
   <mat-form-field>
     <mat-date-range-input
@@ -148,8 +146,3 @@
     </mat-date-range-picker>
   </mat-form-field>
 </div>
-
-<!-- to check if dateFormat pipe is working -->
-
-<p>Original Date: {{ originalDate }}</p>
-<p>Formatted Date: {{ originalDate | dateFormat }}</p>
