@@ -107,24 +107,20 @@
           fxLayout="column"
           fxLayoutAlign="center center"
         >
-          <div
-            class="time-picker-container"
-            style="display: flex; gap: 50px"
-          >
-            <div>
+          <div class="time-picker-container" *ngIf="isShowTime">
+            <div class="time-picker-item">
               <p>Start Time:</p>
               <app-custom-timepicker
                 (timeChange)="updateStartTime($event)"
               ></app-custom-timepicker>
             </div>
-            <div>
+            <div class="time-picker-item">
               <p>End Time:</p>
               <app-custom-timepicker
                 (timeChange)="updateEndTime($event)"
               ></app-custom-timepicker>
             </div>
           </div>
-
           <div
             class="datepicker-footer-actions"
             FxLayout="row"
