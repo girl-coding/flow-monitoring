@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DateRange } from '@angular/material/datepicker';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -46,5 +45,35 @@ export class DatepickerService {
 
   setRangePicker(isRangePicker: boolean) {
     this._isRangePickerSource.next(isRangePicker);
+  }
+  private _selectedDateRange: {
+    start: string | null;
+    end: string | null;
+  } | null = null;
+  private _dateRangeSubject = new Subject<{
+    start: string | null;
+    end: string | null;
+  } | null>();
+
+  get selectedDateRange(): {
+    start: string | null;
+    end: string | null;
+  } | null {
+    return this._selectedDateRange;
+  }
+
+  set selectedDateRange(
+    value: { start: string | null; end: string | null } | null,
+  ) {
+    console.log('Setting selectedDateRange', value);
+    this._selectedDateRange = value;
+    this._dateRangeSubject.next(value);
+  }
+
+  onSelectedDateRangeChange(): Observable<{
+    start: string | null;
+    end: string | null;
+  } | null> {
+    return this._dateRangeSubject.asObservable();
   }
 }

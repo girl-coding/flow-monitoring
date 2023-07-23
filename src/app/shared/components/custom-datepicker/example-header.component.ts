@@ -4,7 +4,7 @@ import {
   Component,
   Inject,
   OnDestroy,
-  ElementRef,
+  OnInit,
 } from '@angular/core';
 import {
   DateAdapter,
@@ -25,7 +25,7 @@ import { DateFormatEnum } from '../../constants/app-date-formats.const';
   styleUrls: ['./example-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExampleHeaderComponent<D> implements OnDestroy {
+export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
   private _destroyed = new Subject<void>();
   formattedDate: string | null;
 
@@ -34,6 +34,8 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
   private _subscriptions: Subscription[] = [];
   isShowTime!: boolean;
   isRangePicker = false;
+  startTime!: string;
+  endTime!: string;
 
   constructor(
     private _calendar: MatCalendar<D>,
@@ -43,7 +45,6 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
     private _datepickerService: DatepickerService,
     private _timeService: TimeService,
     private _dateFormatPipe: DateFormatPipe,
-    private _elementRef: ElementRef,
   ) {
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
@@ -86,6 +87,35 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
         this.isRangePicker = isRangePicker;
       },
     );
+
+    this._timeService.startTime$.subscribe((time) => {
+      this.startTime = time;
+      this._cdr.detectChanges();
+    });
+
+    this._timeService.endTime$.subscribe((time) => {
+      this.endTime = time;
+      this._cdr.detectChanges();
+    });
+  }
+
+  private _startTimeSub: Subscription | undefined;
+  private _endTimeSub: Subscription | undefined;
+
+  ngOnInit() {
+    this._startTimeSub = this._timeService.startTime$.subscribe(
+      (time) => {
+        this.startTime = time;
+        this._cdr.detectChanges();
+      },
+    );
+
+    this._endTimeSub = this._timeService.endTime$.subscribe(
+      (time) => {
+        this.endTime = time;
+        this._cdr.detectChanges();
+      },
+    );
   }
 
   shouldShowDateRangeApplied(): boolean {
@@ -107,6 +137,8 @@ export class ExampleHeaderComponent<D> implements OnDestroy {
   ngOnDestroy() {
     this._destroyed.next();
     this._destroyed.complete();
+    this._startTimeSub?.unsubscribe();
+    this._endTimeSub?.unsubscribe();
     this._subscriptions.forEach((sub) => sub.unsubscribe());
   }
 

@@ -19,6 +19,9 @@
       #datepicker
       [calendarHeaderComponent]="exampleHeader"
     >
+      <!-- <ng-container calendarHeader>
+        <example-header [isDatePicker]="true"></example-header>
+      </ng-container> -->
       <mat-datepicker-actions>
         <div
           class="datepicker-footer"
@@ -110,11 +113,15 @@
           >
             <div>
               <p>Start Time:</p>
-              <app-custom-timepicker></app-custom-timepicker>
+              <app-custom-timepicker
+                (timeChange)="updateStartTime($event)"
+              ></app-custom-timepicker>
             </div>
             <div>
               <p>End Time:</p>
-              <app-custom-timepicker></app-custom-timepicker>
+              <app-custom-timepicker
+                (timeChange)="updateEndTime($event)"
+              ></app-custom-timepicker>
             </div>
           </div>
 

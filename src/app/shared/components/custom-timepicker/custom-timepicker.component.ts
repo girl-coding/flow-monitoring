@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import * as moment from 'moment';
+import { debounceTime } from 'rxjs/operators';
 
 import { TimeService } from '../../time.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-custom-timepicker',
@@ -12,20 +14,24 @@ export class CustomTimepickerComponent {
   selectedHours = '00 H';
   selectedMinutes = '00 Min';
 
+  // @Output() timeChange = new EventEmitter<string>();
+  private _timeChangeSubject = new Subject<string>();
+  @Output() timeChange = this._timeChangeSubject.pipe(
+    debounceTime(50),
+  );
+
   onHoursChange() {
-    // Add your logic here for when the hours value changes
     this.updateSelectedTime();
   }
 
   onMinutesChange() {
-    // Add your logic here for when the minutes value changes
     this.updateSelectedTime();
   }
 
   incrementHours() {
     const hours = moment(this.selectedHours, 'HH').add(1, 'hours');
     this.selectedHours = hours.format('HH [H]');
-    this.onHoursChange();
+    this.updateSelectedTime();
   }
 
   decrementHours() {
@@ -34,7 +40,7 @@ export class CustomTimepickerComponent {
       'hours',
     );
     this.selectedHours = hours.format('HH [H]');
-    this.onHoursChange();
+    this.updateSelectedTime();
   }
 
   incrementMinutes() {
@@ -72,5 +78,6 @@ export class CustomTimepickerComponent {
 
     const time = `${hours} ${minutes}`;
     this._timeService.time = time;
+    this._timeChangeSubject.next(time);
   }
 }

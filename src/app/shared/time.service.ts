@@ -32,4 +32,20 @@ export class TimeService {
   getTimeObservable(): Observable<string> {
     return this._timeSubject.asObservable();
   }
+
+  private _startTimeSource = new BehaviorSubject<string>(
+    '00 H 00 Min',
+  );
+  private _endTimeSource = new BehaviorSubject<string>('00 H 00 Min');
+
+  startTime$ = this._startTimeSource.asObservable();
+  endTime$ = this._endTimeSource.asObservable();
+
+  updateStartTime(time: string) {
+    this._startTimeSource.next(time);
+  }
+
+  updateEndTime(time: string) {
+    this._endTimeSource.next(time);
+  }
 }

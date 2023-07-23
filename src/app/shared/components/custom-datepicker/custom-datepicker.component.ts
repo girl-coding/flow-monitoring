@@ -59,6 +59,7 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     private _timeService: TimeService,
     private _fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
+    private _dateAdapter: DateAdapter<any>,
   ) {
     this.startDate = moment().toDate();
     this.endDate = moment(this.startDate).add(1, 'days').toDate();
@@ -73,6 +74,14 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
       this.isShowTime = value;
     });
     this.isShowTime = this._timeService.getIsShowTime();
+  }
+
+  updateStartTime(newTime: string) {
+    this._timeService.updateStartTime(newTime);
+  }
+
+  updateEndTime(newTime: string) {
+    this._timeService.updateEndTime(newTime);
   }
 
   // selectedDate: string | null = null;
@@ -104,6 +113,7 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   updateDateRange() {
     this.rangeForm.patchValue({
       startDate: this.startDate,
