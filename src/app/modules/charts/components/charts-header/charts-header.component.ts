@@ -25,56 +25,53 @@ export class ChartsHeaderComponent implements AfterViewInit {
   spark4ElementRef!: ElementRef;
 
   ngAfterViewInit(): void {
-    const spark1Options1 = this._createChartOption('spark1', [
-      {
-        data: [15, 75, 47, 65, 14, 32, 19, 54, 44, 61],
-      },
-    ]);
+    this._renderChart(
+      'spark1',
+      [
+        {
+          data: [15, 75, 47, 65, 14, 32, 19, 54, 44, 61],
+        },
+      ],
+      this.spark1ElementRef,
+    );
 
-    const spark1Options2 = this._createChartOption('spark2', [
-      {
-        data: [47, 45, 74, 32, 56, 31, 44, 33, 45, 19],
-      },
-    ]);
+    this._renderChart(
+      'spark2',
+      [
+        {
+          data: [47, 45, 74, 32, 56, 31, 44, 33, 45, 19],
+        },
+      ],
+      this.spark2ElementRef,
+    );
 
-    const spark1Options3 = this._createChartOption('spark3', [
-      {
-        data: [12, 14, 2, 47, 32, 44, 14, 55, 41, 69],
-      },
-    ]);
+    this._renderChart(
+      'spark3',
+      [
+        {
+          data: [12, 14, 2, 47, 32, 44, 14, 55, 41, 69],
+        },
+      ],
+      this.spark3ElementRef,
+    );
 
-    const spark1Options4 = this._createChartOption('spark4', [
-      {
-        data: [25, 66, 41, 59, 25, 44, 12, 36, 9, 21],
-      },
-    ]);
-
-    new ApexCharts(
-      this.spark1ElementRef?.nativeElement,
-      spark1Options1,
-    ).render();
-
-    new ApexCharts(
-      this.spark2ElementRef?.nativeElement,
-      spark1Options2,
-    ).render();
-
-    new ApexCharts(
-      this.spark3ElementRef?.nativeElement,
-      spark1Options3,
-    ).render();
-
-    new ApexCharts(
-      this.spark4ElementRef?.nativeElement,
-      spark1Options4,
-    ).render();
+    this._renderChart(
+      'spark4',
+      [
+        {
+          data: [25, 66, 41, 59, 25, 44, 12, 36, 9, 21],
+        },
+      ],
+      this.spark4ElementRef,
+    );
   }
 
-  private _createChartOption(
+  private _renderChart(
     id: string,
     series: ApexAxisChartSeries | ApexNonAxisChartSeries,
-  ): ApexCharts.ApexOptions {
-    return {
+    elementRef: ElementRef,
+  ): void {
+    const chartOptions: ApexCharts.ApexOptions = {
       series,
       chart: {
         id,
@@ -117,5 +114,7 @@ export class ChartsHeaderComponent implements AfterViewInit {
         },
       },
     };
+
+    new ApexCharts(elementRef?.nativeElement, chartOptions).render();
   }
 }
