@@ -4,11 +4,11 @@
       matInput
       [matDatepicker]="datepicker"
       (dateChange)="updateSelectedDate($event)"
-      [value]="pendingSelectedDate"
+      [value]="inputValue"
       readonly="readonly"
       class="datepicker-input"
     />
-    <div style="display: center">
+    <div style="font-size: 1.2em; margin-top: -20px">
       <p>{{ inputValue }}</p>
     </div>
 
@@ -22,9 +22,6 @@
       #datepicker
       [calendarHeaderComponent]="exampleHeader"
     >
-      <!-- <ng-container calendarHeader>
-        <example-header [isDatePicker]="true"></example-header>
-      </ng-container> -->
       <mat-datepicker-actions>
         <div
           class="datepicker-footer"
@@ -33,6 +30,7 @@
         >
           <app-custom-timepicker
             *ngIf="isShowTime"
+            (timeChange)="updateSelectedTime($event)"
           ></app-custom-timepicker>
 
           <div
@@ -80,6 +78,7 @@
         class="date-range-input start-date-input"
         [value]="rangeForm.controls['end'].value"
       />
+
       <div class="date-range-separator">-</div>
       <input
         matEndDate

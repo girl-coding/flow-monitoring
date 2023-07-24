@@ -54,9 +54,18 @@ export class AppDateAdapter extends NativeDateAdapter {
 export class CustomDatepickerComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
-  selectedTime: Date | null = null;
+  selectedTime?: Date;
   isShowTime!: boolean;
   isDatePicker = true;
+  selectedDate?: Date;
+  formattedDate: string | null = null;
+  rangeForm: FormGroup;
+  startDate!: Date;
+  endDate!: Date;
+  inputValue = '';
+  pendingSelectedDate?: Date;
+  pendingSelectedTime = '00 H 00 Min';
+  tempSelectedTime!: string;
 
   constructor(
     private _datepickerService: DatepickerService,
@@ -66,6 +75,7 @@ export class CustomDatepickerComponent
     private _dateAdapter: DateAdapter<any>,
   ) {
     this.pendingSelectedDate = new Date();
+    this.tempSelectedTime = this.pendingSelectedTime;
 
     this.startDate = moment().toDate();
     this.endDate = moment(this.startDate).add(1, 'days').toDate();
@@ -90,55 +100,46 @@ export class CustomDatepickerComponent
     this._timeService.updateEndTime(newTime);
   }
 
-  inputValue = '';
+  // getInputValue(): string {
+  //   let value = '';
+  //   if (this.pendingSelectedDate) {
+  //     value = this._dateAdapter.format(
+  //       this.pendingSelectedDate,
+  //       'input',
+  //     );
+  //   }
 
-  // Call this function whenever time or pendingSelectedDate changes
+  //   if (this.isShowTime && this.pendingSelectedTime) {
+  //     const formattedTime = this.formatTime(this.pendingSelectedTime);
+  //     value = formattedTime + ' ' + value; // swap the order here
+  //   }
+
+  //   return value;
+  // }
 
   getInputValue(): string {
-    console.log('getInputValue is called');
-
     let value = '';
     if (this.pendingSelectedDate) {
       value = this._dateAdapter.format(
         this.pendingSelectedDate,
         'input',
       );
-    } else {
-      console.log('this.pendingSelectedDate is null');
     }
 
-    console.log('Formatted date:', value);
-
-    console.log('isShowTime:', this.isShowTime);
-    console.log('_timeService.time:', this._timeService.time);
-
-    if (this.isShowTime && this._timeService.time) {
-      const formattedTime = this.formatTime(this._timeService.time);
-      value = formattedTime + ' ' + value; // swap the order here
+    if (this.isShowTime && this.tempSelectedTime) {
+      value = this.tempSelectedTime + ' ' + value; // swap the order here
     }
-
-    console.log('Final value:', value);
 
     return value;
   }
 
   // Converts time in format "HH H MM Min" to "HH:MM"
   formatTime(time: string): string {
-    const parts = time.split(' ');
-    return parts[0] + ':' + parts[2];
+    const parts = time.split(':');
+    return parts[0] + ' H ' + parts[1] + ' Min';
   }
 
-  // selectedDate: string | null = null;
-  selectedDate: Date | null = null;
-  formattedDate: string | null = null;
-
-  originalDate: Date = new Date();
-
   private subscription: Subscription | null = null;
-
-  rangeForm: FormGroup;
-  startDate!: Date;
-  endDate!: Date;
 
   openRangePicker() {
     this._datepickerService.setRangePicker(true);
@@ -182,7 +183,8 @@ export class CustomDatepickerComponent
 
     const timeSubscription = this._timeService
       .getTimeObservable()
-      .subscribe(() => {
+      .subscribe((time) => {
+        this.pendingSelectedTime = time;
         this.updateInputValue();
       });
     this.subscriptions.push(timeSubscription);
@@ -207,22 +209,48 @@ export class CustomDatepickerComponent
         )
       : null;
   }
-  pendingSelectedDate: Date | null = null;
 
-  // updateSelectedDate(event: MatDatepickerInputEvent<Date>): void {
-  //   const selectedDate = event.value;
-  //   this.pendingSelectedDate = selectedDate;
-
-  //   this.updateFormattedDate();
-  //   this._datepickerService.formattedDate = this.formattedDate;
-  //   this.inputValue = this.getInputValue();
-  //   this._cdr.markForCheck();
-  // }
   updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       this.pendingSelectedDate = event.value;
       this.inputValue = this.getInputValue();
     }
+  }
+  // updateSelectedTime(event: any) {
+  //   this.pendingSelectedTime = this.formatTime(event.value);
+  //   this.updateInputValue();
+  // }
+  updateSelectedTime(event: any) {
+    this.tempSelectedTime = this.formatTime(event.value);
+
+    if (this.pendingSelectedDate) {
+      const timeParts = this.tempSelectedTime.split(' ');
+
+      const hours = Number(timeParts[0]);
+      const minutes = Number(timeParts[2]);
+
+      this.pendingSelectedDate.setHours(hours, minutes, 0, 0);
+    }
+
+    this.updateTempInputValue();
+  }
+
+  updateTempInputValue(): void {
+    let value = '';
+    if (this.pendingSelectedDate) {
+      value = this._dateAdapter.format(
+        this.pendingSelectedDate,
+        'input',
+      );
+    }
+
+    if (this.isShowTime && this.tempSelectedTime) {
+      const formattedTime = this.formatTime(this.tempSelectedTime);
+      value = `${formattedTime} ${value}`; // swap the order here
+    }
+
+    this.inputValue = value;
+    this._cdr.detectChanges();
   }
 
   formatDate(date: Date): string {
@@ -244,21 +272,14 @@ export class CustomDatepickerComponent
 
   updateInputValue(): void {
     this.inputValue = this.getInputValue();
-    console.log(
-      'Before detectChanges - updated inputValue:',
-      this.inputValue,
-    );
     this._cdr.detectChanges();
-    console.log(
-      'After detectChanges - updated inputValue:',
-      this.inputValue,
-    );
   }
 
   ngAfterViewInit(): void {
     const timeSubscription = this._timeService
       .getTimeObservable()
-      .subscribe(() => {
+      .subscribe((time) => {
+        this.pendingSelectedTime = time;
         this.updateInputValue();
       });
     this.subscriptions.push(timeSubscription);
@@ -270,23 +291,39 @@ export class CustomDatepickerComponent
     this.subscriptions.push(showTimeSubscription);
     this._cdr.markForCheck();
   }
+  // applyDateChange(): void {
+  //   if (this.pendingSelectedDate) {
+  //     // combine the selected date and the selected time
+  //     const timeParts = this.pendingSelectedTime.split(' ');
+  //     const hours = Number(timeParts[0]);
+  //     const minutes = Number(timeParts[2]);
+
+  //     // set the time for the selected date
+  //     this.pendingSelectedDate.setHours(hours, minutes);
+
+  //     this.selectedDate = this.pendingSelectedDate;
+  //     this._timeService.time = this.pendingSelectedTime;
+
+  //     this.updateInputValue();
+
+  //     this._cdr.markForCheck(); // instead of detectChanges()
+  //   }
+  // }
   applyDateChange(): void {
     if (this.pendingSelectedDate) {
-      // combine the selected date and the selected time
-      const timeParts = this._timeService.time.split(' ');
-      const hours = Number(timeParts[0]);
-      const minutes = Number(timeParts[2]);
+      this.selectedDate = new Date(this.pendingSelectedDate);
 
-      // set the time for the selected date
-      this.pendingSelectedDate.setHours(hours, minutes);
+      const hours = this.selectedDate.getHours();
+      const minutes = this.selectedDate.getMinutes();
 
-      // convert the date with time to ISO string
-
-      this.selectedDate = this.pendingSelectedDate;
+      this._timeService.time = `${hours
+        .toString()
+        .padStart(2, '0')} H ${minutes
+        .toString()
+        .padStart(2, '0')} Min`;
 
       this.updateInputValue();
-
-      this._cdr.markForCheck(); // instead of detectChanges()
+      this._cdr.markForCheck();
     }
   }
 
