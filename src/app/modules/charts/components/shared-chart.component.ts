@@ -5,7 +5,6 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import * as ApexCharts from 'apexcharts';
 
 @Component({
   template: ``,

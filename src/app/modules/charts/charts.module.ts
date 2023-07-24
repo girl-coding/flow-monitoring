@@ -10,6 +10,7 @@ import { PolarAreaComponent } from './components/polar-area/polar-area.component
 import { SharedChartComponent } from './components/shared-chart.component';
 import { RadialBarComponent } from './components/radial-bar/radial-bar.component';
 import { ChartsHeaderComponent } from './components/charts-header/charts-header.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ChartsHeaderComponent } from './components/charts-header/charts-header.
     ChartsRoutingModule,
     SharedModule,
     CommonModule,
+    NgApexchartsModule,
     COMPONENTS_MATERIALS,
   ],
   exports: [ChartsHeaderComponent],

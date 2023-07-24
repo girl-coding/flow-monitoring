@@ -29,7 +29,9 @@
               "src/styles.scss",
               "src/assets/themes/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ]
           },
           "configurations": {
             "production": {
