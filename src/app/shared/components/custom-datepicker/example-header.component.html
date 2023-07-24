@@ -56,7 +56,12 @@
           margin-left: -100px;
         "
       >
-        <!-- <label>{{ formattedDate }}</label> -->
+        <label></label>
+        <p>
+          {{ selectedStartDate }} -
+          {{ selectedEndDate }}
+        </p>
+
         <span *ngIf="isShowTime">{{ startTime }}</span>
       </div>
     </div>

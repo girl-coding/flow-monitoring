@@ -1,17 +1,19 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Inject,
   OnDestroy,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MatDateFormats,
 } from '@angular/material/core';
-import { MatCalendar } from '@angular/material/datepicker';
+import { DateRange, MatCalendar } from '@angular/material/datepicker';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { DatepickerService } from '../../datepicker.service';
 import { TimeService } from '../../time.service';
@@ -26,6 +28,10 @@ import { DateFormatEnum } from '../../constants/app-date-formats.const';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
+  @ViewChild(MatCalendar, { static: false }) calendar!: MatCalendar<
+    Date | string
+  >;
+
   private _destroyed = new Subject<void>();
   formattedDate: string | null;
 
@@ -36,6 +42,8 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
   isRangePicker = false;
   startTime!: string;
   endTime!: string;
+  selectedStartDate: string | null = null;
+  selectedEndDate: string | null = null;
 
   constructor(
     private _calendar: MatCalendar<D>,
@@ -52,10 +60,24 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
         this._cdr.markForCheck();
 
         const selectedDate = this._calendar.selected;
-        const dateString = selectedDate
-          ? (selectedDate as any).toISOString()
-          : null;
-        this._datepickerService.selectedDate = dateString;
+        if (selectedDate && 'start' in selectedDate) {
+          console.log(selectedDate.start);
+          console.log(selectedDate.end);
+          const startDate = selectedDate.start
+            ? (selectedDate.start as any).toISOString()
+            : null;
+          const endDate = selectedDate.end
+            ? (selectedDate.end as any).toISOString()
+            : null;
+          this._datepickerService.selectedStartDate = startDate;
+
+          this._datepickerService.selectedEndDate = endDate;
+        } else {
+          const dateString = selectedDate
+            ? (selectedDate as any).toISOString()
+            : null;
+          this._datepickerService.selectedDate = dateString;
+        }
       });
 
     this._timeService.getTimeObservable().subscribe((time) => {
@@ -97,6 +119,18 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
       this.endTime = time;
       this._cdr.markForCheck();
     });
+
+    this._datepickerService.onStartDateChange$.subscribe((date) => {
+      console.log('Start Date:', date);
+
+      this.selectedStartDate = date;
+    });
+
+    this._datepickerService.onEndDateChange$.subscribe((date) => {
+      console.log('End Date:', date);
+
+      this.selectedEndDate = date;
+    });
   }
 
   private _startTimeSub: Subscription | undefined;
@@ -116,6 +150,43 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
         this._cdr.markForCheck();
       },
     );
+  }
+
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  ngAfterViewInit() {
+    Promise.resolve().then(() => {
+      if (this.calendar) {
+        console.log('guyhjk');
+
+        this.calendar.stateChanges
+          .pipe(takeUntil(this._destroyed))
+          .subscribe(() => {
+            const selectedDates = this.calendar.selected;
+
+            if (selectedDates instanceof DateRange<Date>) {
+              const dateRange = selectedDates as DateRange<Date>;
+
+              if (dateRange.start && dateRange.end) {
+                this.selectedStartDate = (
+                  dateRange.start as Date
+                ).toISOString();
+                this.selectedEndDate = (
+                  dateRange.end as Date
+                ).toISOString();
+
+                console.log(
+                  'selectedStartDate:',
+                  this.selectedStartDate,
+                );
+                console.log('selectedEndDate:', this.selectedEndDate);
+
+                const dateString = `${this.selectedStartDate} - ${this.selectedEndDate}`;
+                this._datepickerService.selectedDate = dateString;
+              }
+            }
+          });
+      }
+    });
   }
 
   shouldShowDateRangeApplied(): boolean {

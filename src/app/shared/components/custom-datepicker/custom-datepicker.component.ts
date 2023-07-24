@@ -95,29 +95,18 @@ export class CustomDatepickerComponent
   // Call this function whenever time or pendingSelectedDate changes
 
   getInputValue(): string {
-    console.log('getInputValue is called');
-
     let value = '';
     if (this.pendingSelectedDate) {
       value = this._dateAdapter.format(
         this.pendingSelectedDate,
         'input',
       );
-    } else {
-      console.log('this.pendingSelectedDate is null');
     }
-
-    console.log('Formatted date:', value);
-
-    console.log('isShowTime:', this.isShowTime);
-    console.log('_timeService.time:', this._timeService.time);
 
     if (this.isShowTime && this._timeService.time) {
       const formattedTime = this.formatTime(this._timeService.time);
       value = formattedTime + ' ' + value; // swap the order here
     }
-
-    console.log('Final value:', value);
 
     return value;
   }
@@ -244,15 +233,8 @@ export class CustomDatepickerComponent
 
   updateInputValue(): void {
     this.inputValue = this.getInputValue();
-    console.log(
-      'Before detectChanges - updated inputValue:',
-      this.inputValue,
-    );
+
     this._cdr.detectChanges();
-    console.log(
-      'After detectChanges - updated inputValue:',
-      this.inputValue,
-    );
   }
 
   ngAfterViewInit(): void {

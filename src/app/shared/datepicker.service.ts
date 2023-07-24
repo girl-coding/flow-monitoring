@@ -46,4 +46,54 @@ export class DatepickerService {
   setRangePicker(isRangePicker: boolean) {
     this._isRangePickerSource.next(isRangePicker);
   }
+
+  private _selectedStartDate: string | null = null;
+  private _selectedEndDate: string | null = null;
+  private _startDateSubject = new BehaviorSubject<string | null>(
+    null,
+  );
+  private _endDateSubject = new BehaviorSubject<string | null>(null);
+
+  // Directly use Observables for change detection
+  onStartDateChange$: Observable<string | null> =
+    this._startDateSubject.asObservable();
+  onEndDateChange$: Observable<string | null> =
+    this._endDateSubject.asObservable();
+
+  // Removed getters and setters as they are no longer needed
+
+  // Methods to set new values
+  setStartDate(value: string | null) {
+    this._startDateSubject.next(value);
+  }
+
+  setEndDate(value: string | null) {
+    this._endDateSubject.next(value);
+  }
+
+  get selectedStartDate(): string | null {
+    return this._selectedStartDate;
+  }
+
+  set selectedStartDate(value: string | null) {
+    this._selectedStartDate = value;
+    this._startDateSubject.next(value);
+  }
+
+  get selectedEndDate(): string | null {
+    return this._selectedEndDate;
+  }
+
+  set selectedEndDate(value: string | null) {
+    this._selectedEndDate = value;
+    this._endDateSubject.next(value);
+  }
+
+  onStartDateChange(): Observable<string | null> {
+    return this._startDateSubject.asObservable();
+  }
+
+  onEndDateChange(): Observable<string | null> {
+    return this._endDateSubject.asObservable();
+  }
 }
