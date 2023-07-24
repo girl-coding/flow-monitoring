@@ -54,16 +54,9 @@ export class AppDateAdapter extends NativeDateAdapter {
 export class CustomDatepickerComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
-  selectedTime?: Date;
+  selectedTime: Date | null = null;
   isShowTime!: boolean;
   isDatePicker = true;
-  selectedDate?: Date;
-  formattedDate: string | null = null;
-  rangeForm: FormGroup;
-  startDate!: Date;
-  endDate!: Date;
-  inputValue = '';
-  pendingSelectedDate?: Date;
 
   constructor(
     private _datepickerService: DatepickerService,
@@ -96,19 +89,35 @@ export class CustomDatepickerComponent
   updateEndTime(newTime: string) {
     this._timeService.updateEndTime(newTime);
   }
+
+  inputValue = '';
+
+  // Call this function whenever time or pendingSelectedDate changes
+
   getInputValue(): string {
+    console.log('getInputValue is called');
+
     let value = '';
     if (this.pendingSelectedDate) {
       value = this._dateAdapter.format(
         this.pendingSelectedDate,
         'input',
       );
+    } else {
+      console.log('this.pendingSelectedDate is null');
     }
+
+    console.log('Formatted date:', value);
+
+    console.log('isShowTime:', this.isShowTime);
+    console.log('_timeService.time:', this._timeService.time);
 
     if (this.isShowTime && this._timeService.time) {
       const formattedTime = this.formatTime(this._timeService.time);
-      value = ` ${formattedTime} ${value}`; // swap the order here
+      value = formattedTime + ' ' + value; // swap the order here
     }
+
+    console.log('Final value:', value);
 
     return value;
   }
@@ -116,10 +125,20 @@ export class CustomDatepickerComponent
   // Converts time in format "HH H MM Min" to "HH:MM"
   formatTime(time: string): string {
     const parts = time.split(' ');
-    return `${parts[0]}:${parts[2]}`;
+    return parts[0] + ':' + parts[2];
   }
 
+  // selectedDate: string | null = null;
+  selectedDate: Date | null = null;
+  formattedDate: string | null = null;
+
+  originalDate: Date = new Date();
+
   private subscription: Subscription | null = null;
+
+  rangeForm: FormGroup;
+  startDate!: Date;
+  endDate!: Date;
 
   openRangePicker() {
     this._datepickerService.setRangePicker(true);
@@ -161,11 +180,9 @@ export class CustomDatepickerComponent
       });
     this.subscriptions.push(datepickerSubscription);
 
-    this.inputValue = this.getInputValue();
     const timeSubscription = this._timeService
       .getTimeObservable()
-      .subscribe((time) => {
-        this._timeService.time = time;
+      .subscribe(() => {
         this.updateInputValue();
       });
     this.subscriptions.push(timeSubscription);
@@ -190,7 +207,17 @@ export class CustomDatepickerComponent
         )
       : null;
   }
+  pendingSelectedDate: Date | null = null;
 
+  // updateSelectedDate(event: MatDatepickerInputEvent<Date>): void {
+  //   const selectedDate = event.value;
+  //   this.pendingSelectedDate = selectedDate;
+
+  //   this.updateFormattedDate();
+  //   this._datepickerService.formattedDate = this.formattedDate;
+  //   this.inputValue = this.getInputValue();
+  //   this._cdr.markForCheck();
+  // }
   updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       this.pendingSelectedDate = event.value;
@@ -217,14 +244,21 @@ export class CustomDatepickerComponent
 
   updateInputValue(): void {
     this.inputValue = this.getInputValue();
+    console.log(
+      'Before detectChanges - updated inputValue:',
+      this.inputValue,
+    );
     this._cdr.detectChanges();
+    console.log(
+      'After detectChanges - updated inputValue:',
+      this.inputValue,
+    );
   }
 
   ngAfterViewInit(): void {
     const timeSubscription = this._timeService
       .getTimeObservable()
-      .subscribe((time) => {
-        this._timeService.time = time;
+      .subscribe(() => {
         this.updateInputValue();
       });
     this.subscriptions.push(timeSubscription);
@@ -245,6 +279,8 @@ export class CustomDatepickerComponent
 
       // set the time for the selected date
       this.pendingSelectedDate.setHours(hours, minutes);
+
+      // convert the date with time to ISO string
 
       this.selectedDate = this.pendingSelectedDate;
 
