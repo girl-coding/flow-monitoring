@@ -64,8 +64,6 @@ export class CustomDatepickerComponent
   endDate!: Date;
   inputValue = '';
   pendingSelectedDate?: Date;
-  pendingSelectedTime = '00 H 00 Min';
-  tempSelectedTime!: string;
 
   constructor(
     private _datepickerService: DatepickerService,
@@ -75,7 +73,6 @@ export class CustomDatepickerComponent
     private _dateAdapter: DateAdapter<any>,
   ) {
     this.pendingSelectedDate = new Date();
-    this.tempSelectedTime = this.pendingSelectedTime;
 
     this.startDate = moment().toDate();
     this.endDate = moment(this.startDate).add(1, 'days').toDate();
@@ -99,24 +96,6 @@ export class CustomDatepickerComponent
   updateEndTime(newTime: string) {
     this._timeService.updateEndTime(newTime);
   }
-
-  // getInputValue(): string {
-  //   let value = '';
-  //   if (this.pendingSelectedDate) {
-  //     value = this._dateAdapter.format(
-  //       this.pendingSelectedDate,
-  //       'input',
-  //     );
-  //   }
-
-  //   if (this.isShowTime && this.pendingSelectedTime) {
-  //     const formattedTime = this.formatTime(this.pendingSelectedTime);
-  //     value = formattedTime + ' ' + value; // swap the order here
-  //   }
-
-  //   return value;
-  // }
-
   getInputValue(): string {
     let value = '';
     if (this.pendingSelectedDate) {
@@ -126,8 +105,9 @@ export class CustomDatepickerComponent
       );
     }
 
-    if (this.isShowTime && this.tempSelectedTime) {
-      value = this.tempSelectedTime + ' ' + value; // swap the order here
+    if (this.isShowTime && this._timeService.time) {
+      const formattedTime = this.formatTime(this._timeService.time);
+      value = ` ${formattedTime} ${value}`; // swap the order here
     }
 
     return value;
@@ -135,8 +115,8 @@ export class CustomDatepickerComponent
 
   // Converts time in format "HH H MM Min" to "HH:MM"
   formatTime(time: string): string {
-    const parts = time.split(':');
-    return parts[0] + ' H ' + parts[1] + ' Min';
+    const parts = time.split(' ');
+    return `${parts[0]}:${parts[2]}`;
   }
 
   private subscription: Subscription | null = null;
@@ -181,10 +161,11 @@ export class CustomDatepickerComponent
       });
     this.subscriptions.push(datepickerSubscription);
 
+    this.inputValue = this.getInputValue();
     const timeSubscription = this._timeService
       .getTimeObservable()
       .subscribe((time) => {
-        this.pendingSelectedTime = time;
+        this._timeService.time = time;
         this.updateInputValue();
       });
     this.subscriptions.push(timeSubscription);
@@ -216,42 +197,6 @@ export class CustomDatepickerComponent
       this.inputValue = this.getInputValue();
     }
   }
-  // updateSelectedTime(event: any) {
-  //   this.pendingSelectedTime = this.formatTime(event.value);
-  //   this.updateInputValue();
-  // }
-  updateSelectedTime(event: any) {
-    this.tempSelectedTime = this.formatTime(event.value);
-
-    if (this.pendingSelectedDate) {
-      const timeParts = this.tempSelectedTime.split(' ');
-
-      const hours = Number(timeParts[0]);
-      const minutes = Number(timeParts[2]);
-
-      this.pendingSelectedDate.setHours(hours, minutes, 0, 0);
-    }
-
-    this.updateTempInputValue();
-  }
-
-  updateTempInputValue(): void {
-    let value = '';
-    if (this.pendingSelectedDate) {
-      value = this._dateAdapter.format(
-        this.pendingSelectedDate,
-        'input',
-      );
-    }
-
-    if (this.isShowTime && this.tempSelectedTime) {
-      const formattedTime = this.formatTime(this.tempSelectedTime);
-      value = `${formattedTime} ${value}`; // swap the order here
-    }
-
-    this.inputValue = value;
-    this._cdr.detectChanges();
-  }
 
   formatDate(date: Date): string {
     const day = date.getDate();
@@ -279,7 +224,7 @@ export class CustomDatepickerComponent
     const timeSubscription = this._timeService
       .getTimeObservable()
       .subscribe((time) => {
-        this.pendingSelectedTime = time;
+        this._timeService.time = time;
         this.updateInputValue();
       });
     this.subscriptions.push(timeSubscription);
@@ -291,39 +236,21 @@ export class CustomDatepickerComponent
     this.subscriptions.push(showTimeSubscription);
     this._cdr.markForCheck();
   }
-  // applyDateChange(): void {
-  //   if (this.pendingSelectedDate) {
-  //     // combine the selected date and the selected time
-  //     const timeParts = this.pendingSelectedTime.split(' ');
-  //     const hours = Number(timeParts[0]);
-  //     const minutes = Number(timeParts[2]);
-
-  //     // set the time for the selected date
-  //     this.pendingSelectedDate.setHours(hours, minutes);
-
-  //     this.selectedDate = this.pendingSelectedDate;
-  //     this._timeService.time = this.pendingSelectedTime;
-
-  //     this.updateInputValue();
-
-  //     this._cdr.markForCheck(); // instead of detectChanges()
-  //   }
-  // }
   applyDateChange(): void {
     if (this.pendingSelectedDate) {
-      this.selectedDate = new Date(this.pendingSelectedDate);
+      // combine the selected date and the selected time
+      const timeParts = this._timeService.time.split(' ');
+      const hours = Number(timeParts[0]);
+      const minutes = Number(timeParts[2]);
 
-      const hours = this.selectedDate.getHours();
-      const minutes = this.selectedDate.getMinutes();
+      // set the time for the selected date
+      this.pendingSelectedDate.setHours(hours, minutes);
 
-      this._timeService.time = `${hours
-        .toString()
-        .padStart(2, '0')} H ${minutes
-        .toString()
-        .padStart(2, '0')} Min`;
+      this.selectedDate = this.pendingSelectedDate;
 
       this.updateInputValue();
-      this._cdr.markForCheck();
+
+      this._cdr.markForCheck(); // instead of detectChanges()
     }
   }
 
