@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -50,7 +51,9 @@ export class AppDateAdapter extends NativeDateAdapter {
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
 })
-export class CustomDatepickerComponent implements OnInit, OnDestroy {
+export class CustomDatepickerComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   selectedTime: Date | null = null;
   isShowTime!: boolean;
   isDatePicker = true;
@@ -62,6 +65,8 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
     private _cdr: ChangeDetectorRef,
     private _dateAdapter: DateAdapter<any>,
   ) {
+    this.pendingSelectedDate = new Date();
+
     this.startDate = moment().toDate();
     this.endDate = moment(this.startDate).add(1, 'days').toDate();
 
@@ -83,6 +88,44 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
 
   updateEndTime(newTime: string) {
     this._timeService.updateEndTime(newTime);
+  }
+
+  inputValue = '';
+
+  // Call this function whenever time or pendingSelectedDate changes
+
+  getInputValue(): string {
+    console.log('getInputValue is called');
+
+    let value = '';
+    if (this.pendingSelectedDate) {
+      value = this._dateAdapter.format(
+        this.pendingSelectedDate,
+        'input',
+      );
+    } else {
+      console.log('this.pendingSelectedDate is null');
+    }
+
+    console.log('Formatted date:', value);
+
+    console.log('isShowTime:', this.isShowTime);
+    console.log('_timeService.time:', this._timeService.time);
+
+    if (this.isShowTime && this._timeService.time) {
+      const formattedTime = this.formatTime(this._timeService.time);
+      value = formattedTime + ' ' + value; // swap the order here
+    }
+
+    console.log('Final value:', value);
+
+    return value;
+  }
+
+  // Converts time in format "HH H MM Min" to "HH:MM"
+  formatTime(time: string): string {
+    const parts = time.split(' ');
+    return parts[0] + ':' + parts[2];
   }
 
   // selectedDate: string | null = null;
@@ -123,18 +166,34 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   }
 
   exampleHeader = ExampleHeaderComponent;
+  private subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
     this.updateFormattedDate();
 
-    this.subscription = this._datepickerService
+    const datepickerSubscription = this._datepickerService
       .onSelectedDateChange()
       .subscribe((date: string | null) => {
         this.selectedDate = date ? new Date(date) : this.selectedDate;
         this.updateFormattedDate();
         this._datepickerService.formattedDate = this.formattedDate;
       });
+    this.subscriptions.push(datepickerSubscription);
+
+    const timeSubscription = this._timeService
+      .getTimeObservable()
+      .subscribe(() => {
+        this.updateInputValue();
+      });
+    this.subscriptions.push(timeSubscription);
+
+    const showTimeSubscription =
+      this._timeService.isShowTime$.subscribe(() => {
+        this.updateInputValue();
+      });
+    this.subscriptions.push(showTimeSubscription);
   }
+
   //make the input field of header  format dd//MM/YYYY
   updateFormattedDate(): void {
     const options: Intl.DateTimeFormatOptions = {
@@ -150,28 +209,89 @@ export class CustomDatepickerComponent implements OnInit, OnDestroy {
   }
   pendingSelectedDate: Date | null = null;
 
-  updateSelectedDate(event: MatDatepickerInputEvent<Date>): void {
-    const selectedDate = event.value;
-    // const dateString = selectedDate
-    //   ? selectedDate.toISOString()
-    //   : null;
-    // this._datepickerService.selectedDate = dateString;
+  // updateSelectedDate(event: MatDatepickerInputEvent<Date>): void {
+  //   const selectedDate = event.value;
+  //   this.pendingSelectedDate = selectedDate;
 
-    this.pendingSelectedDate = selectedDate;
-
-    this.updateFormattedDate();
-    this._datepickerService.formattedDate = this.formattedDate;
+  //   this.updateFormattedDate();
+  //   this._datepickerService.formattedDate = this.formattedDate;
+  //   this.inputValue = this.getInputValue();
+  //   this._cdr.markForCheck();
+  // }
+  updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
+    if (event.value) {
+      this.pendingSelectedDate = event.value;
+      this.inputValue = this.getInputValue();
+    }
   }
 
+  formatDate(date: Date): string {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    // Get the hours and minutes
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    // Use `padStart` method to add leading zeros if necessary
+    return `${day.toString().padStart(2, '0')}/${month
+      .toString()
+      .padStart(2, '0')}/${year} ${hours
+      .toString()
+      .padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  }
+
+  updateInputValue(): void {
+    this.inputValue = this.getInputValue();
+    console.log(
+      'Before detectChanges - updated inputValue:',
+      this.inputValue,
+    );
+    this._cdr.detectChanges();
+    console.log(
+      'After detectChanges - updated inputValue:',
+      this.inputValue,
+    );
+  }
+
+  ngAfterViewInit(): void {
+    const timeSubscription = this._timeService
+      .getTimeObservable()
+      .subscribe(() => {
+        this.updateInputValue();
+      });
+    this.subscriptions.push(timeSubscription);
+
+    const showTimeSubscription =
+      this._timeService.isShowTime$.subscribe(() => {
+        this.updateInputValue();
+      });
+    this.subscriptions.push(showTimeSubscription);
+    this._cdr.markForCheck();
+  }
   applyDateChange(): void {
-    const dateString = this.pendingSelectedDate
-      ? this.pendingSelectedDate.toISOString()
-      : null;
-    this._datepickerService.selectedDate = dateString;
-    this.selectedDate = this.pendingSelectedDate;
+    if (this.pendingSelectedDate) {
+      // combine the selected date and the selected time
+      const timeParts = this._timeService.time.split(' ');
+      const hours = Number(timeParts[0]);
+      const minutes = Number(timeParts[2]);
+
+      // set the time for the selected date
+      this.pendingSelectedDate.setHours(hours, minutes);
+
+      // convert the date with time to ISO string
+
+      this.selectedDate = this.pendingSelectedDate;
+
+      this.updateInputValue();
+
+      this._cdr.markForCheck(); // instead of detectChanges()
+    }
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

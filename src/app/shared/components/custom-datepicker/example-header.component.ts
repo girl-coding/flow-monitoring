@@ -90,12 +90,12 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
 
     this._timeService.startTime$.subscribe((time) => {
       this.startTime = time;
-      this._cdr.detectChanges();
+      this._cdr.markForCheck();
     });
 
     this._timeService.endTime$.subscribe((time) => {
       this.endTime = time;
-      this._cdr.detectChanges();
+      this._cdr.markForCheck();
     });
   }
 
@@ -106,14 +106,14 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
     this._startTimeSub = this._timeService.startTime$.subscribe(
       (time) => {
         this.startTime = time;
-        this._cdr.detectChanges();
+        this._cdr.markForCheck();
       },
     );
 
     this._endTimeSub = this._timeService.endTime$.subscribe(
       (time) => {
         this.endTime = time;
-        this._cdr.detectChanges();
+        this._cdr.markForCheck();
       },
     );
   }
