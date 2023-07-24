@@ -28,9 +28,11 @@
           fxLayout="column"
           fxLayoutAlign="center center"
         >
-          <app-custom-timepicker
-            *ngIf="isShowTime"
-          ></app-custom-timepicker>
+          <div class="adjust-time">
+            <app-custom-timepicker
+              *ngIf="isShowTime"
+            ></app-custom-timepicker>
+          </div>
 
           <div
             class="datepicker-footer-actions"
@@ -110,6 +112,7 @@
           <div class="time-picker-container" *ngIf="isShowTime">
             <div class="time-picker-item">
               <p>Start Time:</p>
+
               <app-custom-timepicker
                 (timeChange)="updateStartTime($event)"
               ></app-custom-timepicker>

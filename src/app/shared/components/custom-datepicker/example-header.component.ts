@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -13,12 +12,13 @@ import {
   MAT_DATE_FORMATS,
   MatDateFormats,
 } from '@angular/material/core';
-import { DateRange, MatCalendar } from '@angular/material/datepicker';
+import { MatCalendar } from '@angular/material/datepicker';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { DatepickerService } from '../../datepicker.service';
 import { TimeService } from '../../time.service';
 import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
 import { DateFormatEnum } from '../../constants/app-date-formats.const';
+import * as moment from 'moment';
 
 /** Custom header component for datepicker. */
 @Component({
@@ -64,14 +64,21 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
           console.log(selectedDate.start);
           console.log(selectedDate.end);
           const startDate = selectedDate.start
-            ? (selectedDate.start as any).toISOString()
+            ? (selectedDate.start as any)
             : null;
           const endDate = selectedDate.end
-            ? (selectedDate.end as any).toISOString()
+            ? (selectedDate.end as any)
             : null;
-          this._datepickerService.selectedStartDate = startDate;
 
-          this._datepickerService.selectedEndDate = endDate;
+          if (startDate) {
+            this._datepickerService.selectedStartDate =
+              moment(startDate).format('MMM D, YYYY');
+          }
+
+          if (endDate) {
+            this._datepickerService.selectedEndDate =
+              moment(endDate).format('MMM D, YYYY');
+          }
         } else {
           const dateString = selectedDate
             ? (selectedDate as any).toISOString()
@@ -79,6 +86,13 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
           this._datepickerService.selectedDate = dateString;
         }
       });
+
+    const now = moment();
+    this.selectedStartDate = now.format('MMM D, YYYY');
+    this.selectedEndDate = now.add(1, 'days').format('MMM D, YYYY');
+    this._datepickerService.selectedStartDate =
+      this.selectedStartDate;
+    this._datepickerService.selectedEndDate = this.selectedEndDate;
 
     this._timeService.getTimeObservable().subscribe((time) => {
       this.time = time;
@@ -150,43 +164,6 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
         this._cdr.markForCheck();
       },
     );
-  }
-
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
-  ngAfterViewInit() {
-    Promise.resolve().then(() => {
-      if (this.calendar) {
-        console.log('guyhjk');
-
-        this.calendar.stateChanges
-          .pipe(takeUntil(this._destroyed))
-          .subscribe(() => {
-            const selectedDates = this.calendar.selected;
-
-            if (selectedDates instanceof DateRange<Date>) {
-              const dateRange = selectedDates as DateRange<Date>;
-
-              if (dateRange.start && dateRange.end) {
-                this.selectedStartDate = (
-                  dateRange.start as Date
-                ).toISOString();
-                this.selectedEndDate = (
-                  dateRange.end as Date
-                ).toISOString();
-
-                console.log(
-                  'selectedStartDate:',
-                  this.selectedStartDate,
-                );
-                console.log('selectedEndDate:', this.selectedEndDate);
-
-                const dateString = `${this.selectedStartDate} - ${this.selectedEndDate}`;
-                this._datepickerService.selectedDate = dateString;
-              }
-            }
-          });
-      }
-    });
   }
 
   shouldShowDateRangeApplied(): boolean {

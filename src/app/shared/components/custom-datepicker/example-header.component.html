@@ -41,10 +41,10 @@
   </div>
   <div class="extend-width" style="display: flex; gap: 50px">
     <div class="date_applied" *ngIf="shouldShowDateApplied()">
-      <div>
+      <div class="bold-text">
         <label>{{ formattedDate }}</label>
       </div>
-      <div>
+      <div class="bold-text">
         <span *ngIf="isShowTime">{{ time }}</span>
       </div>
     </div>
@@ -53,28 +53,27 @@
         style="
           display: flex;
           flex-direction: column;
-          margin-left: -100px;
+          margin-left: -50px;
         "
       >
-        <label></label>
-        <p>
-          {{ selectedStartDate }} -
-          {{ selectedEndDate }}
-        </p>
-
-        <span *ngIf="isShowTime">{{ startTime }}</span>
+        <div class="side-by-side">
+          <span class="bold-text">{{ selectedStartDate }}</span>
+          <span *ngIf="isShowTime" class="bold-text time">{{
+            startTime
+          }}</span>
+        </div>
       </div>
     </div>
     <div
       class="daterange_applied"
       *ngIf="shouldShowDateRangeApplied()"
     >
-      <!-- <label style="display: block">{{ formattedDate }}</label> -->
-      <span
-        *ngIf="isShowTime"
-        style="display: block; white-space: nowrap"
-        >{{ endTime }}</span
-      >
+      <div class="side-by-side">
+        <span class="bold-text"> {{ selectedEndDate }}</span>
+        <span *ngIf="isShowTime" class="bold-text time">{{
+          endTime
+        }}</span>
+      </div>
     </div>
   </div>
 </div>

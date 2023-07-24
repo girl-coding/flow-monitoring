@@ -33,19 +33,23 @@ export class TimeService {
     return this._timeSubject.asObservable();
   }
 
-  private _startTimeSource = new BehaviorSubject<string>(
-    '00 H 00 Min',
-  );
-  private _endTimeSource = new BehaviorSubject<string>('00 H 00 Min');
+  private _startTimeSource = new BehaviorSubject<string>('00:00');
+  private _endTimeSource = new BehaviorSubject<string>('00:00');
 
   startTime$ = this._startTimeSource.asObservable();
   endTime$ = this._endTimeSource.asObservable();
 
   updateStartTime(time: string) {
-    this._startTimeSource.next(time);
+    const formattedTime = time
+      .replace(' H ', ':')
+      .replace(' Min', '');
+    this._startTimeSource.next(formattedTime);
   }
 
   updateEndTime(time: string) {
-    this._endTimeSource.next(time);
+    const formattedTime = time
+      .replace(' H ', ':')
+      .replace(' Min', '');
+    this._endTimeSource.next(formattedTime);
   }
 }

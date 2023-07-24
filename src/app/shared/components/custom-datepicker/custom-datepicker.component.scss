@@ -7,7 +7,7 @@
   box-sizing: border-box;
   margin-top: 10px;
   border-radius: 5px;
-
+  font-weight: 520;
   &:hover {
     cursor: pointer;
   }
@@ -20,8 +20,8 @@
 }
 
 ::ng-deep .mat-calendar {
-  height: 399px !important;
-  width: 370px !important;
+  height: 380px !important;
+  width: 390px !important;
 }
 ::ng-deep .mat-calendar-header {
   display: flex;
@@ -53,8 +53,8 @@ mat-form-field {
 }
 
 .datepicker-input {
-  font-size: 14px; /* Adjust the font size as per your preference */
-  font-size: 1.2em; /* Adjust as necessary */
+  font-size: 14px;
+  font-size: 1.2em;
 }
 
 /* accessing  */
@@ -156,4 +156,8 @@ mat-date-range-input input {
 }
 .time-picker-container > :not(.datepicker-footer-actions) {
   margin-bottom: -10px; /* Adjust the margin as needed */
+}
+
+.adjust-time {
+  margin-top: 21px;
 }
