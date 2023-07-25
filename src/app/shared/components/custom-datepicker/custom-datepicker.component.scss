@@ -5,9 +5,9 @@
   font-size: 18px; // Adjust as needed
   padding: 8px 10px; // Adjust as needed
   box-sizing: border-box;
-  margin-top: 10px;
   border-radius: 5px;
   font-weight: 520;
+  margin: 0 5px;
   &:hover {
     cursor: pointer;
   }
@@ -111,6 +111,12 @@ mat-date-range-input input {
   width: 100%;
 }
 
+.datepicker-footer-actions {
+  display: flex;
+  justify-content: space-between; /* To separate the buttons with equal space between them */
+  margin-top: 8px; /* Adjust the value as needed to create more space */
+}
+
 .mat-date-range-input-start {
   margin-right: 100px;
 }
@@ -151,7 +157,7 @@ mat-date-range-input input {
 .time-picker-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   margin-bottom: 0px;
 }
 .time-picker-container > :not(.datepicker-footer-actions) {
@@ -164,4 +170,5 @@ mat-date-range-input input {
 .time-label {
   margin-right: 10px; /* Adjust the value to control the spacing between label and timepicker */
   margin: -6px;
+  margin-left: 0px;
 }

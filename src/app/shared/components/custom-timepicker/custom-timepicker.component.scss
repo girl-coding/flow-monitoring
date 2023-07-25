@@ -59,13 +59,32 @@ app-custom-timepicker > * {
   box-sizing: border-box;
 }
 
+/* Remove default styles from the span */
 .toggle-icon {
-  width: 24px; /* Adjust this size to your need */
-  height: 24px; /* Adjust this size to your need */
-  padding: 0; /* Remove surrounding space */
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Adjust the width and height as needed */
+  height: 24px; /* Adjust the width and height as needed */
   box-sizing: content-box;
-  border: none; /* Remove border if there's any */
 }
+
+/* Remove default icon styles */
+.toggle-icon mat-icon {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  font-size: 24px; /* Adjust the font size as needed */
+  line-height: 1; /* Set line-height to 1 to remove any extra spacing */
+  display: inline; /* Use inline display for the icon */
+}
+
 .mat-form-field-flex {
   background-color: transparent;
 }
@@ -82,7 +101,7 @@ app-custom-timepicker > * {
   .mat-form-field-flex {
   background-color: transparent !important;
   border: none !important;
-  box-shadow: 0px 0px 0px 1px black !important;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2) !important; /* Change the color here */
   padding: 0px 2px; /* Adjust padding as needed */
   font-size: 10px; /* Adjust font size as needed */
   border-radius: 5px;
@@ -95,10 +114,13 @@ app-custom-timepicker > * {
 }
 
 .custom-timepicker-arrow-wrapper button {
-  width: 6px; /* Adjust width as needed */
-  height: 6px; /* Adjust height as needed */
-  padding: 0; /* Remove surrounding space */
+  width: 5px; /* Adjust width as needed */
+  height: 5px; /* Adjust height as needed */
+  margin: 0px 0;
+  padding: 4.9px; /* Remove surrounding space */
+  // box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2) !important; /* Change the color here */
 }
+
 .toggle-icon {
   width: 24px; /* Adjust this size to your need */
   height: 24px; /* Adjust this size to your need */
@@ -109,8 +131,4 @@ app-custom-timepicker > * {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.toggle-icon mat-icon {
-  color: black; /* Adjust color as needed */
 }
