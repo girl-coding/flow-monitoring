@@ -18,23 +18,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 5px;
   padding: 0 10px;
 }
-
-// .date_applied input {
-//   width: 80%;
-
-//   padding: 5px;
-// }
-
-// .date_applied input:first-child {
-//   flex: 2;
-// }
-
-// .date_applied input:nth-child(2) {
-//   flex: 1;
-// }
 
 .example-header-label {
   flex: 1;
@@ -60,14 +46,20 @@
   background-color: transparent;
 }
 
-.side-by-side {
-  white-space: nowrap;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
 .time {
   margin-left: 5px; /* Adjust the value as per your desired spacing */
 }
 .bold-text {
   font-weight: bold;
+  margin: 3px;
+}
+
+:host ::ng-deep .date_applied {
+  width: 100%;
+}
+
+:host ::ng-deep .side-by-side {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

@@ -1,3 +1,5 @@
+$button-color: lightsteelblue;
+
 .cancel-button,
 .apply-button {
   flex: 1;
@@ -8,6 +10,7 @@
   border-radius: 5px;
   font-weight: 520;
   margin: 0 5px;
+  margin-top: 5px;
   &:hover {
     cursor: pointer;
   }
@@ -16,12 +19,33 @@
   margin-right: 10px;
 }
 .apply-button {
-  background-color: lightsteelblue;
+  background-color: $button-color;
+}
+
+.cancel-button-date,
+.apply-button-date {
+  flex: 1;
+  text-align: center;
+  font-size: 18px; // Adjust as needed
+  padding: 8px 10px; // Adjust as needed
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-weight: 520;
+  margin: 0 10px;
+  margin-top: 35px;
+  height: 40px;
+  margin-right: -3px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.apply-button-date {
+  background-color: $button-color;
 }
 
 ::ng-deep .mat-calendar {
   height: 380px !important;
-  width: 390px !important;
+  width: 399px !important;
 }
 ::ng-deep .mat-calendar-header {
   display: flex;
@@ -46,10 +70,54 @@ mat-form-field {
   background-color: transparent; /* Or any color you prefer */
   border: 1px solid #ccc; /* Or any color you prefer */
   border-radius: 4px; /* Adjust as necessary to get the desired "button" look */
-  width: auto; /* Set a specific width, or leave it auto to fit the content */
+  // width: auto; /* Set a specific width, or leave it auto to fit the content */
   text-align: auto; /* Center the text */
   height: 50px;
-  width: fit-content;
+  width: 500px;
+}
+
+::ng-deep .mat-date-range-input-start-wrapper,
+::ng-deep .mat-date-range-input-end-wrapper {
+  padding: 0;
+  margin: 0;
+  text-align: start;
+}
+
+::ng-deep .mat-date-range-input-container,
+::ng-deep .mat-date-range-input-inner {
+  padding: 0;
+  margin: 0;
+}
+
+::ng-deep mat-date-range-input {
+  display: block !important;
+}
+
+::ng-deep .mat-date-range-input-start-wrapper,
+::ng-deep .mat-date-range-input-end-wrapper {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+::ng-deep .mat-date-range-input-mirror {
+  min-width: 0 !important;
+}
+
+::ng-deep .mat-date-range-input-end-wrapper {
+  max-width: none !important;
+}
+
+::ng-deep .mat-date-range-input-start-wrapper {
+  flex-grow: 10 !important;
+  margin-left: -150px !important;
+}
+
+::ng-deep .mat-date-range-input-end-wrapper {
+  flex-grow: 1 !important;
+}
+
+::ng-deep .mat-date-range-input-separator {
+  margin-left: 0px !important;
+  margin-right: 189px !important;
 }
 
 .datepicker-input {
@@ -71,15 +139,15 @@ mat-date-range-input input {
   display: none;
 }
 
-::ng-deep .mat-date-range-input-separator {
-  /* Styles for the hyphen (-) separator */
-  margin: 0 5px; /* Adjust the margin as needed */
-  position: absolute;
-  top: 40%;
-  transform: translateY(-50%);
-  right: 48%;
-  margin-right: 200px;
-}
+// ::ng-deep .mat-date-range-input-separator {
+//   /* Styles for the hyphen (-) separator */
+//   margin: 0 5px; /* Adjust the margin as needed */
+//   position: absolute;
+//   top: 40%;
+//   transform: translateY(-50%);
+//   right: 48%;
+//   margin-right: 200px;
+// }
 
 /* Move the datepicker toggle icon to the left of the input */
 ::ng-deep .mat-form-field {
@@ -117,6 +185,17 @@ mat-date-range-input input {
   margin-top: 8px; /* Adjust the value as needed to create more space */
 }
 
+.datepicker-footer .datepicker-footer-actions-first {
+  width: 100%;
+  margin-top: -20px;
+}
+
+.datepicker-footer-actions-first {
+  display: flex;
+  justify-content: space-between; /* To separate the buttons with equal space between them */
+  margin-top: 8px; /* Adjust the value as needed to create more space */
+}
+
 .mat-date-range-input-start {
   margin-right: 100px;
 }
@@ -149,6 +228,8 @@ mat-date-range-input input {
 }
 .time-picker-container {
   display: flex;
+  justify-content: space-between;
+
   gap: 50px;
   align-items: center; /* Center the items vertically */
   margin-top: 60px; /* Adjust the top margin as needed */
@@ -158,6 +239,7 @@ mat-date-range-input input {
   display: flex;
   flex-direction: column;
   align-items: left;
+
   margin-bottom: 0px;
 }
 .time-picker-container > :not(.datepicker-footer-actions) {
@@ -171,4 +253,64 @@ mat-date-range-input input {
   margin-right: 10px; /* Adjust the value to control the spacing between label and timepicker */
   margin: -6px;
   margin-left: 0px;
+}
+
+.time-picker-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px; /* Adjust the top margin as needed */
+  margin-left: 15px;
+}
+
+.start-time-wrapper {
+  margin-right: 60px !important; /* This will push the start time and its time picker to the right */
+}
+
+.end-time-wrapper {
+  margin-left: -42px !important; /* This will push the end time and its time picker to the left */
+}
+
+.time-picker-item,
+.time-picker-item-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.horizontal-line {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc; /* Adjust the color as needed */
+  margin-top: 20px; /* Adjust the margin as needed */
+  position: relative;
+}
+
+.vertical-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 48px; /* Adjust the height of the vertical line as needed */
+  background-color: #ccc; /* Adjust the color of the vertical line as needed */
+  margin-top: 271px;
+}
+
+.vertical-line-first {
+  position: absolute;
+  top: 50%;
+  left: 43%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 48px; /* Adjust the height of the vertical line as needed */
+  background-color: #ccc;
+  margin-top: 209px;
+}
+.horizontal-line-first {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc; /* Adjust the color as needed */
+  margin-top: 65px; /* Adjust the margin as needed */
+  position: relative;
 }

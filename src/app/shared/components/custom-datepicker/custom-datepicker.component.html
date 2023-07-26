@@ -18,6 +18,7 @@
       class="datepicker-toggle"
       (click)="openDatePicker()"
     ></mat-datepicker-toggle>
+
     <mat-datepicker
       #datepicker
       [calendarHeaderComponent]="exampleHeader"
@@ -28,29 +29,32 @@
           fxLayout="column"
           fxLayoutAlign="center center"
         >
-          <div class="adjust-time">
-            <app-custom-timepicker
-              *ngIf="isShowTime"
-            ></app-custom-timepicker>
-          </div>
+          <div class="horizontal-line-first"></div>
 
           <div
-            class="datepicker-footer-actions"
+            class="datepicker-footer-actions-first"
             FxLayout="row"
             fxLayoutAlign="space-between "
           >
+            <div class="adjust-time">
+              <app-custom-timepicker
+                *ngIf="isShowTime"
+              ></app-custom-timepicker>
+            </div>
             <button
               mat-button
               matDatepickerCancel
-              class="cancel-button"
+              class="cancel-button-date"
             >
               Cancel
             </button>
+            <div class="vertical-line-first"></div>
+
             <button
               mat-raised-button
               color="primary"
               matDatepickerApply
-              class="apply-button"
+              class="apply-button-date"
               (click)="applyDateChange()"
             >
               Apply
@@ -63,7 +67,7 @@
 </div>
 
 <div class="format">
-  <mat-form-field>
+  <mat-form-field class="daterange-picker-wid">
     <mat-date-range-input
       [rangePicker]="picker"
       [formGroup]="rangeForm"
@@ -80,7 +84,7 @@
         [value]="rangeForm.controls['end'].value"
       />
 
-      <div class="date-range-separator">-</div>
+      <!-- <div class="date-range-separator">-</div> -->
       <input
         matEndDate
         formControlName="end"
@@ -110,20 +114,25 @@
           fxLayoutAlign="center center"
         >
           <div class="time-picker-container" *ngIf="isShowTime">
-            <div class="time-picker-item">
-              <p class="time-label">Start Time:</p>
-              <app-custom-timepicker
-                (timeChange)="updateStartTime($event)"
-              ></app-custom-timepicker>
+            <div class="start-time-wrapper">
+              <div class="time-picker-item">
+                <p class="time-label">Start Time:</p>
+                <app-custom-timepicker
+                  (timeChange)="updateStartTime($event)"
+                ></app-custom-timepicker>
+              </div>
             </div>
 
-            <div class="time-picker-item">
-              <p class="time-label">End Time:</p>
-              <app-custom-timepicker
-                (timeChange)="updateEndTime($event)"
-              ></app-custom-timepicker>
+            <div class="end-time-wrapper">
+              <div class="time-picker-item-end">
+                <p class="time-label">End Time:</p>
+                <app-custom-timepicker
+                  (timeChange)="updateEndTime($event)"
+                ></app-custom-timepicker>
+              </div>
             </div>
           </div>
+          <div class="horizontal-line"></div>
           <div
             class="datepicker-footer-actions"
             FxLayout="row"
@@ -136,6 +145,8 @@
             >
               Cancel
             </button>
+            <div class="vertical-line"></div>
+
             <button
               mat-raised-button
               color="primary"

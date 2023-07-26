@@ -33,7 +33,7 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
   >;
 
   private _destroyed = new Subject<void>();
-  formattedDate: string | null;
+  formattedDate!: string | null;
 
   selectedDate = new Date();
   time = '00 H 00 Min';
@@ -54,6 +54,10 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
     private _timeService: TimeService,
     private _dateFormatPipe: DateFormatPipe,
   ) {
+    this.selectedDate = new Date();
+
+    // Initialize formattedDate with the current date and time
+    this.formattedDate = this.formatDate(this.selectedDate);
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
       .subscribe(() => {
@@ -103,16 +107,16 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
       .onSelectedDateChange()
       .subscribe((date) => {
         this.selectedDate = date ? new Date(date) : new Date();
+        this.formattedDate = this.formatDate(this.selectedDate);
         this._cdr.detectChanges();
       });
-    this.formattedDate = this.formatDate(new Date());
 
-    this._datepickerService
-      .onFormattedDateChange()
-      .subscribe((formattedDate) => {
-        this.formattedDate = formattedDate;
-        this._cdr.detectChanges();
-      });
+    this._timeService.getTimeObservable().subscribe((time) => {
+      this.time = time;
+      this.formattedDate = this.formatDate(this.selectedDate);
+      this._cdr.detectChanges();
+    });
+
     this._timeService.isShowTime$.subscribe((value) => {
       this.isShowTime = value;
     });
@@ -174,12 +178,18 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   formatDate(date: Date): string {
-    const options: Intl.DateTimeFormatOptions = {
+    const dateOptions: Intl.DateTimeFormatOptions = {
       day: '2-digit',
-      month: '2-digit',
+      month: 'short',
       year: 'numeric',
     };
-    return new Intl.DateTimeFormat('en-GB', options).format(date);
+
+    const formattedDate = new Intl.DateTimeFormat(
+      'en-US',
+      dateOptions,
+    ).format(date);
+
+    return `${formattedDate} `;
   }
 
   ngOnDestroy() {

@@ -30,7 +30,8 @@ export class AppDateAdapter extends NativeDateAdapter {
     displayFormat: string | object,
   ): string {
     if (displayFormat === 'input') {
-      const formattedDate = moment(date).format('DD/MM/YYYY');
+      // Here you need to change the date format
+      const formattedDate = moment(date).format('MMM DD, YYYY');
       return formattedDate;
     }
     return moment(date).format('ddd MMM DD YYYY');
@@ -57,6 +58,8 @@ export class CustomDatepickerComponent
   selectedTime: Date | null = null;
   isShowTime!: boolean;
   isDatePicker = true;
+  startTime = '00:00';
+  endTime = '00:00';
 
   constructor(
     private _datepickerService: DatepickerService,
@@ -80,6 +83,14 @@ export class CustomDatepickerComponent
       this.isShowTime = value;
     });
     this.isShowTime = this._timeService.getIsShowTime();
+
+    this._timeService.startTime$.subscribe((time) => {
+      this.startTime = time;
+    });
+
+    this._timeService.endTime$.subscribe((time) => {
+      this.endTime = time;
+    });
   }
 
   updateStartTime(newTime: string) {
@@ -105,7 +116,7 @@ export class CustomDatepickerComponent
 
     if (this.isShowTime && this._timeService.time) {
       const formattedTime = this.formatTime(this._timeService.time);
-      value = formattedTime + ' ' + value; // swap the order here
+      value = value + ' ' + formattedTime; // swap the order here
     }
 
     return value;
