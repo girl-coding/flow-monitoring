@@ -45,18 +45,17 @@
         <label>{{ formattedDate }}</label>
       </div>
       <div class="bold-text">
-        <span *ngIf="isShowTime">{{ time }}</span>
+        <span *ngIf="isShowTime">{{ time }} </span>
       </div>
     </div>
     <div class="date_applied" *ngIf="shouldShowDateRangeApplied()">
       <div style="width: 100%">
-        <!-- Changed this div -->
         <div class="side-by-side">
           <div class="side-by-side-first">
             <span class="bold-text">{{ selectedStartDate }}</span>
-            <span *ngIf="isShowTime" class="bold-text time">{{
-              startTime
-            }}</span>
+            <span *ngIf="isShowTime" class="bold-text time"
+              >{{ startTime }}
+            </span>
           </div>
           <div class="side-by-side-second">
             <span class="bold-text">{{ selectedEndDate }}</span>

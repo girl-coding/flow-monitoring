@@ -16,10 +16,12 @@ $button-color: lightsteelblue;
   }
 }
 .cancel-button {
-  margin-right: 10px;
+  margin-right: 8px;
 }
 .apply-button {
   background-color: $button-color;
+  height: 42px;
+  margin-left: 5px;
 }
 
 .cancel-button-date,
@@ -32,15 +34,67 @@ $button-color: lightsteelblue;
   border-radius: 5px;
   font-weight: 520;
   margin: 0 10px;
-  margin-top: 35px;
-  height: 40px;
   margin-right: -3px;
+  margin-left: 40px;
+
   &:hover {
     cursor: pointer;
   }
 }
 .apply-button-date {
   background-color: $button-color;
+  margin-left: 10px; // reduce left margin
+  width: 20px;
+}
+
+.datepicker-footer-no-time {
+  width: 100%;
+  margin-top: 72px;
+  border-top: 1px solid gray;
+  padding-top: 10px;
+  justify-content: space-between; /* To separate the buttons with equal space between them */
+  display: flex;
+  gap: 3px;
+}
+
+.cancel-button-date-no-time {
+  /* The rest of your styles */
+  flex: 0.9;
+  text-align: center;
+  font-size: 18px; // Adjust as needed
+  padding: 8px 10px; // Adjust as needed
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-weight: 540;
+  margin: 0 5px;
+  margin-top: 5px;
+  height: 42px;
+  &:hover {
+    cursor: pointer;
+  }
+  margin-right: 5px;
+}
+
+.apply-button-date-no-time {
+  background-color: $button-color;
+  width: 50%;
+  flex: 1;
+  text-align: center;
+  font-size: 18px; // Adjust as needed
+  padding: 8px 10px; // Adjust as needed
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-weight: 540;
+  margin: 0 5px;
+  margin-top: 5px;
+  height: 43px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+.cancel-button-date-no-time {
+  margin-left: 23px;
 }
 
 ::ng-deep .mat-calendar {
@@ -70,10 +124,9 @@ mat-form-field {
   background-color: transparent; /* Or any color you prefer */
   border: 1px solid #ccc; /* Or any color you prefer */
   border-radius: 4px; /* Adjust as necessary to get the desired "button" look */
-  // width: auto; /* Set a specific width, or leave it auto to fit the content */
   text-align: auto; /* Center the text */
   height: 50px;
-  width: 500px;
+  // width: 390px;
 }
 
 ::ng-deep .mat-date-range-input-start-wrapper,
@@ -97,6 +150,7 @@ mat-form-field {
 ::ng-deep .mat-date-range-input-end-wrapper {
   padding-left: 0 !important;
   margin-left: 0 !important;
+  display: none;
 }
 ::ng-deep .mat-date-range-input-mirror {
   min-width: 0 !important;
@@ -118,6 +172,7 @@ mat-form-field {
 ::ng-deep .mat-date-range-input-separator {
   margin-left: 0px !important;
   margin-right: 189px !important;
+  display: none;
 }
 
 .datepicker-input {
@@ -138,16 +193,6 @@ mat-date-range-input input {
 ::ng-deep .mat-form-field-underline {
   display: none;
 }
-
-// ::ng-deep .mat-date-range-input-separator {
-//   /* Styles for the hyphen (-) separator */
-//   margin: 0 5px; /* Adjust the margin as needed */
-//   position: absolute;
-//   top: 40%;
-//   transform: translateY(-50%);
-//   right: 48%;
-//   margin-right: 200px;
-// }
 
 /* Move the datepicker toggle icon to the left of the input */
 ::ng-deep .mat-form-field {
@@ -173,6 +218,23 @@ mat-date-range-input input {
 
 .datepicker-footer {
   width: 100%;
+  margin-top: 72px;
+  border-top: 1px solid gray;
+  padding-top: 10px;
+}
+
+.datepicker-footer-range {
+  width: 100%;
+}
+
+.datepicker-footer-range .datepicker-footer-actions {
+  width: 100%;
+}
+.adjust-time {
+  /* These are just example values, adjust as necessary */
+  margin: -19px;
+  padding: -9px;
+  margin-left: 0px;
 }
 
 .datepicker-footer .datepicker-footer-actions {
@@ -182,7 +244,8 @@ mat-date-range-input input {
 .datepicker-footer-actions {
   display: flex;
   justify-content: space-between; /* To separate the buttons with equal space between them */
-  margin-top: 8px; /* Adjust the value as needed to create more space */
+  border-top: 1px solid gray;
+  padding-top: 8px;
 }
 
 .datepicker-footer .datepicker-footer-actions-first {
@@ -246,9 +309,6 @@ mat-date-range-input input {
   margin-bottom: -10px; /* Adjust the margin as needed */
 }
 
-.adjust-time {
-  margin-top: 21px;
-}
 .time-label {
   margin-right: 10px; /* Adjust the value to control the spacing between label and timepicker */
   margin: -6px;
@@ -288,29 +348,22 @@ mat-date-range-input input {
 
 .vertical-line {
   position: absolute;
-  top: 50%;
+  top: 49%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1px;
-  height: 48px; /* Adjust the height of the vertical line as needed */
+  height: 46px; /* Adjust the height of the vertical line as needed */
   background-color: #ccc; /* Adjust the color of the vertical line as needed */
-  margin-top: 271px;
+  margin-top: 285px;
 }
 
 .vertical-line-first {
   position: absolute;
-  top: 50%;
-  left: 43%;
+  top: 53%;
+  left: 37%;
   transform: translate(-50%, -50%);
   width: 1px;
-  height: 48px; /* Adjust the height of the vertical line as needed */
+  height: 44px; /* Adjust the height of the vertical line as needed */
   background-color: #ccc;
   margin-top: 209px;
-}
-.horizontal-line-first {
-  width: 100%;
-  height: 1px;
-  background-color: #ccc; /* Adjust the color as needed */
-  margin-top: 65px; /* Adjust the margin as needed */
-  position: relative;
 }

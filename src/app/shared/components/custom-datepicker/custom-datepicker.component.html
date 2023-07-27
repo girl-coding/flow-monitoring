@@ -1,5 +1,7 @@
 <div class="format" *ngIf="isDatePicker">
-  <mat-form-field>
+  <mat-form-field
+    [ngStyle]="{ width: isShowTime ? '220px' : '200px' }"
+  >
     <input
       matInput
       [matDatepicker]="datepicker"
@@ -25,41 +27,44 @@
     >
       <mat-datepicker-actions>
         <div
-          class="datepicker-footer"
-          fxLayout="column"
-          fxLayoutAlign="center center"
+          [ngClass]="{
+            'datepicker-footer': isShowTime,
+            'datepicker-footer-no-time': !isShowTime
+          }"
+          fxLayout="row"
+          fxLayoutAlign="end center"
+          [class.centered-buttons-container]="!isShowTime"
         >
-          <div class="horizontal-line-first"></div>
-
-          <div
-            class="datepicker-footer-actions-first"
-            FxLayout="row"
-            fxLayoutAlign="space-between "
-          >
-            <div class="adjust-time">
-              <app-custom-timepicker
-                *ngIf="isShowTime"
-              ></app-custom-timepicker>
-            </div>
-            <button
-              mat-button
-              matDatepickerCancel
-              class="cancel-button-date"
-            >
-              Cancel
-            </button>
-            <div class="vertical-line-first"></div>
-
-            <button
-              mat-raised-button
-              color="primary"
-              matDatepickerApply
-              class="apply-button-date"
-              (click)="applyDateChange()"
-            >
-              Apply
-            </button>
+          <div class="adjust-time">
+            <app-custom-timepicker
+              *ngIf="isShowTime"
+            ></app-custom-timepicker>
           </div>
+
+          <button
+            mat-button
+            matDatepickerCancel
+            [ngClass]="{
+              'cancel-button-date': isShowTime,
+              'cancel-button-date-no-time': !isShowTime
+            }"
+          >
+            Cancel
+          </button>
+
+          <div class="vertical-line-first" *ngIf="isShowTime"></div>
+          <button
+            mat-raised-button
+            color="primary"
+            matDatepickerApply
+            (click)="applyDateChange()"
+            [ngClass]="{
+              'apply-button-date': isShowTime,
+              'apply-button-date-no-time': !isShowTime
+            }"
+          >
+            Apply
+          </button>
         </div>
       </mat-datepicker-actions>
     </mat-datepicker>
@@ -67,7 +72,33 @@
 </div>
 
 <div class="format">
-  <mat-form-field class="daterange-picker-wid">
+  <mat-form-field
+    [ngStyle]="{ width: isShowTime ? '390px' : '282px' }"
+  >
+    <div
+      style="
+        font-size: 1.2em;
+        display: flex;
+        align-items: center;
+        margin-top: -1px;
+        margin-left: 5px;
+      "
+    >
+      <p style="margin-right: 2px">{{ startDateDisplayValue }}</p>
+      <div
+        class="date-range-separator"
+        style="
+          margin-right: 8px;
+          position: relative;
+          top: -7px;
+          margin: 3px;
+        "
+      >
+        -
+      </div>
+      <p>{{ endDateDisplayValue }}</p>
+    </div>
+
     <mat-date-range-input
       [rangePicker]="picker"
       [formGroup]="rangeForm"
@@ -77,21 +108,18 @@
     >
       <input
         matStartDate
-        formControlName="start"
+        formControlName="end"
         #startDateInput
         readonly="readonly"
         class="date-range-input start-date-input"
-        [value]="rangeForm.controls['end'].value"
       />
 
-      <!-- <div class="date-range-separator">-</div> -->
       <input
         matEndDate
-        formControlName="end"
+        formControlName="start"
         #endDateInput
         readonly="readonly"
         class="date-range-input end-date-input"
-        [value]="rangeForm.controls['start'].value"
       />
     </mat-date-range-input>
     <mat-datepicker-toggle
@@ -109,14 +137,25 @@
     >
       <mat-datepicker-actions>
         <div
-          class="datepicker-footer"
+          class="datepicker-footer-range"
           fxLayout="column"
           fxLayoutAlign="center center"
         >
           <div class="time-picker-container" *ngIf="isShowTime">
             <div class="start-time-wrapper">
               <div class="time-picker-item">
-                <p class="time-label">Start Time:</p>
+                <div style="display: flex; align-items: center">
+                  <p class="time-label" style="margin-right: 10px">
+                    Start Time:
+                  </p>
+                  <span
+                    class="toggle-icon"
+                    style="margin-left: 1px; margin-top: 10px"
+                  >
+                    <mat-icon>schedule</mat-icon>
+                  </span>
+                </div>
+
                 <app-custom-timepicker
                   (timeChange)="updateStartTime($event)"
                 ></app-custom-timepicker>
@@ -125,18 +164,29 @@
 
             <div class="end-time-wrapper">
               <div class="time-picker-item-end">
-                <p class="time-label">End Time:</p>
+                <div style="display: flex; align-items: center">
+                  <p class="time-label" style="margin-right: 10px">
+                    End Time:
+                  </p>
+                  <span
+                    class="toggle-icon"
+                    style="margin-left: 1px; margin-top: 10px"
+                  >
+                    <mat-icon>schedule</mat-icon>
+                  </span>
+                </div>
+
                 <app-custom-timepicker
                   (timeChange)="updateEndTime($event)"
                 ></app-custom-timepicker>
               </div>
             </div>
           </div>
-          <div class="horizontal-line"></div>
           <div
             class="datepicker-footer-actions"
             FxLayout="row"
             fxLayoutAlign="space-between"
+            [ngStyle]="{ 'margin-top': isShowTime ? '8px' : '70px' }"
           >
             <button
               mat-button
@@ -145,7 +195,7 @@
             >
               Cancel
             </button>
-            <div class="vertical-line"></div>
+            <div class="vertical-line" *ngIf="isShowTime"></div>
 
             <button
               mat-raised-button

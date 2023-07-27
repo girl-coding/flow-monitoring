@@ -58,8 +58,10 @@ export class CustomDatepickerComponent
   selectedTime: Date | null = null;
   isShowTime!: boolean;
   isDatePicker = true;
-  startTime = '00:00';
-  endTime = '00:00';
+  startDateDisplayValue = '';
+  endDateDisplayValue = '';
+  startTime = '';
+  endTime = '';
 
   constructor(
     private _datepickerService: DatepickerService,
@@ -84,12 +86,59 @@ export class CustomDatepickerComponent
     });
     this.isShowTime = this._timeService.getIsShowTime();
 
-    this._timeService.startTime$.subscribe((time) => {
-      this.startTime = time;
+    // Other code...
+
+    this.rangeForm.controls['start'].valueChanges.subscribe(
+      (value) => {
+        if (value) {
+          this.startDateDisplayValue = this.formatDate(value);
+          if (this.isShowTime == true) {
+            this.startDateDisplayValue +=
+              ' ' + this.formateTime(this.endTime);
+          }
+        }
+      },
+    );
+
+    this.rangeForm.controls['end'].valueChanges.subscribe((value) => {
+      if (value) {
+        this.endDateDisplayValue = this.formatDate(value);
+        if (this.isShowTime == true) {
+          this.endDateDisplayValue +=
+            ' ' + this.formateTime(this.startTime);
+        }
+      }
+    });
+    this._timeService.endTime$.subscribe((time) => {
+      if (time && this.isShowTime == true) {
+        this.endTime = time;
+        this.endDateDisplayValue =
+          this.formatDate(this.rangeForm.controls['end'].value) +
+          ' ' +
+          this.formateTime(this.endTime);
+      }
+      if (time && this.isShowTime == false) {
+        this.endTime = time;
+        this.endDateDisplayValue = this.formatDate(
+          this.rangeForm.controls['end'].value,
+        );
+      }
     });
 
-    this._timeService.endTime$.subscribe((time) => {
-      this.endTime = time;
+    this._timeService.startTime$.subscribe((time) => {
+      if (time && this.isShowTime == true) {
+        this.startTime = time;
+        this.startDateDisplayValue =
+          this.formatDate(this.rangeForm.controls['start'].value) +
+          ' ' +
+          this.formateTime(this.startTime);
+      }
+      if (time && this.isShowTime == false) {
+        this.startTime = time;
+        this.startDateDisplayValue = this.formatDate(
+          this.rangeForm.controls['start'].value,
+        );
+      }
     });
   }
 
@@ -126,6 +175,9 @@ export class CustomDatepickerComponent
   formatTime(time: string): string {
     const parts = time.split(' ');
     return parts[0] + ':' + parts[2];
+  }
+  formateTime(time: string): string {
+    return time; // As time is already in the desired format "HH:MM"
   }
 
   // selectedDate: string | null = null;
@@ -209,15 +261,6 @@ export class CustomDatepickerComponent
   }
   pendingSelectedDate: Date | null = null;
 
-  // updateSelectedDate(event: MatDatepickerInputEvent<Date>): void {
-  //   const selectedDate = event.value;
-  //   this.pendingSelectedDate = selectedDate;
-
-  //   this.updateFormattedDate();
-  //   this._datepickerService.formattedDate = this.formattedDate;
-  //   this.inputValue = this.getInputValue();
-  //   this._cdr.markForCheck();
-  // }
   updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
       this.pendingSelectedDate = event.value;
@@ -227,19 +270,27 @@ export class CustomDatepickerComponent
 
   formatDate(date: Date): string {
     const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const monthIndex = date.getMonth();
     const year = date.getFullYear();
 
-    // Get the hours and minutes
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
-    // Use `padStart` method to add leading zeros if necessary
-    return `${day.toString().padStart(2, '0')}/${month
-      .toString()
-      .padStart(2, '0')}/${year} ${hours
-      .toString()
-      .padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    const monthName = monthNames[monthIndex];
+
+    return `${monthName} ${day}, ${year}`;
   }
 
   updateInputValue(): void {
