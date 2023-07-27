@@ -11,9 +11,3 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     monthYearA11yLabel: { year: 'numeric', month: 'long' },
   },
 };
-
-export enum DateFormatEnum {
-  SHORT = 'dd/MM/yyyy',
-  MEDIUM = 'MMMM yyyy',
-  LONG = 'EEEE, MMMM d, yyyy',
-}

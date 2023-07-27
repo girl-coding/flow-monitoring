@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -23,6 +22,7 @@ import { ExampleHeaderComponent } from './example-header.component';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { TimeService } from '../../time.service';
+import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
 
 export class AppDateAdapter extends NativeDateAdapter {
   override format(
@@ -30,9 +30,7 @@ export class AppDateAdapter extends NativeDateAdapter {
     displayFormat: string | object,
   ): string {
     if (displayFormat === 'input') {
-      // Here you need to change the date format
-      const formattedDate = moment(date).format('MMM DD, YYYY');
-      return formattedDate;
+      return DateFormatPipe.formatDate(date);
     }
     return moment(date).format('ddd MMM DD YYYY');
   }
@@ -52,16 +50,29 @@ export class AppDateAdapter extends NativeDateAdapter {
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
 })
-export class CustomDatepickerComponent
-  implements OnInit, OnDestroy, AfterViewInit
-{
-  selectedTime: Date | null = null;
+export class CustomDatepickerComponent implements OnInit, OnDestroy {
+  selectedTime?: Date;
   isShowTime!: boolean;
   isDatePicker = true;
+  selectedDate?: Date;
+  formattedDate: string | null = null;
+
+  originalDate: Date = new Date();
   startDateDisplayValue = '';
   endDateDisplayValue = '';
   startTime = '';
   endTime = '';
+  inputValue = '';
+  pendingSelectedDate?: Date;
+
+  private _subscription: Subscription | null = null;
+
+  rangeForm: FormGroup;
+  startDate!: Date;
+  endDate!: Date;
+  exampleHeader = ExampleHeaderComponent;
+  private _subscriptions: Subscription[] = [];
+  dateFormatPipe = new DateFormatPipe();
 
   constructor(
     private _datepickerService: DatepickerService,
@@ -86,15 +97,13 @@ export class CustomDatepickerComponent
     });
     this.isShowTime = this._timeService.getIsShowTime();
 
-    // Other code...
-
     this.rangeForm.controls['start'].valueChanges.subscribe(
       (value) => {
         if (value) {
-          this.startDateDisplayValue = this.formatDate(value);
+          this.startDateDisplayValue =
+            this.dateFormatPipe.transform(value);
           if (this.isShowTime == true) {
-            this.startDateDisplayValue +=
-              ' ' + this.formateTime(this.endTime);
+            this.startDateDisplayValue += ' ' + this.endTime;
           }
         }
       },
@@ -102,10 +111,10 @@ export class CustomDatepickerComponent
 
     this.rangeForm.controls['end'].valueChanges.subscribe((value) => {
       if (value) {
-        this.endDateDisplayValue = this.formatDate(value);
+        this.endDateDisplayValue =
+          this.dateFormatPipe.transform(value);
         if (this.isShowTime == true) {
-          this.endDateDisplayValue +=
-            ' ' + this.formateTime(this.startTime);
+          this.endDateDisplayValue += ' ' + this.startTime;
         }
       }
     });
@@ -113,13 +122,15 @@ export class CustomDatepickerComponent
       if (time && this.isShowTime == true) {
         this.endTime = time;
         this.endDateDisplayValue =
-          this.formatDate(this.rangeForm.controls['end'].value) +
+          this.dateFormatPipe.transform(
+            this.rangeForm.controls['end'].value,
+          ) +
           ' ' +
-          this.formateTime(this.endTime);
+          this.endTime;
       }
       if (time && this.isShowTime == false) {
         this.endTime = time;
-        this.endDateDisplayValue = this.formatDate(
+        this.endDateDisplayValue = this.dateFormatPipe.transform(
           this.rangeForm.controls['end'].value,
         );
       }
@@ -129,13 +140,15 @@ export class CustomDatepickerComponent
       if (time && this.isShowTime == true) {
         this.startTime = time;
         this.startDateDisplayValue =
-          this.formatDate(this.rangeForm.controls['start'].value) +
+          this.dateFormatPipe.transform(
+            this.rangeForm.controls['start'].value,
+          ) +
           ' ' +
-          this.formateTime(this.startTime);
+          this.startTime;
       }
       if (time && this.isShowTime == false) {
         this.startTime = time;
-        this.startDateDisplayValue = this.formatDate(
+        this.startDateDisplayValue = this.dateFormatPipe.transform(
           this.rangeForm.controls['start'].value,
         );
       }
@@ -150,10 +163,6 @@ export class CustomDatepickerComponent
     this._timeService.updateEndTime(newTime);
   }
 
-  inputValue = '';
-
-  // Call this function whenever time or pendingSelectedDate changes
-
   getInputValue(): string {
     let value = '';
     if (this.pendingSelectedDate) {
@@ -164,42 +173,18 @@ export class CustomDatepickerComponent
     }
 
     if (this.isShowTime && this._timeService.time) {
-      const formattedTime = this.formatTime(this._timeService.time);
-      value = value + ' ' + formattedTime; // swap the order here
+      value = value + ' ' + this._timeService.time;
     }
 
     return value;
   }
 
-  // Converts time in format "HH H MM Min" to "HH:MM"
-  formatTime(time: string): string {
-    const parts = time.split(' ');
-    return parts[0] + ':' + parts[2];
-  }
-  formateTime(time: string): string {
-    return time; // As time is already in the desired format "HH:MM"
-  }
-
-  // selectedDate: string | null = null;
-  selectedDate: Date | null = null;
-  formattedDate: string | null = null;
-
-  originalDate: Date = new Date();
-
-  private subscription: Subscription | null = null;
-
-  rangeForm: FormGroup;
-  startDate!: Date;
-  endDate!: Date;
-
   openRangePicker() {
     this._datepickerService.setRangePicker(true);
-    // Open range picker here
   }
 
   openDatePicker() {
     this._datepickerService.setRangePicker(false);
-    // Open date picker here
   }
   onDateChange(event: MatDatepickerInputEvent<DateRange<Date>>) {
     if (event.value?.start && event.value.end) {
@@ -217,49 +202,29 @@ export class CustomDatepickerComponent
     });
   }
 
-  exampleHeader = ExampleHeaderComponent;
-  private subscriptions: Subscription[] = [];
-
   ngOnInit(): void {
-    this.updateFormattedDate();
-
     const datepickerSubscription = this._datepickerService
       .onSelectedDateChange()
       .subscribe((date: string | null) => {
         this.selectedDate = date ? new Date(date) : this.selectedDate;
-        this.updateFormattedDate();
+
         this._datepickerService.formattedDate = this.formattedDate;
       });
-    this.subscriptions.push(datepickerSubscription);
+    this._subscriptions.push(datepickerSubscription);
 
     const timeSubscription = this._timeService
       .getTimeObservable()
       .subscribe(() => {
         this.updateInputValue();
       });
-    this.subscriptions.push(timeSubscription);
+    this._subscriptions.push(timeSubscription);
 
     const showTimeSubscription =
       this._timeService.isShowTime$.subscribe(() => {
         this.updateInputValue();
       });
-    this.subscriptions.push(showTimeSubscription);
+    this._subscriptions.push(showTimeSubscription);
   }
-
-  //make the input field of header  format dd//MM/YYYY
-  updateFormattedDate(): void {
-    const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    };
-    this.formattedDate = this.selectedDate
-      ? new Intl.DateTimeFormat('en-GB', options).format(
-          this.selectedDate,
-        )
-      : null;
-  }
-  pendingSelectedDate: Date | null = null;
 
   updateSelectedDate(event: MatDatepickerInputEvent<Date>) {
     if (event.value) {
@@ -268,74 +233,24 @@ export class CustomDatepickerComponent
     }
   }
 
-  formatDate(date: Date): string {
-    const day = date.getDate();
-    const monthIndex = date.getMonth();
-    const year = date.getFullYear();
-
-    const monthNames = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const monthName = monthNames[monthIndex];
-
-    return `${monthName} ${day}, ${year}`;
-  }
-
   updateInputValue(): void {
     this.inputValue = this.getInputValue();
 
     this._cdr.detectChanges();
   }
 
-  ngAfterViewInit(): void {
-    const timeSubscription = this._timeService
-      .getTimeObservable()
-      .subscribe(() => {
-        this.updateInputValue();
-      });
-    this.subscriptions.push(timeSubscription);
-
-    const showTimeSubscription =
-      this._timeService.isShowTime$.subscribe(() => {
-        this.updateInputValue();
-      });
-    this.subscriptions.push(showTimeSubscription);
-    this._cdr.markForCheck();
-  }
   applyDateChange(): void {
     if (this.pendingSelectedDate) {
-      // combine the selected date and the selected time
-      const timeParts = this._timeService.time.split(' ');
-      const hours = Number(timeParts[0]);
-      const minutes = Number(timeParts[2]);
-
-      // set the time for the selected date
-      this.pendingSelectedDate.setHours(hours, minutes);
-
-      // convert the date with time to ISO string
-
       this.selectedDate = this.pendingSelectedDate;
 
       this.updateInputValue();
 
-      this._cdr.markForCheck(); // instead of detectChanges()
+      this._cdr.markForCheck();
     }
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this._subscription?.unsubscribe();
+    this._subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

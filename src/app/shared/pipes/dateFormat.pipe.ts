@@ -1,18 +1,36 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { DateFormatEnum } from '../constants/app-date-formats.const';
 
 @Pipe({
   name: 'dateFormat',
 })
-export class DateFormatPipe
-  extends DatePipe
-  implements PipeTransform
-{
-  override transform(
-    value: any,
-    format: DateFormatEnum = DateFormatEnum.SHORT,
-  ): any {
-    return super.transform(value, format);
+export class DateFormatPipe implements PipeTransform {
+  transform(value: any): string {
+    const date = new Date(value);
+    return DateFormatPipe.formatDate(date);
+  }
+
+  static formatDate(date: Date): string {
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    const monthName = monthNames[monthIndex];
+
+    return `${monthName} ${day}, ${year}`;
   }
 }

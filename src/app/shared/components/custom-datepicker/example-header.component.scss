@@ -1,9 +1,3 @@
-/* :host {
-        display: flex;
-        flex-direction: row;
-        justify-content: start; // Or another value depending on your layout needs
-        align-items: center;
-      } */
 .example-header {
   padding: 0.5em;
   font-size: 15px;
@@ -47,7 +41,7 @@
 }
 
 .time {
-  margin-left: 5px; /* Adjust the value as per your desired spacing */
+  margin-left: 5px;
 }
 .bold-text {
   font-weight: bold;

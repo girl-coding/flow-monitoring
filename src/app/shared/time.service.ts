@@ -21,11 +21,15 @@ export class TimeService {
   private _timeSubject: Subject<string> = new Subject<string>();
 
   get time(): string {
-    return this._time;
+    const formattedTime = this._time
+      .replace(' H ', ':')
+      .replace(' Min', '');
+    return formattedTime;
   }
 
   set time(value: string) {
     this._time = value;
+
     this._timeSubject.next(value);
   }
 

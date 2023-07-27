@@ -39,31 +39,28 @@
       <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
   </div>
-  <div class="extend-width" style="display: flex; gap: 50px">
-    <div class="date_applied" *ngIf="shouldShowDateApplied()">
-      <div class="bold-text">
-        <label>{{ formattedDate }}</label>
-      </div>
-      <div class="bold-text">
-        <span *ngIf="isShowTime">{{ time }} </span>
-      </div>
+
+  <div class="date_applied" *ngIf="shouldShowDateApplied()">
+    <div class="bold-text">
+      <label>{{ formattedDate }}</label>
     </div>
-    <div class="date_applied" *ngIf="shouldShowDateRangeApplied()">
-      <div style="width: 100%">
-        <div class="side-by-side">
-          <div class="side-by-side-first">
-            <span class="bold-text">{{ selectedStartDate }}</span>
-            <span *ngIf="isShowTime" class="bold-text time"
-              >{{ startTime }}
-            </span>
-          </div>
-          <div class="side-by-side-second">
-            <span class="bold-text">{{ selectedEndDate }}</span>
-            <span *ngIf="isShowTime" class="bold-text time">{{
-              endTime
-            }}</span>
-          </div>
-        </div>
+    <div class="bold-text">
+      <span *ngIf="isShowTime">{{ time }} </span>
+    </div>
+  </div>
+  <div class="date_applied" *ngIf="shouldShowDateRangeApplied()">
+    <div class="side-by-side">
+      <div class="side-by-side-first">
+        <span class="bold-text">{{ selectedStartDate }}</span>
+        <span *ngIf="isShowTime" class="bold-text time"
+          >{{ endTime }}
+        </span>
+      </div>
+      <div class="side-by-side-second">
+        <span class="bold-text">{{ selectedEndDate }}</span>
+        <span *ngIf="isShowTime" class="bold-text time">{{
+          startTime
+        }}</span>
       </div>
     </div>
   </div>

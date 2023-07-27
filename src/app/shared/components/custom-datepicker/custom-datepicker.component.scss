@@ -1,16 +1,44 @@
 $button-color: lightsteelblue;
 
+.date-input-value {
+  font-size: 1.2em;
+  margin-top: -20px;
+}
+
+.date-range-input-value {
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  margin-top: -1px;
+  margin-right: 6px;
+}
+
+.date-range-separator {
+  margin-right: 8px;
+  position: relative;
+  top: -7px;
+  margin: 3px;
+}
+
+.time-label-wrapper {
+  display: flex;
+  align-items: center;
+}
+.toggle-icon {
+  margin-left: 1px;
+  margin-top: 10px;
+}
 .cancel-button,
 .apply-button {
   flex: 1;
   text-align: center;
-  font-size: 18px; // Adjust as needed
-  padding: 8px 10px; // Adjust as needed
+  font-size: 18px;
+  padding: 8px 10px;
   box-sizing: border-box;
   border-radius: 5px;
   font-weight: 520;
-  margin: 0 5px;
-  margin-top: 5px;
+  margin: 5px 5px 0;
+
   &:hover {
     cursor: pointer;
   }
@@ -28,8 +56,8 @@ $button-color: lightsteelblue;
 .apply-button-date {
   flex: 1;
   text-align: center;
-  font-size: 18px; // Adjust as needed
-  padding: 8px 10px; // Adjust as needed
+  font-size: 18px;
+  padding: 8px 10px;
   box-sizing: border-box;
   border-radius: 5px;
   font-weight: 520;
@@ -43,7 +71,7 @@ $button-color: lightsteelblue;
 }
 .apply-button-date {
   background-color: $button-color;
-  margin-left: 10px; // reduce left margin
+  margin-left: 10px;
   width: 20px;
 }
 
@@ -52,17 +80,16 @@ $button-color: lightsteelblue;
   margin-top: 72px;
   border-top: 1px solid gray;
   padding-top: 10px;
-  justify-content: space-between; /* To separate the buttons with equal space between them */
+  justify-content: space-between;
   display: flex;
   gap: 3px;
 }
 
 .cancel-button-date-no-time {
-  /* The rest of your styles */
   flex: 0.9;
   text-align: center;
-  font-size: 18px; // Adjust as needed
-  padding: 8px 10px; // Adjust as needed
+  font-size: 18px;
+  padding: 8px 10px;
   box-sizing: border-box;
   border-radius: 5px;
   font-weight: 540;
@@ -80,8 +107,8 @@ $button-color: lightsteelblue;
   width: 50%;
   flex: 1;
   text-align: center;
-  font-size: 18px; // Adjust as needed
-  padding: 8px 10px; // Adjust as needed
+  font-size: 18px;
+  padding: 8px 10px;
   box-sizing: border-box;
   border-radius: 5px;
   font-weight: 540;
@@ -104,74 +131,35 @@ $button-color: lightsteelblue;
 ::ng-deep .mat-calendar-header {
   display: flex;
   flex-direction: row !important;
-  justify-content: center; // or space-between, space-around, depending on your layout requirements
-  align-items: center; // for vertical alignment
+  justify-content: center;
+  align-items: center;
 }
 
 ::ng-deep .mat-calendar-content {
-  margin-top: -4px; // Adjust as needed
+  margin-top: -4px;
 }
 
 .example-header {
   display: flex;
-  flex-direction: row; // Changed from column to row
+  flex-direction: row;
   padding: 0.5em;
   font-size: 15px;
 }
 
-/* Customize the input field to look like a button */
 mat-form-field {
-  background-color: transparent; /* Or any color you prefer */
-  border: 1px solid #ccc; /* Or any color you prefer */
-  border-radius: 4px; /* Adjust as necessary to get the desired "button" look */
-  text-align: auto; /* Center the text */
+  background-color: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: auto;
   height: 50px;
-  // width: 390px;
 }
 
 ::ng-deep .mat-date-range-input-start-wrapper,
 ::ng-deep .mat-date-range-input-end-wrapper {
-  padding: 0;
-  margin: 0;
-  text-align: start;
-}
-
-::ng-deep .mat-date-range-input-container,
-::ng-deep .mat-date-range-input-inner {
-  padding: 0;
-  margin: 0;
-}
-
-::ng-deep mat-date-range-input {
-  display: block !important;
-}
-
-::ng-deep .mat-date-range-input-start-wrapper,
-::ng-deep .mat-date-range-input-end-wrapper {
-  padding-left: 0 !important;
-  margin-left: 0 !important;
   display: none;
-}
-::ng-deep .mat-date-range-input-mirror {
-  min-width: 0 !important;
-}
-
-::ng-deep .mat-date-range-input-end-wrapper {
-  max-width: none !important;
-}
-
-::ng-deep .mat-date-range-input-start-wrapper {
-  flex-grow: 10 !important;
-  margin-left: -150px !important;
-}
-
-::ng-deep .mat-date-range-input-end-wrapper {
-  flex-grow: 1 !important;
 }
 
 ::ng-deep .mat-date-range-input-separator {
-  margin-left: 0px !important;
-  margin-right: 189px !important;
   display: none;
 }
 
@@ -180,11 +168,10 @@ mat-form-field {
   font-size: 1.2em;
 }
 
-/* accessing  */
 mat-date-range-input input {
-  font-size: 1.2em; /* Adjust as necessary */
-  line-height: 1.5; /* Adjust as necessary to vertically center the text */
-  border: none; /* Remove border */
+  font-size: 1.2em;
+  line-height: 1.5;
+  border: none;
   margin-left: -2, 5px;
   padding-left: -4px;
   padding-top: 2px;
@@ -194,12 +181,10 @@ mat-date-range-input input {
   display: none;
 }
 
-/* Move the datepicker toggle icon to the left of the input */
 ::ng-deep .mat-form-field {
   direction: rtl;
 }
 
-/* Ensure the text in the input field is still left-aligned */
 ::ng-deep .mat-form-field input {
   direction: ltr;
 }
@@ -231,7 +216,6 @@ mat-date-range-input input {
   width: 100%;
 }
 .adjust-time {
-  /* These are just example values, adjust as necessary */
   margin: -19px;
   padding: -9px;
   margin-left: 0px;
@@ -243,7 +227,7 @@ mat-date-range-input input {
 
 .datepicker-footer-actions {
   display: flex;
-  justify-content: space-between; /* To separate the buttons with equal space between them */
+  justify-content: space-between;
   border-top: 1px solid gray;
   padding-top: 8px;
 }
@@ -255,8 +239,8 @@ mat-date-range-input input {
 
 .datepicker-footer-actions-first {
   display: flex;
-  justify-content: space-between; /* To separate the buttons with equal space between them */
-  margin-top: 8px; /* Adjust the value as needed to create more space */
+  justify-content: space-between;
+  margin-top: 8px;
 }
 
 .mat-date-range-input-start {
@@ -272,11 +256,11 @@ mat-date-range-input input {
 }
 
 .start-date-input {
-  margin-top: -8px; /* Adjust the negative margin as needed */
+  margin-top: -8px;
   position: relative;
 }
 .end-date-input {
-  margin-top: -6px; /* Adjust the negative margin as needed */
+  margin-top: -6px;
   position: relative;
   margin-left: -20px !important;
 }
@@ -294,8 +278,8 @@ mat-date-range-input input {
   justify-content: space-between;
 
   gap: 50px;
-  align-items: center; /* Center the items vertically */
-  margin-top: 60px; /* Adjust the top margin as needed */
+  align-items: center;
+  margin-top: 60px;
 }
 
 .time-picker-item {
@@ -306,29 +290,30 @@ mat-date-range-input input {
   margin-bottom: 0px;
 }
 .time-picker-container > :not(.datepicker-footer-actions) {
-  margin-bottom: -10px; /* Adjust the margin as needed */
+  margin-bottom: -10px;
 }
 
 .time-label {
-  margin-right: 10px; /* Adjust the value to control the spacing between label and timepicker */
   margin: -6px;
   margin-left: 0px;
+
+  margin-right: 10px;
 }
 
 .time-picker-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 80px; /* Adjust the top margin as needed */
+  margin-top: 80px;
   margin-left: 15px;
 }
 
 .start-time-wrapper {
-  margin-right: 60px !important; /* This will push the start time and its time picker to the right */
+  margin-right: 60px !important;
 }
 
 .end-time-wrapper {
-  margin-left: -42px !important; /* This will push the end time and its time picker to the left */
+  margin-left: -42px !important;
 }
 
 .time-picker-item,
@@ -338,22 +323,14 @@ mat-date-range-input input {
   align-items: flex-start;
 }
 
-.horizontal-line {
-  width: 100%;
-  height: 1px;
-  background-color: #ccc; /* Adjust the color as needed */
-  margin-top: 20px; /* Adjust the margin as needed */
-  position: relative;
-}
-
 .vertical-line {
   position: absolute;
   top: 49%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1px;
-  height: 46px; /* Adjust the height of the vertical line as needed */
-  background-color: #ccc; /* Adjust the color of the vertical line as needed */
+  height: 46px;
+  background-color: #ccc;
   margin-top: 285px;
 }
 
@@ -363,7 +340,7 @@ mat-date-range-input input {
   left: 37%;
   transform: translate(-50%, -50%);
   width: 1px;
-  height: 44px; /* Adjust the height of the vertical line as needed */
+  height: 44px;
   background-color: #ccc;
   margin-top: 209px;
 }

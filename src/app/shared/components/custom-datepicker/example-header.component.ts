@@ -17,10 +17,9 @@ import { Subject, Subscription, takeUntil } from 'rxjs';
 import { DatepickerService } from '../../datepicker.service';
 import { TimeService } from '../../time.service';
 import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
-import { DateFormatEnum } from '../../constants/app-date-formats.const';
+
 import * as moment from 'moment';
 
-/** Custom header component for datepicker. */
 @Component({
   selector: 'example-header',
   templateUrl: './example-header.component.html',
@@ -45,6 +44,11 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
   selectedStartDate: string | null = null;
   selectedEndDate: string | null = null;
 
+  dateFormatPipe = new DateFormatPipe();
+
+  private _startTimeSub: Subscription | undefined;
+  private _endTimeSub: Subscription | undefined;
+
   constructor(
     private _calendar: MatCalendar<D>,
     private _dateAdapter: DateAdapter<D>,
@@ -56,8 +60,9 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
   ) {
     this.selectedDate = new Date();
 
-    // Initialize formattedDate with the current date and time
-    this.formattedDate = this.formatDate(this.selectedDate);
+    this.formattedDate = this.dateFormatPipe.transform(
+      this.selectedDate,
+    );
     _calendar.stateChanges
       .pipe(takeUntil(this._destroyed))
       .subscribe(() => {
@@ -65,8 +70,6 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
 
         const selectedDate = this._calendar.selected;
         if (selectedDate && 'start' in selectedDate) {
-          console.log(selectedDate.start);
-          console.log(selectedDate.end);
           const startDate = selectedDate.start
             ? (selectedDate.start as any)
             : null;
@@ -74,14 +77,12 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
             ? (selectedDate.end as any)
             : null;
 
-          if (startDate) {
-            this._datepickerService.selectedStartDate =
-              moment(startDate).format('MMM D, YYYY');
-          }
+          this._datepickerService.selectedStartDate =
+            DateFormatPipe.formatDate(new Date(startDate));
 
           if (endDate) {
             this._datepickerService.selectedEndDate =
-              moment(endDate).format('MMM D, YYYY');
+              DateFormatPipe.formatDate(new Date(endDate));
           }
         } else {
           const dateString = selectedDate
@@ -91,29 +92,36 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
         }
       });
 
-    const now = moment();
-    this.selectedStartDate = now.format('MMM D, YYYY');
-    this.selectedEndDate = now.add(1, 'days').format('MMM D, YYYY');
+    const now = new Date();
+    this.selectedStartDate = DateFormatPipe.formatDate(now);
+    this.selectedEndDate = DateFormatPipe.formatDate(
+      new Date(now.getTime() + 24 * 60 * 60 * 1000),
+    ); // This will add 1 day to the current date
+
     this._datepickerService.selectedStartDate =
       this.selectedStartDate;
     this._datepickerService.selectedEndDate = this.selectedEndDate;
 
     this._timeService.getTimeObservable().subscribe((time) => {
       this.time = time;
-      this._cdr.detectChanges(); // Trigger time change detection
+      this._cdr.detectChanges();
     });
 
     this._datepickerService
       .onSelectedDateChange()
       .subscribe((date) => {
         this.selectedDate = date ? new Date(date) : new Date();
-        this.formattedDate = this.formatDate(this.selectedDate);
+        this.formattedDate = this.dateFormatPipe.transform(
+          this.selectedDate,
+        );
         this._cdr.detectChanges();
       });
 
     this._timeService.getTimeObservable().subscribe((time) => {
       this.time = time;
-      this.formattedDate = this.formatDate(this.selectedDate);
+      this.formattedDate = this.dateFormatPipe.transform(
+        this.selectedDate,
+      );
       this._cdr.detectChanges();
     });
 
@@ -139,20 +147,13 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
     });
 
     this._datepickerService.onStartDateChange$.subscribe((date) => {
-      console.log('Start Date:', date);
-
       this.selectedStartDate = date;
     });
 
     this._datepickerService.onEndDateChange$.subscribe((date) => {
-      console.log('End Date:', date);
-
       this.selectedEndDate = date;
     });
   }
-
-  private _startTimeSub: Subscription | undefined;
-  private _endTimeSub: Subscription | undefined;
 
   ngOnInit() {
     this._startTimeSub = this._timeService.startTime$.subscribe(
@@ -177,21 +178,6 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
     return !this.isRangePicker;
   }
 
-  formatDate(date: Date): string {
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    };
-
-    const formattedDate = new Intl.DateTimeFormat(
-      'en-US',
-      dateOptions,
-    ).format(date);
-
-    return `${formattedDate} `;
-  }
-
   ngOnDestroy() {
     this._destroyed.next();
     this._destroyed.complete();
@@ -205,9 +191,8 @@ export class ExampleHeaderComponent<D> implements OnInit, OnDestroy {
       this._calendar.activeDate,
       this._dateFormats.display.monthYearLabel,
     );
-    // Use the DateFormatPipe to format the date string
     return this._dateFormatPipe
-      .transform(formattedDate, DateFormatEnum.MEDIUM)
+      .transform(formattedDate)
       .toLocaleUpperCase();
   }
 
