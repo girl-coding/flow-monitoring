@@ -18,8 +18,6 @@ import { DatepickerService } from '../../datepicker.service';
 import { TimeService } from '../../time.service';
 import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
 
-import * as moment from 'moment';
-
 @Component({
   selector: 'example-header',
   templateUrl: './example-header.component.html',

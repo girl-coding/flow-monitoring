@@ -24,6 +24,7 @@ import * as moment from 'moment';
 import { TimeService } from '../../time.service';
 import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
 
+// @ts-prune-ignore-next
 export class AppDateAdapter extends NativeDateAdapter {
   override format(
     date: Date,
