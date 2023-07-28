@@ -11,3 +11,5 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     monthYearA11yLabel: { year: 'numeric', month: 'long' },
   },
 };
+
+export const DATE_FORMAT = 'MMM D, YYYY';

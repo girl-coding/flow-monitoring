@@ -14,7 +14,6 @@ export class CustomTimepickerComponent {
   selectedHours = '00 H';
   selectedMinutes = '00 Min';
 
-  // @Output() timeChange = new EventEmitter<string>();
   private _timeChangeSubject = new Subject<string>();
   @Output() timeChange = this._timeChangeSubject.pipe(
     debounceTime(50),

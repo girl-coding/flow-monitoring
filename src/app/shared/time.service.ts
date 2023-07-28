@@ -11,7 +11,7 @@ export class TimeService {
   private _timeSubject: Subject<string> = new Subject<string>();
   private _startTimeSource = new BehaviorSubject<string>('00:00');
   private _endTimeSource = new BehaviorSubject<string>('00:00');
-  isShowTime = false;
+  isShowTime = true;
   startTime$ = this._startTimeSource.asObservable();
   endTime$ = this._endTimeSource.asObservable();
 

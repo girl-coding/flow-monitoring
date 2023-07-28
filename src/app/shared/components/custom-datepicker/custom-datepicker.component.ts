@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -13,7 +14,6 @@ import {
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
-  NativeDateAdapter,
 } from '@angular/material/core';
 import { DatepickerService } from 'src/app/shared/datepicker.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -23,19 +23,7 @@ import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { TimeService } from '../../time.service';
 import { DateFormatPipe } from '../../pipes/dateFormat.pipe';
-
-// @ts-prune-ignore-next
-export class AppDateAdapter extends NativeDateAdapter {
-  override format(
-    date: Date,
-    displayFormat: string | object,
-  ): string {
-    if (displayFormat === 'input') {
-      return DateFormatPipe.formatDate(date);
-    }
-    return moment(date).format('ddd MMM DD YYYY');
-  }
-}
+import { AppDateAdapter } from './app-date-adapter';
 
 @Component({
   selector: 'app-custom-datepicker',
@@ -52,10 +40,10 @@ export class AppDateAdapter extends NativeDateAdapter {
   ],
 })
 export class CustomDatepickerComponent implements OnInit, OnDestroy {
-  selectedTime?: Date;
-  isShowTime!: boolean;
+  @Input() selectedTime?: Date;
+  @Input() isShowTime!: boolean;
   isDatePicker = true;
-  selectedDate?: Date;
+  @Input() selectedDate?: Date;
   formattedDate: string | null = null;
 
   originalDate: Date = new Date();

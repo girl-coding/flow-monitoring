@@ -1,4 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DATE_FORMAT } from '../constants/app-date-formats.const';
+import * as moment from 'moment';
 
 @Pipe({
   name: 'dateFormat',
@@ -9,28 +11,8 @@ export class DateFormatPipe implements PipeTransform {
     return DateFormatPipe.formatDate(date);
   }
 
-  static formatDate(date: Date): string {
-    const day = date.getDate();
-    const monthIndex = date.getMonth();
-    const year = date.getFullYear();
-
-    const monthNames = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const monthName = monthNames[monthIndex];
-
-    return `${monthName} ${day}, ${year}`;
+  static formatDate(value: any): string {
+    const date = moment(value);
+    return date.format(DATE_FORMAT);
   }
 }
