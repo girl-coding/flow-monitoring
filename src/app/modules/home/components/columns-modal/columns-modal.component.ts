@@ -19,9 +19,7 @@ export class ColumnsModalComponent {
     { name: 'Type6', selected: false },
   ];
 
-  previousState: any[] = JSON.parse(
-    JSON.stringify(this.types && this.selectAll),
-  ); // Deep copy of the initial state
+  previousState: any[] = JSON.parse(JSON.stringify(this.types)); // Deep copy of the initial state
 
   get filteredTypes() {
     const filtered = this.searchText
@@ -61,9 +59,11 @@ export class ColumnsModalComponent {
   }
   handleCancel() {
     this.types = JSON.parse(JSON.stringify(this.previousState)); // Restore to previous state
+    this.searchText = '';
   }
 
   handleApply() {
     this.previousState = JSON.parse(JSON.stringify(this.types)); // Save the current state
+    this.searchText = '';
   }
 }
