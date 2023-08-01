@@ -6,10 +6,9 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ColumnsModalComponent } from './app/modules/home/components/columns-modal/columns-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, ColumnsModalComponent],
+  declarations: [AppComponent],
 
   imports: [
     AppRoutingModule,

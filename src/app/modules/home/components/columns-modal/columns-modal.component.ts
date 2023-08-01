@@ -27,20 +27,6 @@ export class ColumnsModalComponent {
     );
   }
 
-  onInputFocus() {
-    const placeholder = document.querySelector('.custom-placeholder');
-    placeholder?.classList.add('active');
-  }
-
-  onInputBlur() {
-    if (!this.searchText) {
-      const placeholder = document.querySelector(
-        '.custom-placeholder',
-      );
-      placeholder?.classList.remove('active');
-    }
-  }
-
   selectAllTypes() {
     this.types.forEach((type) => (type.selected = this.selectAll));
     this.isIndeterminate = false;

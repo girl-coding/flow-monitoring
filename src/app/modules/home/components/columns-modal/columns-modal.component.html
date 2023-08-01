@@ -23,13 +23,7 @@
       <mat-label class="custom-placeholder"
         >Search column type</mat-label
       >
-      <input
-        class="custom-input"
-        matInput
-        [(ngModel)]="searchText"
-        (focus)="onInputFocus()"
-        (blur)="onInputBlur()"
-      />
+      <input class="custom-input" matInput [(ngModel)]="searchText" />
     </mat-form-field>
 
     <div class="button-custom" *ngIf="filteredTypes.length">
