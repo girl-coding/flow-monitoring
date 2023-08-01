@@ -10,50 +10,51 @@
   xPosition="after"
   yPosition="below"
   class="my-custom-menu"
+  (closed)="menuClosed()"
 >
   <div
-    style="position: absolute; top: 0; bottom: 0; left: 0; right: 0"
-    (click)="$event.stopPropagation()"
-    (keyup.enter)="$event.stopPropagation()"
     tabindex="0"
-  ></div>
-  <mat-form-field
-    class="example-full-width"
     (click)="$event.stopPropagation()"
+    (keyup.space)="$event.stopPropagation()"
+    (keyup.enter)="$event.stopPropagation()"
   >
-    <mat-icon class="custom-search-icon" matPrefix>search</mat-icon>
+    <mat-form-field>
+      <mat-icon class="custom-search-icon" matPrefix>search</mat-icon>
+      <mat-label class="custom-placeholder"
+        >Search column type</mat-label
+      >
+      <input
+        class="custom-input"
+        matInput
+        [(ngModel)]="searchText"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+      />
+    </mat-form-field>
 
-    <mat-label class="custom-placeholder"
-      >Search column type</mat-label
-    >
-    <input
-      matInput
-      [(ngModel)]="searchText"
-      (focus)="onInputFocus()"
-      (blur)="onInputBlur()"
-    />
-  </mat-form-field>
+    <div class="button-custom" *ngIf="filteredTypes.length">
+      <mat-checkbox
+        color="primary"
+        [(ngModel)]="selectAll"
+        [indeterminate]="isIndeterminate"
+        (change)="selectAllTypes()"
+        >Select all</mat-checkbox
+      >
+    </div>
 
-  <div class="button-custom" *ngIf="filteredTypes.length">
-    <mat-checkbox
-      color="primary"
-      [(ngModel)]="selectAll"
-      [indeterminate]="isIndeterminate"
-      (change)="selectAllTypes()"
-      (click)="$event.stopPropagation()"
-      >Select all</mat-checkbox
+    <div
+      *ngFor="let type of filteredTypes"
+      class="columns-checkboxes"
     >
+      <mat-checkbox
+        color="primary"
+        [(ngModel)]="type.selected"
+        (ngModelChange)="updateAllComplete()"
+        >{{ type.name }}</mat-checkbox
+      >
+    </div>
   </div>
 
-  <div *ngFor="let type of filteredTypes" class="columns-checkboxes">
-    <mat-checkbox
-      color="primary"
-      [(ngModel)]="type.selected"
-      (click)="$event.stopPropagation()"
-      (ngModelChange)="updateAllComplete()"
-      >{{ type.name }}</mat-checkbox
-    >
-  </div>
   <div
     class="columns-footer-actions"
     FxLayout="row"

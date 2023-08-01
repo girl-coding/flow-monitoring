@@ -19,18 +19,12 @@ export class ColumnsModalComponent {
     { name: 'Type6', selected: false },
   ];
 
-  previousState: any[] = JSON.parse(JSON.stringify(this.types)); // Deep copy of the initial state
+  previousState: any[] = JSON.parse(JSON.stringify(this.types));
 
   get filteredTypes() {
-    const filtered = this.searchText
-      ? this.types.filter((type) =>
-          type.name
-            .toLowerCase()
-            .includes(this.searchText.toLowerCase()),
-        )
-      : this.types;
-
-    return filtered;
+    return this.types.filter((type) =>
+      type.name.toLowerCase().includes(this.searchText.toLowerCase()),
+    );
   }
 
   onInputFocus() {
@@ -49,21 +43,28 @@ export class ColumnsModalComponent {
 
   selectAllTypes() {
     this.types.forEach((type) => (type.selected = this.selectAll));
-    this.isIndeterminate = false; // if all checkboxes are selected, indeterminate state should be false
+    this.isIndeterminate = false;
   }
+
   updateAllComplete() {
     const selectedTypes = this.types.filter((type) => type.selected);
-    this.selectAll = selectedTypes.length === this.types.length; // all checkboxes are selected
+    this.selectAll = selectedTypes.length === this.types.length;
     this.isIndeterminate =
-      selectedTypes.length > 0 && !this.selectAll; // not all checkboxes are selected
+      selectedTypes.length > 0 && !this.selectAll;
+  }
+
+  menuClosed() {
+    this.types = JSON.parse(JSON.stringify(this.previousState));
+
+    this.searchText = '';
   }
   handleCancel() {
-    this.types = JSON.parse(JSON.stringify(this.previousState)); // Restore to previous state
+    this.types = JSON.parse(JSON.stringify(this.previousState));
     this.searchText = '';
   }
 
   handleApply() {
-    this.previousState = JSON.parse(JSON.stringify(this.types)); // Save the current state
+    this.previousState = JSON.parse(JSON.stringify(this.types));
     this.searchText = '';
   }
 }

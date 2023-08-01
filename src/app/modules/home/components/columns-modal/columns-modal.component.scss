@@ -9,25 +9,8 @@ $selected-color: rgba(194, 115, 255, 0.87);
   margin: 10px;
   margin-top: -5px;
   margin-left: 8px;
+  margin-right: 2px;
   font-weight: 2 !important;
-}
-/* CSS */
-::ng-deep
-  .mat-checkbox.mat-checkbox-checked.mat-primary
-  .mat-checkbox-background,
-::ng-deep
-  .mat-checkbox.mat-checkbox-indeterminate.mat-primary
-  .mat-checkbox-background {
-  background-color: $color-checkbox;
-}
-
-::ng-deep
-  .mat-checkbox.mat-checkbox-checked.partial
-  .mat-checkbox-background::before {
-  content: '\e914';
-  font-family: 'Material Icons';
-  font-size: 16px;
-  line-height: 16px;
 }
 
 .custom-search-icon {
@@ -48,16 +31,76 @@ $selected-color: rgba(194, 115, 255, 0.87);
 }
 
 .custom-placeholder {
+  position: relative;
   color: rgb(132, 125, 125) !important;
   font-size: 16px !important;
-  position: relative;
-  top: -3.6px;
+}
+.custom-input {
+  margin-top: 10px;
 }
 
 .custom-placeholder.active {
   color: rgb(82, 73, 73) !important;
 }
 
+.custom-search-input {
+  margin-top: 7px;
+}
+
+.columns-checkboxes {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin: 8px;
+}
+
+.columns-footer-actions {
+  align-items: center;
+
+  justify-content: space-between;
+  border-top: 1px solid rgb(199, 187, 187);
+  padding-top: 8px;
+
+  .cancel-button,
+  .apply-button {
+    flex: 1;
+    text-align: center;
+    font-size: 19px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    margin: 5px 7px;
+    margin-bottom: 3px;
+    height: 47px;
+    line-height: 27px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .apply-button {
+    background-color: $button-color;
+    font-weight: 501;
+  }
+}
+
+::ng-deep
+  .mat-checkbox.mat-checkbox-checked.mat-primary
+  .mat-checkbox-background,
+::ng-deep
+  .mat-checkbox.mat-checkbox-indeterminate.mat-primary
+  .mat-checkbox-background {
+  background-color: $color-checkbox;
+}
+
+::ng-deep
+  .mat-checkbox.mat-checkbox-checked.partial
+  .mat-checkbox-background::before {
+  content: '\e914';
+  font-family: 'Material Icons';
+  font-size: 16px;
+  line-height: 16px;
+}
 ::ng-deep .button-custom .mat-checkbox-inner-container {
   margin-left: 8px;
 }
@@ -79,17 +122,6 @@ $selected-color: rgba(194, 115, 255, 0.87);
 
 ::ng-deep .mat-form-field-wrapper {
   padding-bottom: 0 !important;
-}
-
-.custom-search-input {
-  margin-top: 7px;
-}
-
-.columns-checkboxes {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  margin: 8px;
 }
 
 ::ng-deep
@@ -116,34 +148,6 @@ $selected-color: rgba(194, 115, 255, 0.87);
   overflow: hidden;
 }
 
-.cancel-button,
-.apply-button {
-  flex: 1;
-  text-align: center;
-  font-size: 19px;
-  padding: 8px 10px;
-  box-sizing: border-box;
-  border-radius: 7px;
-  margin: 5px 7px;
-  margin-bottom: 3px;
-  height: 47px;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-.apply-button {
-  background-color: $button-color;
-  font-weight: 501;
-}
-
-.columns-footer-actions {
-  align-items: center;
-
-  justify-content: space-between;
-  border-top: 1px solid gray;
-  padding-top: 8px;
-}
 ::ng-deep .my-custom-menu {
   min-width: 400px !important;
 }
