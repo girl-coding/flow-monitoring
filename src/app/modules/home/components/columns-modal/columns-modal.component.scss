@@ -3,14 +3,19 @@ $button-color: rgba(237, 229, 243, 0.87);
 $color-checkbox: rgba(105, 61, 139, 0.87);
 $selected-color: rgba(194, 115, 255, 0.87);
 
-.custom-icon {
-  color: $color-icon;
-  font-size: 20px;
-  margin: 10px;
-  margin-top: -5px;
-  margin-left: 8px;
-  margin-right: 2px;
-  font-weight: 2 !important;
+.title {
+  font-weight: bold !important;
+  font-size: 17px !important;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  .custom-icon {
+    color: $color-icon;
+    font-size: 20px;
+    margin-top: -15px;
+
+    font-weight: 2 !important;
+  }
 }
 
 .custom-search-icon {
@@ -135,12 +140,6 @@ $selected-color: rgba(194, 115, 255, 0.87);
 ::ng-deep .button-custom .mat-checkbox-layout .mat-checkbox-label {
   font-weight: normal !important;
   font-size: 16px !important;
-}
-
-.title {
-  font-weight: bold !important;
-  font-size: 17px !important;
-  width: 150px;
 }
 
 ::ng-deep .mat-menu-panel {
