@@ -1,5 +1,10 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Types } from '../../interfaces/filter-data.interface';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+} from '@angular/core';
+import { ColumnsInterface } from '../../interfaces/columns.interface';
 
 @Component({
   selector: 'app-columns-modal',
@@ -8,70 +13,63 @@ import { Types } from '../../interfaces/filter-data.interface';
 })
 export class ColumnsModalComponent {
   searchText = '';
-  selectAll = false;
-  isIndeterminate = false;
+  isAllSelected!: boolean;
+  updatedColumns: ColumnsInterface[];
+  @Input() columns: ColumnsInterface[] = [];
+  @Output() applyChanges = new EventEmitter<ColumnsInterface[]>();
 
-  @Output() applyChanges = new EventEmitter<Types[]>();
-
-  readonly types: Types[] = [
-    { name: 'Type1', selected: false },
-    { name: 'Type2', selected: false },
-    { name: 'Type3', selected: false },
-    { name: 'Type4', selected: false },
-    { name: 'Type5', selected: false },
-    { name: 'Type6', selected: false },
-    { name: 'Type1', selected: false },
-    { name: 'Type2', selected: false },
-    { name: 'Type3', selected: false },
-    { name: 'Type4', selected: false },
-    { name: 'Type5', selected: false },
-    { name: 'Type6', selected: false },
-    { name: 'Type1', selected: false },
-    { name: 'Type2', selected: false },
-    { name: 'Type3', selected: false },
-    { name: 'Type4', selected: false },
-    { name: 'Type5', selected: false },
-    { name: 'Type6', selected: false },
-  ];
-
-  previousState: Types[] = this.types.map((type) => ({ ...type }));
-
-  get filteredTypes() {
-    return this.previousState.filter((type) =>
-      type.name.toLowerCase().includes(this.searchText.toLowerCase()),
+  get filteredColumns(): ColumnsInterface[] {
+    return this.updatedColumns.filter((col) =>
+      col.name.toLowerCase().includes(this.searchText.toLowerCase()),
     );
   }
 
-  selectAllTypes() {
-    this.previousState = this.previousState.map((type) => ({
-      ...type,
-      selected: this.selectAll,
-    }));
-    this.isIndeterminate = false;
-  }
-
-  updateAllComplete() {
-    const selectedTypes = this.filteredTypes.filter(
-      (type) => type.selected,
+  get isSomeSelected(): boolean {
+    return (
+      !this.isAllSelected &&
+      this.filteredColumns.some((col) => col.selected)
     );
-    this.selectAll =
-      selectedTypes.length === this.filteredTypes.length;
-    this.isIndeterminate =
-      selectedTypes.length > 0 && !this.selectAll;
   }
 
-  handleCancel() {
-    this.previousState = this.types.map((type) => ({ ...type }));
-
-    this.searchText = '';
+  get columnsClone(): ColumnsInterface[] {
+    return this.columns.map((col) => ({ ...col }));
   }
 
-  handleApply() {
-    this.applyChanges.emit(this.previousState);
-    this.types.forEach((type, index) => {
-      type.selected = this.previousState[index].selected;
+  constructor() {
+    this.columns = [
+      { name: 'Type1', selected: false },
+      { name: 'Type2', selected: false },
+      { name: 'Type3', selected: false },
+      { name: 'Type4', selected: false },
+      { name: 'Type5', selected: false },
+      { name: 'Type6', selected: false },
+      { name: 'Type1', selected: false },
+      { name: 'Type2', selected: false },
+      { name: 'Type3', selected: false },
+    ];
+    this.updatedColumns = this.columnsClone;
+  }
+
+  selectAllTypes(): void {
+    this.updatedColumns.forEach((col) => {
+      col.selected = this.isAllSelected;
     });
+  }
 
+  onCheckboxChange(): void {
+    this.isAllSelected = this.filteredColumns.every(
+      (col) => col.selected,
+    );
+  }
+
+  handleCancel(): void {
+    this.updatedColumns = this.columnsClone;
     this.searchText = '';
+  }
+
+  handleApply(): void {
+    this.applyChanges.emit(this.updatedColumns);
+
+    this.handleCancel();
   }
 }
