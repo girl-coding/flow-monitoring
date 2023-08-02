@@ -1,0 +1,72 @@
+<button mat-button [matMenuTriggerFor]="menu" class="title">
+  <mat-icon class="custom-icon">view_headline</mat-icon>
+  Columns
+</button>
+
+<mat-menu
+  #menu="matMenu"
+  [overlapTrigger]="false"
+  [hasBackdrop]="true"
+  xPosition="after"
+  yPosition="below"
+  class="my-custom-menu"
+  (closed)="handleCancel()"
+>
+  <div
+    tabindex="0"
+    (click)="$event.stopPropagation()"
+    (keyup.space)="$event.stopPropagation()"
+    (keyup.enter)="$event.stopPropagation()"
+    class="columns-header"
+  >
+    <mat-form-field>
+      <mat-icon class="custom-search-icon" matPrefix>search</mat-icon>
+      <mat-label class="custom-placeholder"
+        >Search column type
+      </mat-label>
+      <input class="custom-input" matInput [(ngModel)]="searchText" />
+    </mat-form-field>
+
+    <div class="button-custom">
+      <mat-checkbox
+        color="primary"
+        [(ngModel)]="isAllSelected"
+        [indeterminate]="isSomeSelected"
+        (change)="selectAllTypes()"
+        >Select all
+      </mat-checkbox>
+    </div>
+
+    <div class="scrollable-types">
+      <div
+        *ngFor="let type of filteredColumns"
+        class="columns-checkboxes"
+      >
+        <mat-checkbox
+          color="primary"
+          [(ngModel)]="type.selected"
+          (ngModelChange)="onCheckboxChange()"
+          >{{ type.name }}
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="columns-footer-actions"
+    FxLayout="row"
+    fxLayoutAlign="space-between"
+  >
+    <button mat-button class="cancel-button" (click)="handleCancel()">
+      Cancel
+    </button>
+
+    <button
+      mat-raised-button
+      class="apply-button"
+      (click)="handleApply()"
+    >
+      Apply
+    </button>
+  </div>
+</mat-menu>

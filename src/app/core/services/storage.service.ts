@@ -52,6 +52,14 @@ export class StorageService {
   }
 
   /**
+   * get the last value used by the user
+   * return light by default if user never changed it
+   */
+  isDarkMode(): boolean {
+    return this.getDarkMode() === ModeUI.DARK;
+  }
+
+  /**
    * save the last option selected by the user
    */
   updateSideNavWidth(data: SideNavWidthEnum): void {

@@ -7,6 +7,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeHeaderComponent } from './home-header/home-header.component';
 import { HomeContentComponent } from './home-content/home-content.component';
 import { CommonModule } from '@angular/common';
+import { ChartsModule } from '../charts/charts.module';
+import { ColumnsModalComponent } from './components/columns-modal/columns-modal.component';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,14 @@ import { CommonModule } from '@angular/common';
     HomeHeaderComponent,
     HomeContentComponent,
     DashboardFilterModalComponent,
+    ColumnsModalComponent,
   ],
   imports: [
     HomeRoutingModule,
     SharedModule,
     CommonModule,
     COMPONENTS_MATERIALS,
+    ChartsModule,
   ],
 })
 export class HomeModule {}
