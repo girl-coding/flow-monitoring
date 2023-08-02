@@ -60,10 +60,6 @@ export class ColumnsModalComponent {
       selectedTypes.length > 0 && !this.selectAll;
   }
 
-  menuClosed() {
-    this.searchText = '';
-  }
-
   handleCancel() {
     this.previousState = this.types.map((type) => ({ ...type }));
     this.selectAll = false;
