@@ -9,3 +9,8 @@ export interface FilterDataInterface {
   keyName: string | null;
   keyValue: string | null;
 }
+
+export interface Types {
+  name: string;
+  selected: boolean;
+}

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Types } from '../../interfaces/filter-data.interface';
 
 @Component({
   selector: 'app-columns-modal',
@@ -10,7 +11,21 @@ export class ColumnsModalComponent {
   selectAll = false;
   isIndeterminate = false;
 
-  types: any[] = [
+  @Output() applyChanges = new EventEmitter<Types[]>();
+
+  readonly types: Types[] = [
+    { name: 'Type1', selected: false },
+    { name: 'Type2', selected: false },
+    { name: 'Type3', selected: false },
+    { name: 'Type4', selected: false },
+    { name: 'Type5', selected: false },
+    { name: 'Type6', selected: false },
+    { name: 'Type1', selected: false },
+    { name: 'Type2', selected: false },
+    { name: 'Type3', selected: false },
+    { name: 'Type4', selected: false },
+    { name: 'Type5', selected: false },
+    { name: 'Type6', selected: false },
     { name: 'Type1', selected: false },
     { name: 'Type2', selected: false },
     { name: 'Type3', selected: false },
@@ -19,38 +34,47 @@ export class ColumnsModalComponent {
     { name: 'Type6', selected: false },
   ];
 
-  previousState: any[] = JSON.parse(JSON.stringify(this.types));
+  previousState: Types[] = this.types.map((type) => ({ ...type }));
 
   get filteredTypes() {
-    return this.types.filter((type) =>
+    return this.previousState.filter((type) =>
       type.name.toLowerCase().includes(this.searchText.toLowerCase()),
     );
   }
 
   selectAllTypes() {
-    this.types.forEach((type) => (type.selected = this.selectAll));
+    this.previousState = this.previousState.map((type) => ({
+      ...type,
+      selected: this.selectAll,
+    }));
     this.isIndeterminate = false;
   }
 
   updateAllComplete() {
-    const selectedTypes = this.types.filter((type) => type.selected);
-    this.selectAll = selectedTypes.length === this.types.length;
+    const selectedTypes = this.filteredTypes.filter(
+      (type) => type.selected,
+    );
+    this.selectAll =
+      selectedTypes.length === this.filteredTypes.length;
     this.isIndeterminate =
       selectedTypes.length > 0 && !this.selectAll;
   }
 
   menuClosed() {
-    this.types = JSON.parse(JSON.stringify(this.previousState));
-
     this.searchText = '';
   }
+
   handleCancel() {
-    this.types = JSON.parse(JSON.stringify(this.previousState));
+    this.previousState = this.types.map((type) => ({ ...type }));
+    this.selectAll = false;
+    this.isIndeterminate = false;
+
     this.searchText = '';
   }
 
   handleApply() {
-    this.previousState = JSON.parse(JSON.stringify(this.types));
+    // Emit the previousState to the parent component
+    this.applyChanges.emit(this.previousState);
     this.searchText = '';
   }
 }

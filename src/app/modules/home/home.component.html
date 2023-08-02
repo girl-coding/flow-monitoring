@@ -2,7 +2,9 @@
   <div class="header">
     <app-home-header></app-home-header>
   </div>
-  <app-columns-modal></app-columns-modal>
+  <app-columns-modal
+    (applyChanges)="onApplyChanges($event)"
+  ></app-columns-modal>
   <div class="content">
     <app-home-content></app-home-content>
   </div>

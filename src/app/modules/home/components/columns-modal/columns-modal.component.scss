@@ -149,8 +149,9 @@ $selected-color: rgba(194, 115, 255, 0.87);
 
 ::ng-deep .my-custom-menu {
   min-width: 400px !important;
+  max-height: 500px !important;
 }
 
-::ng-deep .cdk-overlay-pane {
-  max-width: 400px !important;
+::ng-deep * {
+  transition: none !important;
 }
