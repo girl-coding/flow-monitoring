@@ -67,7 +67,6 @@ export class ColumnsModalComponent {
   }
 
   handleApply() {
-    // Emit the previousState to the parent component
     this.applyChanges.emit(this.previousState);
     this.types.forEach((type, index) => {
       type.selected = this.previousState[index].selected;

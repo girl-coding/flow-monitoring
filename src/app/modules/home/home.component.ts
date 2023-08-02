@@ -10,7 +10,6 @@ export class HomeComponent {
   selectedTypes: Types[] = [];
 
   onApplyChanges(updatedTypes: Types[]) {
-    // Store the updated types here. For example:
     this.selectedTypes = updatedTypes;
   }
 }
