@@ -8,6 +8,7 @@ import { HomeHeaderComponent } from './home-header/home-header.component';
 import { HomeContentComponent } from './home-content/home-content.component';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from '../charts/charts.module';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ChartsModule } from '../charts/charts.module';
     HomeHeaderComponent,
     HomeContentComponent,
     DashboardFilterModalComponent,
+    TableComponent,
   ],
   imports: [
     HomeRoutingModule,

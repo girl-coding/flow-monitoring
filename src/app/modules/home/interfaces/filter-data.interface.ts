@@ -9,3 +9,11 @@ export interface FilterDataInterface {
   keyName: string | null;
   keyValue: string | null;
 }
+
+export interface PeriodicElement {
+  position: string;
+  status: string;
+  total: number;
+  date: string;
+  owner?: string;
+}
