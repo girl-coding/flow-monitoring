@@ -10,6 +10,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export const COMPONENTS_MATERIALS = [
   MatCardModule,
@@ -25,4 +27,6 @@ export const COMPONENTS_MATERIALS = [
   MatDatepickerModule,
   MatAutocompleteModule,
   MatDialogModule,
+  MatMenuModule,
+  MatCheckboxModule,
 ];
