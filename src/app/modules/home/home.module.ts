@@ -8,7 +8,11 @@ import { HomeHeaderComponent } from './home-header/home-header.component';
 import { HomeContentComponent } from './home-content/home-content.component';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from '../charts/charts.module';
+<<<<<<< HEAD
 import { TableComponent } from './components/table/table.component';
+=======
+import { ColumnsModalComponent } from './components/columns-modal/columns-modal.component';
+>>>>>>> master
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import { TableComponent } from './components/table/table.component';
     HomeHeaderComponent,
     HomeContentComponent,
     DashboardFilterModalComponent,
+<<<<<<< HEAD
     TableComponent,
+=======
+    ColumnsModalComponent,
+>>>>>>> master
   ],
   imports: [
     HomeRoutingModule,
