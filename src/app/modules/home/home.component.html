@@ -1,10 +1,11 @@
 <div class="home-container">
-  <div class="header">
-    <app-home-header></app-home-header>
-  </div>
   <app-columns-modal
     (applyChanges)="onApplyChanges($event)"
   ></app-columns-modal>
+  <div class="header">
+    <app-home-header></app-home-header>
+  </div>
+
   <div class="content">
     <app-home-content></app-home-content>
   </div>
