@@ -36,16 +36,18 @@
       >
     </div>
 
-    <div
-      *ngFor="let type of filteredTypes"
-      class="columns-checkboxes"
-    >
-      <mat-checkbox
-        color="primary"
-        [(ngModel)]="type.selected"
-        (ngModelChange)="updateAllComplete()"
-        >{{ type.name }}</mat-checkbox
+    <div class="scrollable-types">
+      <div
+        *ngFor="let type of filteredTypes"
+        class="columns-checkboxes"
       >
+        <mat-checkbox
+          color="primary"
+          [(ngModel)]="type.selected"
+          (ngModelChange)="updateAllComplete()"
+          >{{ type.name }}</mat-checkbox
+        >
+      </div>
     </div>
   </div>
 

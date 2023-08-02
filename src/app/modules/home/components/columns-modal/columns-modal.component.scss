@@ -17,6 +17,10 @@ $selected-color: rgba(194, 115, 255, 0.87);
     font-weight: 2 !important;
   }
 }
+.scrollable-types {
+  height: 300px; /* Adjust this value to fit your needs */
+  overflow-y: auto;
+}
 
 .custom-search-icon {
   color: $color-icon;
