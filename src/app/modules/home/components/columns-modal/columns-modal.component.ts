@@ -65,9 +65,12 @@ export class ColumnsModalComponent {
   }
 
   handleApply(): void {
-    this.applyChanges.emit(
-      this.updatedColumns.map((column) => ({ ...column })),
-    );
+    this.columns = this.updatedColumns.map((column) => ({
+      ...column,
+    }));
+
+    this.applyChanges.emit(this.columns);
+
     this.handleCancel();
   }
 }
