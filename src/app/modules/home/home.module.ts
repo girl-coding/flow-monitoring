@@ -8,11 +8,12 @@ import { HomeHeaderComponent } from './home-header/home-header.component';
 import { HomeContentComponent } from './home-content/home-content.component';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from '../charts/charts.module';
-<<<<<<< HEAD
-import { TableComponent } from './components/table/table.component';
-=======
+import {
+  MatPaginatorIntlCustom,
+  TableComponent,
+} from './components/table/table.component';
 import { ColumnsModalComponent } from './components/columns-modal/columns-modal.component';
->>>>>>> master
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,8 @@ import { ColumnsModalComponent } from './components/columns-modal/columns-modal.
     HomeHeaderComponent,
     HomeContentComponent,
     DashboardFilterModalComponent,
-<<<<<<< HEAD
     TableComponent,
-=======
     ColumnsModalComponent,
->>>>>>> master
   ],
   imports: [
     HomeRoutingModule,
@@ -32,6 +30,9 @@ import { ColumnsModalComponent } from './components/columns-modal/columns-modal.
     CommonModule,
     COMPONENTS_MATERIALS,
     ChartsModule,
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCustom },
   ],
 })
 export class HomeModule {}

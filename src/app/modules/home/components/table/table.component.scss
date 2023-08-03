@@ -1,3 +1,51 @@
 table {
   width: 100%;
 }
+/* Component's stylesheet */
+:host ::ng-deep .mat-paginator-page-size {
+  display: flex;
+  align-items: center;
+}
+
+:host ::ng-deep .mat-paginator-range-label {
+  margin-left: -20px; /* adjust as needed */
+}
+
+/* Component's stylesheet */
+/* Component's stylesheet */
+/* Component's stylesheet */
+
+/* Component's stylesheet */
+::ng-deep .mat-paginator .mat-select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 3px 5px;
+  background-color: #fff; /* ensure the background color is set */
+  margin-top: -20px !important; /* adjust as needed */
+  line-height: 2.3;
+  margin-left: 4px;
+  height: 28px;
+  width: 50px;
+}
+
+::ng-deep
+  .mat-paginator
+  .mat-select
+  .mat-select-trigger
+  .mat-select-value
+  .mat-select-value-text {
+  position: relative;
+  right: -3px;
+
+  top: -4px; /* adjust as needed */
+}
+::ng-deep .mat-select-arrow {
+  /* Hide default arrow */
+  position: relative;
+  right: -1px;
+  top: -3px; /* adjust as needed */
+}
+
+::ng-deep .mat-paginator .mat-paginator-range-label {
+  margin-left: 2px;
+}

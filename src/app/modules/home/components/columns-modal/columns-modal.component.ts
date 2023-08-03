@@ -43,9 +43,6 @@ export class ColumnsModalComponent {
       { name: 'Type4', selected: false },
       { name: 'Type5', selected: false },
       { name: 'Type6', selected: false },
-      { name: 'Type1', selected: false },
-      { name: 'Type2', selected: false },
-      { name: 'Type3', selected: false },
     ];
     this.updatedColumns = this.columnsClone;
   }
@@ -68,8 +65,9 @@ export class ColumnsModalComponent {
   }
 
   handleApply(): void {
-    this.applyChanges.emit(this.updatedColumns);
-
+    this.applyChanges.emit(
+      this.updatedColumns.map((column) => ({ ...column })),
+    );
     this.handleCancel();
   }
 }

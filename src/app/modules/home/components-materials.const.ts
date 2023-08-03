@@ -10,13 +10,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-<<<<<<< HEAD
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-=======
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
->>>>>>> master
 
 export const COMPONENTS_MATERIALS = [
   MatCardModule,
@@ -32,11 +29,8 @@ export const COMPONENTS_MATERIALS = [
   MatDatepickerModule,
   MatAutocompleteModule,
   MatDialogModule,
-<<<<<<< HEAD
   MatPaginatorModule,
   MatTableModule,
-=======
   MatMenuModule,
   MatCheckboxModule,
->>>>>>> master
 ];

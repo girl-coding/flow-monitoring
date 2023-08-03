@@ -1,10 +1,10 @@
-<<<<<<< HEAD
+<div class="table-header">
+  <app-columns-modal
+    (applyChanges)="onApplyChanges($event)"
+  ></app-columns-modal>
+</div>
 <mat-card class="content-container secondary">
-  <app-table></app-table>
+  <ng-container *ngIf="selectedColumns">
+    <app-table [columns]="selectedColumns"></app-table>
+  </ng-container>
 </mat-card>
-=======
-<app-columns-modal
-  (applyChanges)="onApplyChanges($event)"
-></app-columns-modal>
-<mat-card class="content-container secondary"></mat-card>
->>>>>>> master

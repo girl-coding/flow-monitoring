@@ -11,9 +11,5 @@ export interface FilterDataInterface {
 }
 
 export interface PeriodicElement {
-  position: string | null;
-  status: string | null;
-  total: number | null;
-  date: string | null;
-  owner: string | null;
+  [key: string]: string | number | null;
 }
