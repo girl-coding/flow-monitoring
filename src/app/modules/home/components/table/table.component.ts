@@ -9,6 +9,8 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ColumnsInterface } from '../../interfaces/columns.interface';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-table',
@@ -26,15 +28,37 @@ export class TableComponent implements AfterViewInit, OnChanges {
       : [];
   }
 
-  dataSource = new MatTableDataSource<any>([]); // Empty dataSource
+  dataSource = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(private httpClient: HttpClient) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if ('columns' in changes) {
-      // Whenever column selection changes, we reset the data source
-      // As we have no data to display, it remains empty
-      this.dataSource = new MatTableDataSource<any>([]);
+      // Fetch data from JSON server when columns change
+      this.httpClient
+        .get<any[]>('http://localhost:3000/data')
+        .subscribe(
+          (data) => {
+            // Filter data based on selected columns
+            const filteredData = data.map((item) => {
+              const newItem: any = {};
+              for (const column of this.columns) {
+                if (column.selected) {
+                  newItem[column.name] = item[column.name];
+                }
+              }
+              return newItem;
+            });
+
+            this.dataSource = new MatTableDataSource<any>(
+              filteredData,
+            );
+          },
+          (error) => {
+            console.error('Error: ' + error);
+          },
+        );
     }
   }
 
@@ -42,8 +66,6 @@ export class TableComponent implements AfterViewInit, OnChanges {
     this.dataSource.paginator = this.paginator;
   }
 }
-
-import { MatPaginatorIntl } from '@angular/material/paginator';
 
 export class MatPaginatorIntlCustom extends MatPaginatorIntl {
   override itemsPerPageLabel = 'Showing';

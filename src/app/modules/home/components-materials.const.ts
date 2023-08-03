@@ -14,6 +14,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
 
 export const COMPONENTS_MATERIALS = [
   MatCardModule,
@@ -33,4 +34,5 @@ export const COMPONENTS_MATERIALS = [
   MatTableModule,
   MatMenuModule,
   MatCheckboxModule,
+  HttpClientModule,
 ];
