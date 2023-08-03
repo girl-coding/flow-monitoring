@@ -54,6 +54,7 @@ export class TableComponent implements AfterViewInit, OnChanges {
             this.dataSource = new MatTableDataSource<any>(
               filteredData,
             );
+            this.dataSource.paginator = this.paginator; // Move the paginator assignment here
           },
           (error) => {
             console.error('Error: ' + error);

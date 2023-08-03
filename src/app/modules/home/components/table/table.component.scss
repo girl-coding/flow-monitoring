@@ -49,3 +49,13 @@ table {
 ::ng-deep .mat-paginator .mat-paginator-range-label {
   margin-left: 2px;
 }
+::ng-deep .mat-icon-button {
+  padding: 0;
+  min-width: 0;
+  width: 30px; /* Decreased size */
+  height: 30px; /* Decreased size */
+  flex-shrink: 0;
+  line-height: 30px; /* Decreased size */
+  border-radius: 0; /* Square border */
+  margin: 4px;
+}
