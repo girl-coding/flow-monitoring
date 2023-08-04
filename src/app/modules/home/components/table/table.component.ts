@@ -6,10 +6,12 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorIntl,
+} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ColumnsInterface } from '../../interfaces/columns.interface';
-import { MatPaginatorIntl } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -19,6 +21,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TableComponent implements AfterViewInit, OnChanges {
   @Input() columns: ColumnsInterface[] = [];
+  expandedElements = new Set<string | number>();
+
+  toggleDetails(element: any) {
+    if (this.expandedElements.has(element['ID Number'])) {
+      this.expandedElements.delete(element['ID Number']);
+    } else {
+      this.expandedElements.add(element['ID Number']);
+    }
+    console.log(this.expandedElements);
+  }
+
+  get displayColumns(): string[] {
+    return ['expand', ...this.columnNames];
+  }
 
   get columnNames(): string[] {
     return this.columns
@@ -31,12 +47,12 @@ export class TableComponent implements AfterViewInit, OnChanges {
   dataSource = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if ('columns' in changes) {
       // Fetch data from JSON server when columns change
-      this.httpClient
+      this._httpClient
         .get<any[]>('http://localhost:3000/data')
         .subscribe(
           (data) => {

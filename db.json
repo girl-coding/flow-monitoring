@@ -1,180 +1,95 @@
 {
   "data": [
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "Lorem",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Adipiscing",
-      "Type2": "Elit",
-      "Type3": "Sed",
-      "Type4": "Do",
-      "Type5": "Eiusmod",
-      "Type6": "Tempor"
+      "ID Number": "Adipiscing",
+      "Status": "Elit",
+      "Total": "Sed",
+      "Last Updated": "Do",
+      "Owner": "Eiusmod"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "34R34RG",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "6748390",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "876TREZ",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "hbgfd5",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "5555",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "987654",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "9876654",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "2355F",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "YTGF",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "TRDES",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     },
     {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
-    },
-    {
-      "Type1": "Lorem",
-      "Type2": "Ipsum",
-      "Type3": "Dolor",
-      "Type4": "Sit",
-      "Type5": "Amet",
-      "Type6": "Consectetur"
+      "ID Number": "7654Z",
+      "Status": "Ipsum",
+      "Total": "Dolor",
+      "Last Updated": "Sit",
+      "Owner": "Amet"
     }
   ]
 }

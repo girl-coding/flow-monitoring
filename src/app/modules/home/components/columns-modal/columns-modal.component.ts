@@ -37,12 +37,11 @@ export class ColumnsModalComponent {
 
   constructor() {
     this.columns = [
-      { name: 'Type1', selected: false },
-      { name: 'Type2', selected: false },
-      { name: 'Type3', selected: false },
-      { name: 'Type4', selected: false },
-      { name: 'Type5', selected: false },
-      { name: 'Type6', selected: false },
+      { name: 'ID Number', selected: false },
+      { name: 'Status', selected: false },
+      { name: 'Total', selected: false },
+      { name: 'Last Updated', selected: false },
+      { name: 'Owner', selected: false },
     ];
     this.updatedColumns = this.columnsClone;
   }
