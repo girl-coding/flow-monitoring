@@ -8,12 +8,10 @@ import { HomeHeaderComponent } from './home-header/home-header.component';
 import { HomeContentComponent } from './home-content/home-content.component';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from '../charts/charts.module';
-import {
-  MatPaginatorIntlCustom,
-  TableComponent,
-} from './components/table/table.component';
+import { TableComponent } from './components/table/table.component';
 import { ColumnsModalComponent } from './components/columns-modal/columns-modal.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntlCustom } from './components/table/mat-paginator-intl-custom';
 
 @NgModule({
   declarations: [

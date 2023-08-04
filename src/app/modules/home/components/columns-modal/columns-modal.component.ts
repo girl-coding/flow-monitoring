@@ -37,7 +37,7 @@ export class ColumnsModalComponent {
 
   constructor() {
     this.columns = [
-      { name: 'ID Number', selected: false },
+      { name: 'ID Number', selected: true },
       { name: 'Status', selected: false },
       { name: 'Total', selected: false },
       { name: 'Last Updated', selected: false },
