@@ -3,6 +3,7 @@ import {
   Output,
   EventEmitter,
   Input,
+  OnInit,
 } from '@angular/core';
 import { ColumnsInterface } from '../../interfaces/columns.interface';
 
@@ -11,12 +12,15 @@ import { ColumnsInterface } from '../../interfaces/columns.interface';
   templateUrl: './columns-modal.component.html',
   styleUrls: ['./columns-modal.component.scss'],
 })
-export class ColumnsModalComponent {
+export class ColumnsModalComponent implements OnInit {
   searchText = '';
   isAllSelected!: boolean;
   updatedColumns: ColumnsInterface[];
   @Input() columns: ColumnsInterface[] = [];
   @Output() applyChanges = new EventEmitter<ColumnsInterface[]>();
+  ngOnInit() {
+    this.handleApply();
+  }
 
   get filteredColumns(): ColumnsInterface[] {
     return this.updatedColumns.filter((col) =>
@@ -38,10 +42,10 @@ export class ColumnsModalComponent {
   constructor() {
     this.columns = [
       { name: 'ID Number', selected: true },
-      { name: 'Status', selected: false },
-      { name: 'Total', selected: false },
-      { name: 'Last Updated', selected: false },
-      { name: 'Owner', selected: false },
+      { name: 'Status', selected: true },
+      { name: 'Total', selected: true },
+      { name: 'Last Updated', selected: true },
+      { name: 'Owner', selected: true },
     ];
     this.updatedColumns = this.columnsClone;
   }
