@@ -1,7 +1,35 @@
+$color-icon: rgba(137, 0, 241, 0.87);
+$color-columns: rgba(0, 0, 0, 0.87);
 table {
   width: 100%;
 }
-/* Component's stylesheet */
+
+.custom-columns {
+  color: $color-columns;
+  .custom-input {
+    position: relative;
+    margin: 8px;
+    margin-left: -8px;
+    margin-bottom: 10px;
+
+    .custom-field {
+      padding-left: 30px;
+      height: 30px;
+      border: none;
+      outline: none;
+    }
+    .custom-icon {
+      position: absolute;
+      left: 5px;
+      top: 5px;
+
+      color: $color-icon;
+      font-size: 20px;
+      font-weight: 2 !important;
+    }
+  }
+}
+
 :host ::ng-deep .mat-paginator-page-size {
   display: flex;
   align-items: center;
@@ -11,17 +39,12 @@ table {
   margin-left: -20px; /* adjust as needed */
 }
 
-/* Component's stylesheet */
-/* Component's stylesheet */
-/* Component's stylesheet */
-
-/* Component's stylesheet */
 ::ng-deep .mat-paginator .mat-select {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 3px 5px;
-  background-color: #fff; /* ensure the background color is set */
-  margin-top: -20px !important; /* adjust as needed */
+  background-color: #fff;
+  margin-top: -20px !important;
   line-height: 2.3;
   margin-left: 4px;
   height: 28px;

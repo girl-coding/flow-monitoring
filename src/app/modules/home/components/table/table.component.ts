@@ -62,6 +62,14 @@ export class TableComponent implements AfterViewInit, OnChanges {
         );
     }
   }
+  applyFilter(column: string, event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      const val = data[column];
+      return val != null && val.toLowerCase().includes(filter);
+    };
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -76,6 +84,10 @@ export class MatPaginatorIntlCustom extends MatPaginatorIntl {
     pageSize: number,
     length: number,
   ): string => {
-    return ` of ${length} results`;
+    if (length === 0 || pageSize === 0) {
+      return `0 of ${length}`;
+    }
+
+    return `of ${length}`;
   };
 }
