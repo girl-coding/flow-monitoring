@@ -30,6 +30,16 @@ table {
   }
 }
 
+.mat-row .mat-cell {
+  border-bottom: 0.5px solid #dfdede;
+  border-top: 0.5px solid #e1dfdf;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
 :host ::ng-deep .mat-paginator-page-size {
   display: flex;
   align-items: center;

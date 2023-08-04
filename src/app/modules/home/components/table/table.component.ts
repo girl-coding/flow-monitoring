@@ -85,7 +85,7 @@ export class MatPaginatorIntlCustom extends MatPaginatorIntl {
     length: number,
   ): string => {
     if (length === 0 || pageSize === 0) {
-      return `0 of ${length}`;
+      return `of ${length}`;
     }
 
     return `of ${length}`;
